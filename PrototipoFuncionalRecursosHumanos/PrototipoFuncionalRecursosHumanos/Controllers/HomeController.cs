@@ -18,7 +18,31 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public IActionResult Index(Usuario usuario)
+        {
+            if (ModelState.IsValid)
+            {
+                UsuarioHandler usuarioHandler = new UsuarioHandler();
+                Usuario usuarioObtenido = usuarioHandler.ObtenerUsuario(usuario.Correo);    
+                if (usuarioObtenido != null)
+                {
+                    if (usuario.Contrasena.Equals(usuarioObtenido.Contrasena))
+                    {
+                        return RedirectToAction("MenuPrincipal");
+                    } else
+                    {
+                        ModelState.AddModelError("Contrasena", "El usuario o contraseña no son validos");
+                    }
+                } else
+                {
+                    ModelState.AddModelError("Contrasena", "El usuario o contraseña no son validos");
+                }
+            }
+            return View();
+        }
+
+        public IActionResult MenuPrincipal()
         {
             return View();
         }
