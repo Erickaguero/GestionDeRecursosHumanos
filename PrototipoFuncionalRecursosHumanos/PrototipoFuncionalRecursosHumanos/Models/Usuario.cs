@@ -2,11 +2,11 @@
 {
     public class Usuario
     {
-        public int IdUsuario { get; set; }
-        public int IdPersona { get; set; }
-        public int IdRolDeUsuario { get; set; }
-        public string Correo { get; set; }
-        public string Contrasena { get; set; }
+        public int? IdUsuario { get; set; }
+        public int? IdPersona { get; set; }
+        public int? IdRolDeUsuario { get; set; }
+        public string? Correo { get; set; }
+        public string? Contrasena { get; set; }
 
         public Usuario()
         {

@@ -1,6 +1,233 @@
-﻿namespace PrototipoFuncionalRecursosHumanos.Handlers
+﻿using System.Data.SqlClient;
+using System.Data;
+using System.Collections.Generic;
+using PrototipoFuncionalRecursosHumanos.Models;
+
+public class ColaboradorHandler
 {
-    public class ColaboradorHandler
+
+    private readonly string connectionString = "";
+
+    public ColaboradorHandler()
     {
+        var builder = WebApplication.CreateBuilder();
+        connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    }
+
+    public bool AgregarColaborador(Colaborador colaborador)
+    {
+        bool exito = true;
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("CrearColaborador", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add(new SqlParameter("@Identificacion", colaborador.Persona.Identificacion));
+                    command.Parameters.Add(new SqlParameter("@Nombre", colaborador.Persona.Nombre));
+                    command.Parameters.Add(new SqlParameter("@Apellido1", colaborador.Persona.Apellido1));
+                    command.Parameters.Add(new SqlParameter("@Apellido2", colaborador.Persona.Apellido2));
+                    command.Parameters.Add(new SqlParameter("@FechaNacimiento", colaborador.Persona.FechaDeNacimiento));
+                    command.Parameters.Add(new SqlParameter("@Correo", colaborador.Usuario.Correo));
+                    command.Parameters.Add(new SqlParameter("@Contrasena", colaborador.Usuario.Contrasena));
+                    command.Parameters.Add(new SqlParameter("@IdRolDeUsuario", colaborador.Usuario.IdRolDeUsuario));
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
+        catch (SqlException ex)
+        {
+            Console.WriteLine("Ocurrió un error al agregar un colaborador: " + ex.Message);
+            exito = false;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            exito = false;
+        }
+
+        return exito;
+    }
+
+    public bool EditarColaborador(Colaborador colaborador)
+    {
+        bool exito = true;
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("EditarColaborador", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@IdColaborador", colaborador.IdColaborador));
+                    command.Parameters.Add(new SqlParameter("@Identificacion", colaborador.Persona.Identificacion));
+                    command.Parameters.Add(new SqlParameter("@Nombre", colaborador.Persona.Nombre));
+                    command.Parameters.Add(new SqlParameter("@Apellido1", colaborador.Persona.Apellido1));
+                    command.Parameters.Add(new SqlParameter("@Apellido2", colaborador.Persona.Apellido2));
+                    command.Parameters.Add(new SqlParameter("@FechaNacimiento", colaborador.Persona.FechaDeNacimiento));
+                    command.Parameters.Add(new SqlParameter("@Correo", colaborador.Usuario.Correo));
+                    command.Parameters.Add(new SqlParameter("@Contrasena", colaborador.Usuario.Contrasena));
+                    command.Parameters.Add(new SqlParameter("@IdRolDeUsuario", colaborador.Usuario.IdRolDeUsuario));
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
+        catch (SqlException ex)
+        {
+            Console.WriteLine("Ocurrió un error al editar un colaborador: " + ex.Message);
+            exito = false;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            exito = false;
+        }
+
+        return exito;
+    }
+
+    public List<Colaborador> ObtenerColaboradores()
+    {
+        List<Colaborador> listaColaboradores = new List<Colaborador>();
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("ObtenerColaboradores", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Colaborador colaborador = new Colaborador
+                            {
+                                IdColaborador = Convert.ToInt32(reader["id_colaborador"]),
+                                FechaContratacion = Convert.ToDateTime(reader["fechaContratacion"]),
+                                Persona = new Persona
+                                {
+                                    Identificacion = reader["identificacion"].ToString(),
+                                    Nombre = reader["nombre"].ToString(),
+                                    Apellido1 = reader["apellido1"].ToString(),
+                                    Apellido2 = reader["apellido2"].ToString(),
+                                    FechaDeNacimiento = Convert.ToDateTime(reader["fecha_nacimiento"])
+                                },
+                                Usuario = new Usuario
+                                {
+                                    Correo = reader["correo"].ToString(),
+                                    Contrasena = reader["contrasena"].ToString(),
+                                },
+                                RolDeUsuario = reader["rolDeUsuario"].ToString()
+                            };
+
+                            listaColaboradores.Add(colaborador);
+                        }
+                    }
+                    connection.Close();
+                }
+            }
+        }
+        catch (SqlException ex)
+        {
+            Console.WriteLine("Ocurrió un error al obtener los colaboradores " + ex.Message);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
+        return listaColaboradores;
+    }
+
+    public Colaborador ObtenerColaborador(int idColaborador)
+    {
+        Colaborador colaborador = null;
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("ObtenerColaborador", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@IdColaborador", idColaborador));
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            colaborador = new Colaborador
+                            {
+                                IdColaborador = Convert.ToInt32(reader["id_colaborador"]),
+                                FechaContratacion = Convert.ToDateTime(reader["fechaContratacion"]),
+                                Persona = new Persona
+                                {
+                                    Identificacion = reader["identificacion"].ToString(),
+                                    Nombre = reader["nombre"].ToString(),
+                                    Apellido1 = reader["apellido1"].ToString(),
+                                    Apellido2 = reader["apellido2"].ToString(),
+                                    FechaDeNacimiento = Convert.ToDateTime(reader["fecha_nacimiento"])
+                                },
+                                Usuario = new Usuario
+                                {
+                                    Correo = reader["correo"].ToString(),
+                                    Contrasena = reader["contrasena"].ToString(),
+                                },
+                                RolDeUsuario = reader["rolDeUsuario"].ToString()
+                            };
+                        }
+                    }
+                    connection.Close();
+                }
+            }
+        }
+        catch (SqlException ex)
+        {
+            Console.WriteLine("Ocurrió un error al obtener los colaboradores " + ex.Message);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
+        return colaborador;
+    }
+
+    public bool EliminarColaborador(int idColaborador)
+    {
+        bool exito = true;
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("EliminarColaborador", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add(new SqlParameter("@IdColaborador", idColaborador));
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
+        catch (SqlException ex)
+        {
+            Console.WriteLine("Ocurrió un error al eliminar el colaborador: " + ex.Message);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
+        return exito;
     }
 }

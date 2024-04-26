@@ -1,0 +1,54 @@
+﻿@model PrototipoFuncionalRecursosHumanos.Models.Colaborador
+
+@{
+    ViewData["Title"] = "Crear Colaborador";
+    var selectList = new SelectList(ViewBag.RolesDeUsuario, "IdRolDeUsuario", "Descripcion");
+}
+
+<div class="container">
+    <div>
+        <div class="mt-5">
+            <h2 class="text-center">Crear Colaborador</h2>
+            <form asp-action="CrearColaborador" asp-controller="MantenimientoColaboradores" method="post">
+                <div class="form-group">
+                    <label asp-for="Persona.Identificacion">Identificación</label>
+                    <input asp-for="Persona.Identificacion" class="form-control" placeholder="Introduce tu identificación">
+                    <span asp-validation-for="Persona.Identificacion" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Persona.Nombre">Nombre</label>
+                    <input asp-for="Persona.Nombre" class="form-control" placeholder="Introduce tu nombre">
+                    <span asp-validation-for="Persona.Nombre" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Persona.Apellido1">Primer Apellido</label>
+                    <input asp-for="Persona.Apellido1" class="form-control" placeholder="Introduce tu primer apellido">
+                    <span asp-validation-for="Persona.Apellido1" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Persona.Apellido2">Segundo Apellido</label>
+                    <input asp-for="Persona.Apellido2" class="form-control" placeholder="Introduce tu segundo apellido">
+                    <span asp-validation-for="Persona.Apellido2" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Persona.FechaDeNacimiento">Fecha de Nacimiento</label>
+                    <input asp-for="Persona.FechaDeNacimiento" type="date" class="form-control">
+                    <span asp-validation-for="Persona.FechaDeNacimiento" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Usuario.Correo">Correo</label>
+                    <input asp-for="Usuario.Correo" type="email" class="form-control" placeholder="Introduce tu correo">
+                    <span asp-validation-for="Usuario.Correo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Usuario.IdRolDeUsuario">Rol de Usuario</label>
+                    <select asp-for="Usuario.IdRolDeUsuario" asp-items="selectList" class="form-control">
+                        <option value="">Selecciona un Rol</option>
+                    </select>
+                    <span asp-validation-for="Usuario.IdRolDeUsuario" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mt-4 mx-auto">Crear Colaborador</button>
+            </form>
+        </div>
+    </div>
+</div>

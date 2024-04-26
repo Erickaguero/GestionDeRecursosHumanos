@@ -13,6 +13,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
@@ -42,6 +43,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult MenuPrincipal()
         {
             return View();

@@ -2,8 +2,8 @@
 {
     public class RolDeUsuario
     {
-        public int IdRolDeUsuario { get; set; }
-        public string Descripcion { get; set; }
+        public int? IdRolDeUsuario { get; set; }
+        public string? Descripcion { get; set; }
 
         public RolDeUsuario()
         {
