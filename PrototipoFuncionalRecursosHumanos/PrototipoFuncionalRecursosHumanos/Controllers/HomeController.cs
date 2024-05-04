@@ -1,12 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PrototipoFuncionalRecursosHumanos.Models;
 using System.Diagnostics;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.IdentityModel.JsonWebTokens;
+using PrototipoFuncionalRecursosHumanos.Services;
 
 namespace PrototipoFuncionalRecursosHumanos.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private Authenticator authenticator = new Authenticator();
+        private EmailSender emailSender = new EmailSender();
+        private PasswordGenerator passwordGenerator = new PasswordGenerator();
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -16,11 +24,17 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            return RedirectToAction("IniciarSesion");
+        }
+
+        [HttpGet]
+        public IActionResult IniciarSesion()
+        {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Index(Usuario usuario)
+        public IActionResult IniciarSesion(Usuario usuario)
         {
             if (ModelState.IsValid)
             {
@@ -30,6 +44,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
                 {
                     if (usuario.Contrasena.Equals(usuarioObtenido.Contrasena))
                     {
+                        authenticator.CrearToken(usuario.Correo, Response);
                         return RedirectToAction("MenuPrincipal");
                     } else
                     {
@@ -44,8 +59,40 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         }
 
         [HttpGet]
+        public IActionResult RecuperarContrasena()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult RecuperarContrasena(Usuario usuario)
+        {
+            if (ModelState.IsValid)
+            {
+                UsuarioHandler usuarioHandler = new UsuarioHandler();
+                Usuario usuarioObtenido = usuarioHandler.ObtenerUsuario(usuario.Correo);
+                if (usuarioObtenido != null)
+                {
+                    var contrasenaNueva = passwordGenerator.GenerarContrasenaSegura();
+                    if (usuarioHandler.ModificarContrasena(usuario.Correo, contrasenaNueva))
+                    {
+                        emailSender.EnviarCorreoRecuperarContrasena(usuarioObtenido.Correo, contrasenaNueva);
+                        return RedirectToAction("IniciarSesion");
+                    }
+                } else
+                {
+                    ModelState.AddModelError("Correo", "El correo no se encuentra registrado");
+                }
+            }
+            ModelState.AddModelError("Correo", "Hubo un error a la hora de procesar su peticion");
+            return View();
+        }
+
+        [HttpGet]
         public IActionResult MenuPrincipal()
         {
+            var correo = authenticator.ValidarToken(Request);
+            if (correo == null) return RedirectToAction("Index", "Home");
             return View();
         }
 

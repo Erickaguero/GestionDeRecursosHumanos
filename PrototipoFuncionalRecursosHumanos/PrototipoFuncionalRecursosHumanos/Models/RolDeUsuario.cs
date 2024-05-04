@@ -9,6 +9,12 @@
         {
         }
 
+        public RolDeUsuario(int idRolDeUsuario)
+        {
+            IdRolDeUsuario = idRolDeUsuario;
+            Descripcion = string.Empty;
+        }
+
         public RolDeUsuario(int idRolDeUsuario, string descripcion)
         {
             IdRolDeUsuario = idRolDeUsuario;

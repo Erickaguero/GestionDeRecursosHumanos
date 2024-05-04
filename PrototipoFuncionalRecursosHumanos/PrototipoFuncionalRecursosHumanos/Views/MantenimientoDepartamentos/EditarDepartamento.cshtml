@@ -1,0 +1,22 @@
+﻿@model PrototipoFuncionalRecursosHumanos.Models.Departamento
+
+@{
+    ViewData["Title"] = "Editar Departamento";
+
+}
+
+<div class="container">
+    <div>
+        <div class="mt-5">
+            <h2 class="text-center">Editar Departamento</h2>
+            <form asp-action="EditarDepartamento" asp-controller="MantenimientoDepartamentos" method="post">
+                <div class="form-group">
+                    <label asp-for="Nombre">Nombre departamento</label>
+                    <input asp-for="Nombre" class="form-control">
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mt-4 mx-auto">Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+</div>

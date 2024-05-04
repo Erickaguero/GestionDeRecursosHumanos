@@ -34,7 +34,10 @@ public class UsuarioHandler
                             {
                                 IdUsuario = reader.GetInt32(reader.GetOrdinal("idusuario")),
                                 IdPersona = reader.GetInt32(reader.GetOrdinal("idpersona")),
-                                IdRolDeUsuario = reader.GetInt32(reader.GetOrdinal("idrolDeUsuario")),
+                                RolDeUsuario = new RolDeUsuario
+                                {
+                                    IdRolDeUsuario = reader.GetInt32(reader.GetOrdinal("idrolDeUsuario")),
+                                },
                                 Correo = reader.GetString(reader.GetOrdinal("correo")),
                                 Contrasena = reader.GetString(reader.GetOrdinal("contrasena"))
                             };
@@ -49,5 +52,32 @@ public class UsuarioHandler
         }
 
         return usuario;
+    }
+
+    public bool ModificarContrasena(string correo, string contrasena)
+    {
+        bool exito = false;
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "UPDATE mydb.usuario SET contrasena = @Contrasena WHERE correo = @Correo";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Correo", correo);
+                    command.Parameters.AddWithValue("@Contrasena", contrasena);
+                    connection.Open();
+                    int rowsAffected = command.ExecuteNonQuery();
+                    exito = rowsAffected > 0;
+                }
+                connection.Close();
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
+        return exito;
     }
 }

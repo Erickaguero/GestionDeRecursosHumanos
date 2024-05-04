@@ -17,6 +17,7 @@
             <th>Fecha de Nacimiento</th>
             <th>Correo</th>
             <th>Rol de Usuario</th>
+            <th>Departamento</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -31,7 +32,8 @@
                 <td>@colaborador.Persona.Apellido2</td>
                 <td>@colaborador.Persona.FechaDeNacimiento?.ToString("dd/MM/yyyy")</td>
                 <td>@colaborador.Usuario.Correo</td>
-                <td>@colaborador.RolDeUsuario</td>
+                <td>@colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                <td>@colaborador.Departamento.Nombre</td>
                 <td>
                     <a href="@Url.Action("EditarColaborador", "MantenimientoColaboradores", new { idColaborador = colaborador.IdColaborador })" class="btn btn-primary">Editar</a>
                     <a href="@Url.Action("EliminarColaborador", "MantenimientoColaboradores", new { idColaborador = colaborador.IdColaborador })" class="btn btn-danger">Eliminar</a>

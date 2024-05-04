@@ -3,16 +3,24 @@ using PrototipoFuncionalRecursosHumanos.Models;
 using System.Net.Mail;
 using System.Net;
 using System.Security.Cryptography;
+using PrototipoFuncionalRecursosHumanos.Services;
 
 namespace PrototipoFuncionalRecursosHumanos.Controllers
 {
     public class MantenimientoColaboradoresController : Controller
     {
-        public ColaboradorHandler colaboradorHandler = new ColaboradorHandler();
+        private Authenticator authenticator = new Authenticator();
+        private ColaboradorHandler colaboradorHandler = new ColaboradorHandler();
+        private RolDeUsuarioHandler rolDeUsuarioHandler = new RolDeUsuarioHandler();
+        private DepartamentoHandler departamentoHandler = new DepartamentoHandler();
+        private EmailSender emailSender = new EmailSender();
+        private PasswordGenerator passwordGenerator = new PasswordGenerator();
 
         [HttpGet]
         public IActionResult Index()
         {
+            var correo = authenticator.ValidarToken(Request);
+            if (correo == null) return RedirectToAction("Index", "Home");
             List<Colaborador> colaboradores = colaboradorHandler.ObtenerColaboradores();
             return View(colaboradores);
         }
@@ -20,8 +28,10 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         [HttpGet]
         public IActionResult CrearColaborador()
         {
-            RolDeUsuarioHandler rolDeUsuarioHandler = new RolDeUsuarioHandler();
+            var correo = authenticator.ValidarToken(Request);
+            if (correo == null) return RedirectToAction("Index", "Home");
             ViewBag.RolesDeUsuario = rolDeUsuarioHandler.ObtenerRolesDeUsuario();
+            ViewBag.Departamentos = departamentoHandler.ObtenerDepartamentos();
             return View();
         }
 
@@ -30,9 +40,9 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             if (ModelState.IsValid)
             {
-                colaborador.Usuario.Contrasena = GenerarContrasenaSegura();
+                colaborador.Usuario.Contrasena = passwordGenerator.GenerarContrasenaSegura();
                 colaboradorHandler.AgregarColaborador(colaborador);
-                EnviarCorreoColaborador(colaborador);
+                emailSender.EnviarCorreoColaborador(colaborador);
                 return RedirectToAction("Index"); // Redirige al usuario a la página de inicio después de agregar el colaborador
             }
             // Si los modelos no son válidos, devuelve la vista con los modelos para mostrar los errores de validación
@@ -44,6 +54,8 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         [HttpGet]
         public IActionResult EditarColaborador(int idColaborador)
         {
+            var correo = authenticator.ValidarToken(Request);
+            if (correo == null) return RedirectToAction("Index", "Home");
             Colaborador colaborador = colaboradorHandler.ObtenerColaborador(idColaborador);
             if (colaborador == null)
             {
@@ -52,9 +64,8 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
 
             TempData["IdColaborador"] = colaborador.IdColaborador;
             TempData["ContrasenaUsuario"] = colaborador.Usuario.Contrasena;
-            RolDeUsuarioHandler rolDeUsuarioHandler = new RolDeUsuarioHandler();
-
             ViewBag.RolesDeUsuario = rolDeUsuarioHandler.ObtenerRolesDeUsuario();
+            ViewBag.Departamentos = departamentoHandler.ObtenerDepartamentos();
 
             return View(colaborador);
         }
@@ -73,58 +84,18 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
                 }
             }
             // Si los modelos no son válidos, devuelve la vista con los modelos para mostrar los errores de validación
-            RolDeUsuarioHandler rolDeUsuarioHandler = new RolDeUsuarioHandler();
             ViewBag.RolesDeUsuario = rolDeUsuarioHandler.ObtenerRolesDeUsuario();
+            ViewBag.Departamentos = departamentoHandler.ObtenerDepartamentos();
             return View();
         }
-
 
         [HttpGet]
         public IActionResult EliminarColaborador(int idColaborador)
         {
+            var correo = authenticator.ValidarToken(Request);
+            if (correo == null) return RedirectToAction("Index", "Home");
             colaboradorHandler.EliminarColaborador(idColaborador);
             return RedirectToAction("Index");
-        }
-
-        public string GenerarContrasenaSegura()
-        {
-            int longitud = 8;
-            string caracteresPermitidos = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#_";
-            char[] chars = new char[longitud];
-            using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
-            {
-                byte[] uintBuffer = new byte[sizeof(uint)];
-
-                for (int i = 0; i < longitud; i++)
-                {
-                    rng.GetBytes(uintBuffer);
-                    uint num = BitConverter.ToUInt32(uintBuffer, 0);
-                    chars[i] = caracteresPermitidos[(int)(num % (uint)caracteresPermitidos.Length)];
-                }
-            }
-
-            return new string(chars);
-        }
-
-        public void EnviarCorreoColaborador(Colaborador colaborador)
-        {
-            var builder = WebApplication.CreateBuilder();
-            var correoAplicacion = builder.Configuration["Email:Username"];
-            var contrasenaCorreoAplicacion = builder.Configuration["Email:Password"];
-            var correo = new MailMessage();
-            correo.From = new MailAddress(correoAplicacion);
-            correo.To.Add(colaborador.Usuario.Correo);
-            correo.Subject = "Bienvenido al equipo de trabajo " + colaborador.Persona.Nombre ;
-            correo.Body = "Esta es tu contraseña para que inicies sesion: " + colaborador.Usuario.Contrasena;
-            correo.IsBodyHtml = false;
-
-            using (var smtp = new SmtpClient("smtp.gmail.com"))
-            {
-                smtp.Port = 587; // El puerto para Gmail generalmente es 587
-                smtp.Credentials = new NetworkCredential(correoAplicacion, contrasenaCorreoAplicacion);
-                smtp.EnableSsl = true; // Gmail requiere SSL
-                smtp.Send(correo);
-            }
         }
     }
 }

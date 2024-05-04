@@ -2,7 +2,8 @@
 
 @{
     ViewData["Title"] = "Editar Colaborador";
-    var selectList = new SelectList(ViewBag.RolesDeUsuario, "IdRolDeUsuario", "Descripcion", Model.Usuario.IdRolDeUsuario);
+    var listaRoles = new SelectList(ViewBag.RolesDeUsuario, "IdRolDeUsuario", "Descripcion");
+    var listaDepartamentos = new SelectList(ViewBag.Departamentos, "IdDepartamento", "Nombre");
 }
 
 <div class="container">
@@ -41,11 +42,18 @@
                     <span asp-validation-for="Usuario.Correo" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Usuario.IdRolDeUsuario">Rol de Usuario</label>
-                    <select asp-for="Usuario.IdRolDeUsuario" asp-items="selectList" class="form-control">
+                    <label asp-for="Usuario.RolDeUsuario.IdRolDeUsuario">Rol de Usuario</label>
+                    <select asp-for="Usuario.RolDeUsuario.IdRolDeUsuario" asp-items="listaRoles" class="form-control">
                         <option value="">Selecciona un Rol</option>
                     </select>
-                    <span asp-validation-for="Usuario.IdRolDeUsuario" class="text-danger"></span>
+                    <span asp-validation-for="Usuario.RolDeUsuario.IdRolDeUsuario" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Departamento.IdDepartamento">Departamento del colaborador</label>
+                    <select asp-for="Departamento.IdDepartamento" asp-items="listaDepartamentos" class="form-control">
+                        <option value="">Selecciona un Departamento</option>
+                    </select>
+                    <span asp-validation-for="Departamento.IdDepartamento" class="text-danger"></span>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block mt-4 mx-auto">Guardar Cambios</button>
             </form>

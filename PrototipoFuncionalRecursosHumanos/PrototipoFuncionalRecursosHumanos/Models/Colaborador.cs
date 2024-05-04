@@ -5,7 +5,8 @@
         public int? IdColaborador { get; set; }
         public Persona? Persona { get; set; }
         public Usuario? Usuario { get; set; }
-        public string? RolDeUsuario { get; set; }
+
+        public Departamento? Departamento { get; set; }
         
         public DateTime? FechaContratacion { get; set; }
 
@@ -13,15 +14,16 @@
         {
             Persona = new Persona();
             Usuario = new Usuario();
+            Departamento = new Departamento();
         }
 
-        public Colaborador(int idColaborador, Persona persona, Usuario usuario, string rolDeUsuario, DateTime fechaContratacion)
+        public Colaborador(int idColaborador, Persona persona, Usuario usuario, Departamento departamento, DateTime fechaContratacion)
         {
             IdColaborador = idColaborador;
             Persona = persona;
             Usuario = usuario;
-            RolDeUsuario = rolDeUsuario;
             FechaContratacion = fechaContratacion;
+            Departamento = departamento;
         }
     }
 }

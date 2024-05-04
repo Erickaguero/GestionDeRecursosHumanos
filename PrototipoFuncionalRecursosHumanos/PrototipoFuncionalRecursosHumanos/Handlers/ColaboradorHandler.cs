@@ -32,7 +32,8 @@ public class ColaboradorHandler
                     command.Parameters.Add(new SqlParameter("@FechaNacimiento", colaborador.Persona.FechaDeNacimiento));
                     command.Parameters.Add(new SqlParameter("@Correo", colaborador.Usuario.Correo));
                     command.Parameters.Add(new SqlParameter("@Contrasena", colaborador.Usuario.Contrasena));
-                    command.Parameters.Add(new SqlParameter("@IdRolDeUsuario", colaborador.Usuario.IdRolDeUsuario));
+                    command.Parameters.Add(new SqlParameter("@IdRolDeUsuario", colaborador.Usuario.RolDeUsuario.IdRolDeUsuario));
+                    command.Parameters.Add(new SqlParameter("@IdDepartamento", colaborador.Departamento.IdDepartamento));
                     connection.Open();
                     command.ExecuteNonQuery();
                 }
@@ -71,7 +72,8 @@ public class ColaboradorHandler
                     command.Parameters.Add(new SqlParameter("@FechaNacimiento", colaborador.Persona.FechaDeNacimiento));
                     command.Parameters.Add(new SqlParameter("@Correo", colaborador.Usuario.Correo));
                     command.Parameters.Add(new SqlParameter("@Contrasena", colaborador.Usuario.Contrasena));
-                    command.Parameters.Add(new SqlParameter("@IdRolDeUsuario", colaborador.Usuario.IdRolDeUsuario));
+                    command.Parameters.Add(new SqlParameter("@IdRolDeUsuario", colaborador.Usuario.RolDeUsuario.IdRolDeUsuario));
+                    command.Parameters.Add(new SqlParameter("@IdDepartamento", colaborador.Departamento.IdDepartamento));
                     connection.Open();
                     command.ExecuteNonQuery();
                 }
@@ -124,8 +126,17 @@ public class ColaboradorHandler
                                 {
                                     Correo = reader["correo"].ToString(),
                                     Contrasena = reader["contrasena"].ToString(),
+                                    RolDeUsuario = new RolDeUsuario
+                                    {
+                                        IdRolDeUsuario = Convert.ToInt32(reader["idrolDeUsuario"]),
+                                        Descripcion = reader["descripcion"].ToString()
+                                    }
                                 },
-                                RolDeUsuario = reader["rolDeUsuario"].ToString()
+                                Departamento = new Departamento
+                                {
+                                    IdDepartamento = Convert.ToInt32(reader["iddepartamento"]),
+                                    Nombre = reader["nombreDepartamento"].ToString(),
+                                },
                             };
 
                             listaColaboradores.Add(colaborador);
@@ -180,8 +191,17 @@ public class ColaboradorHandler
                                 {
                                     Correo = reader["correo"].ToString(),
                                     Contrasena = reader["contrasena"].ToString(),
+                                    RolDeUsuario = new RolDeUsuario
+                                    {
+                                        IdRolDeUsuario = Convert.ToInt32(reader["idrolDeUsuario"]),
+                                        Descripcion = reader["descripcion"].ToString()
+                                    }
                                 },
-                                RolDeUsuario = reader["rolDeUsuario"].ToString()
+                                Departamento = new Departamento
+                                {
+                                    IdDepartamento = Convert.ToInt32(reader["iddepartamento"]),
+                                    Nombre = reader["nombreDepartamento"].ToString(),
+                                },
                             };
                         }
                     }

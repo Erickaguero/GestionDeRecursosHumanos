@@ -1,7 +1,7 @@
 ﻿@model PrototipoFuncionalRecursosHumanos.Models.Usuario
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Iniciar Sesion";
     Layout = "~/Views/Shared/_Layout_Without_Header_And_Footer.cshtml";
 }
 
@@ -9,7 +9,7 @@
     <div>
         <div class="mt-5">
             <h2 class="text-center">Iniciar sesión</h2>
-            <form asp-action="Index" asp-controller="Home" class="mt-3">
+            <form asp-action="IniciarSesion" asp-controller="Home" class="mt-3">
                 <div class="form-group">
                     <label asp-for="Correo">Correo</label>
                     <input asp-for="Correo" type="text" class="form-control" placeholder="Introduce tu correo">
@@ -19,6 +19,9 @@
                     <label asp-for="Contrasena">Contraseña</label>
                     <input asp-for="Contrasena" type="password" class="form-control" placeholder="Introduce tu contraseña">
                     <span asp-validation-for="Contrasena" class="text-danger"></span>
+                </div>
+                <div class="mt-3">
+                    <a asp-action="RecuperarContrasena" asp-controller="Home">¿Olvidaste tu contraseña?</a>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block mt-4 mx-auto">Iniciar sesión</button>
             </form>

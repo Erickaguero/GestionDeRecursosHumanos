@@ -1,0 +1,31 @@
+﻿@model IEnumerable<PrototipoFuncionalRecursosHumanos.Models.Departamento>
+
+@{
+    ViewData["Title"] = "Mantenimiento Departamentos";
+}
+
+<a href="@Url.Action("CrearDepartamento", "MantenimientoDepartamentos")" class="btn btn-success">Crear Departamento</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID Departamento</th>
+            <th>Nombre</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var departamento in Model)
+        {
+            <tr>
+                <td>@departamento.IdDepartamento</td>
+                <td>@departamento.Nombre</td>
+                <td>
+                    <a href="@Url.Action("EditarDepartamento", "MantenimientoDepartamentos", new { idDepartamento = departamento.IdDepartamento })" class="btn btn-primary">Editar</a>
+                    <a href="@Url.Action("EliminarDepartamento", "MantenimientoDepartamentos", new { idDepartamento = departamento.IdDepartamento })" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
