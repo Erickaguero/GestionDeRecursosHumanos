@@ -8,6 +8,9 @@ namespace PrototipoFuncionalRecursosHumanos.Services
 {
     public class Authenticator
     {
+
+        private ColaboradorHandler colaboradorHandler = new ColaboradorHandler();
+
         public Authenticator()
         {
         }
@@ -70,7 +73,7 @@ namespace PrototipoFuncionalRecursosHumanos.Services
                 tokenHandler.ValidateToken(token, validationParameters, out validatedToken);
                 var jwtToken = (JwtSecurityToken)validatedToken;
                 var emailClaim = jwtToken.Claims.First(claim => claim.Type == ClaimTypes.Email);
-                return emailClaim.Value;
+                return (colaboradorHandler.ObtenerColaborador(emailClaim.Value) == null) ? null : emailClaim.Value;
             }
             catch
             {

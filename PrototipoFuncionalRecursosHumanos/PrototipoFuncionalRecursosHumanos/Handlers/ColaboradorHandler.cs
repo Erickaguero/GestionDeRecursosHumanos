@@ -165,7 +165,7 @@ public class ColaboradorHandler
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlCommand command = new SqlCommand("ObtenerColaborador", connection))
+                using (SqlCommand command = new SqlCommand("ObtenerColaboradorPorId", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add(new SqlParameter("@IdColaborador", idColaborador));
@@ -211,7 +211,70 @@ public class ColaboradorHandler
         }
         catch (SqlException ex)
         {
-            Console.WriteLine("Ocurrió un error al obtener los colaboradores " + ex.Message);
+            Console.WriteLine("Ocurrió un error al obtener el colaborador " + ex.Message);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
+        return colaborador;
+    }
+
+    public Colaborador ObtenerColaborador(string correo)
+    {
+        Colaborador colaborador = null;
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("ObtenerColaboradorPorCorreo", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@Correo", correo));
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            colaborador = new Colaborador
+                            {
+                                IdColaborador = Convert.ToInt32(reader["id_colaborador"]),
+                                FechaContratacion = Convert.ToDateTime(reader["fechaContratacion"]),
+                                Persona = new Persona
+                                {
+                                    Identificacion = reader["identificacion"].ToString(),
+                                    Nombre = reader["nombre"].ToString(),
+                                    Apellido1 = reader["apellido1"].ToString(),
+                                    Apellido2 = reader["apellido2"].ToString(),
+                                    FechaDeNacimiento = Convert.ToDateTime(reader["fecha_nacimiento"])
+                                },
+                                Usuario = new Usuario
+                                {
+                                    Correo = reader["correo"].ToString(),
+                                    Contrasena = reader["contrasena"].ToString(),
+                                    RolDeUsuario = new RolDeUsuario
+                                    {
+                                        IdRolDeUsuario = Convert.ToInt32(reader["idrolDeUsuario"]),
+                                        Descripcion = reader["descripcion"].ToString()
+                                    }
+                                },
+                                Departamento = new Departamento
+                                {
+                                    IdDepartamento = Convert.ToInt32(reader["iddepartamento"]),
+                                    Nombre = reader["nombreDepartamento"].ToString(),
+                                },
+                            };
+                        }
+                    }
+                    connection.Close();
+                }
+            }
+        }
+        catch (SqlException ex)
+        {
+            Console.WriteLine("Ocurrió un error al obtener el colaborador " + ex.Message);
         }
         catch (Exception e)
         {
