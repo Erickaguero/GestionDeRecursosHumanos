@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var rolDeUsuario = Autorizador.ObtenerRolColaborador(Context.Request);
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -25,17 +28,44 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="MenuPrincipal">Menu Principal</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="MantenimientoDepartamentos" asp-action="Index">Mantenimiento Departamentos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="MantenimientoColaboradores" asp-action="Index">Mantenimiento Colaboradores</a>
-                            </li>
+                            @if (rolDeUsuario == "administrador")
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Mantenimientos
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="MantenimientoDepartamentos" asp-action="Index">Mantenimiento Departamentos</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="MantenimientoColaboradores" asp-action="Index">Mantenimiento Colaboradores</a></li>
+                                    </ul>
+                                </li>
+                            }
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="MenuPrincipal">Calcular Planilla</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="MenuPrincipal">Gestionar Vacaciones</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Gestión de vacaciones
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="GestionVacaciones" asp-action="SolicitarVacaciones">Solicitar vacaciones</a></li>
+                                    @if (rolDeUsuario == "administrador" || rolDeUsuario == "jefatura")
+                                    {
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="GestionVacaciones" asp-action="AprobarVacaciones">Aprobar vacaciones</a></li>
+                                    }
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Gestión de permisos
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="GestionPermisos" asp-action="SolicitarPermisos">Solicitar permisos</a></li>
+                                    @if (rolDeUsuario == "administrador" || rolDeUsuario == "jefatura")
+                                    {
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="GestionPermisos" asp-action="AprobarPermisos">Aprobar permisos</a></li>
+                                    }
+                                </ul>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="MenuPrincipal">Pago de aguinaldo</a>
@@ -48,12 +78,10 @@
                             </li>
 
                             <li class="nav-item mt-5">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Cerrar Sesion</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CerrarSesion">Cerrar Sesion</a>
                             </li>
                         </ul>
                     </div>
-
-
                 </div>
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="MenuPrincipal">Prototipo Funcional Recursos Humanos</a>
             </div>

@@ -6,12 +6,12 @@ using System.Text;
 
 namespace PrototipoFuncionalRecursosHumanos.Services
 {
-    public class Authenticator
+    public class Autenticador
     {
 
         private ColaboradorHandler colaboradorHandler = new ColaboradorHandler();
 
-        public Authenticator()
+        public Autenticador()
         {
         }
 

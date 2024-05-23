@@ -1,0 +1,140 @@
+﻿@{
+    ViewData["Title"] = "Aprobar Vacaciones";
+}
+
+<div class="accordion mt-3" id="accordionPanelsStayOpenExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button bg-secondary text-white" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                Permisos Pendientes
+            </button>
+        </h2>
+        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+            <div class="accordion-body">
+                <table class="table table-secondary table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID Permiso</th>
+                            <th>Fecha Generacion</th>
+                            <th>Fecha Permiso</th>
+                            <th>Tipo Permiso</th>
+                            <th>Horas Solicitadas</th>
+                            <th>Estado</th>
+                            <th>Justificacion</th>
+                            <th>Nombre Colaborador</th>
+                            <th>Departamento</th>
+                            <th>Rol de Usuario</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var permiso in ViewBag.PermisosPendientes)
+                        {
+                            <tr>
+                                <td>@permiso.IdPermiso</td>
+                                <td>@permiso.FechaGeneracion.ToString("yyyy-MM-dd")</td>
+                                <td>@permiso.FechaPermiso.ToString("yyyy-MM-dd")</td>
+                                <td>
+                                    <form asp-action="EditarTipoPermiso" asp-controller="GestionPermisos" method="post">
+                                        <input type="hidden" name="idPermiso" value="@permiso.IdPermiso" style="display:none" />
+                                        <select name="idTipoPermiso" onchange="this.form.submit()">
+                                            @foreach(var tipoPermiso in ViewBag.TipoPermisos)
+                                            {
+                                                if (tipoPermiso.IdTipoPermiso == permiso.TipoPermiso.IdTipoPermiso)
+                                                {
+                                                    <option value="@tipoPermiso.IdTipoPermiso" selected disabled>@tipoPermiso.Descripcion</option>
+                                                } else if (tipoPermiso.Descripcion != "no definido")
+                                                {
+                                                    <option value="@tipoPermiso.IdTipoPermiso">@tipoPermiso.Descripcion</option>
+                                                }
+                                            }
+                                        </select>
+                                    </form>
+                                </td>
+                                <td>@permiso.Horas</td>
+                                <td>@permiso.Estado</td>
+                                <td>@permiso.Justificacion</td>
+                                <td>@permiso.Colaborador.Persona.Nombre @permiso.Colaborador.Persona.Apellido1 @permiso.Colaborador.Persona.Apellido2</td>
+                                <td>@permiso.Colaborador.Departamento.Nombre</td>
+                                <td>@permiso.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                                <td>
+                                    <a href="@Url.Action("AprobarPermiso", "GestionPermisos", new { idPermiso = permiso.IdPermiso, tipoPermiso = permiso.TipoPermiso.Descripcion })" class="btn btn-success">Aprobar</a>
+                                    <a href="@Url.Action("RechazarPermiso", "GestionPermisos", new { idPermiso = permiso.IdPermiso })" class="btn btn-danger">Rechazar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @if (ViewBag.PermisosAprobadosPorJefatura.Count != 0)
+    {
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-success text-white" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                    Permisos Aprobados Por Jefatura
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <table class="table table-success table-bordered">
+                        <thead>
+                            <tr>
+                                <th>ID Permiso</th>
+                                <th>Fecha Generacion</th>
+                                <th>Fecha Permiso</th>
+                                <th>Tipo Permiso</th>
+                                <th>Horas Solicitadas</th>
+                                <th>Estado</th>
+                                <th>Justificacion</th>
+                                <th>Nombre Colaborador</th>
+                                <th>Departamento</th>
+                                <th>Rol de Usuario</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var permiso in ViewBag.PermisosAprobadosPorJefatura)
+                            {
+                                <tr>
+                                    <td>@permiso.IdPermiso</td>
+                                    <td>@permiso.FechaGeneracion.ToString("yyyy-MM-dd")</td>
+                                    <td>@permiso.FechaPermiso.ToString("yyyy-MM-dd")</td>
+                                    <td>
+                                        <form asp-action="EditarTipoPermiso" asp-controller="GestionPermisos" method="post">
+                                            <input type="hidden" name="idPermiso" value="@permiso.IdPermiso" style="display:none" />
+                                            <select name="idTipoPermiso" onchange="this.form.submit()">
+                                                @foreach (var tipoPermiso in ViewBag.TipoPermisos)
+                                                {
+                                                    if (tipoPermiso.IdTipoPermiso == permiso.TipoPermiso.IdTipoPermiso)
+                                                    {
+                                                        <option value="@tipoPermiso.IdTipoPermiso" selected disabled>@tipoPermiso.Descripcion</option>
+                                                    }
+                                                    else if (tipoPermiso.Descripcion != "no definido")
+                                                    {
+                                                        <option value="@tipoPermiso.IdTipoPermiso">@tipoPermiso.Descripcion</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </form>
+                                    </td>
+                                    <td>@permiso.Horas</td>
+                                    <td>@permiso.Estado</td>
+                                    <td>@permiso.Justificacion</td>
+                                    <td>@permiso.Colaborador.Persona.Nombre @permiso.Colaborador.Persona.Apellido1 @permiso.Colaborador.Persona.Apellido2</td>
+                                    <td>@permiso.Colaborador.Departamento.Nombre</td>
+                                    <td>@permiso.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                                    <td>
+                                        <a href="@Url.Action("AprobarPermiso", "GestionPermisos", new { idPermiso = permiso.IdPermiso, tipoPermiso = permiso.TipoPermiso.Descripcion })" class="btn btn-success">Aprobar</a>
+                                        <a href="@Url.Action("RechazarPermiso", "GestionPermisos", new { idPermiso = permiso.IdPermiso })" class="btn btn-danger">Rechazar</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>

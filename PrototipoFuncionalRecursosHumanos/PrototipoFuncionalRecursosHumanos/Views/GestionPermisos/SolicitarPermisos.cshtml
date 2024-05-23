@@ -1,0 +1,147 @@
+﻿@{
+    ViewData["Title"] = "Solicitud de permisos";
+}
+
+<h2>Solicitar Permisos</h2>
+
+<!-- Botón para reenviar a la vista de crear solicitud -->
+<a href="@Url.Action("CrearSolicitudPermiso", "GestionPermisos")" class="btn btn-primary mt-2">Crear Solicitud</a>
+
+<div class="accordion mt-3" id="accordionPanelsStayOpenExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button bg-secondary text-white" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                Permisos Pendientes
+            </button>
+        </h2>
+        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+            <div class="accordion-body">
+                <table class="table table-secondary table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID Permiso</th>
+                            <th>Fecha Generacion</th>
+                            <th>Fecha Permiso</th>
+                            <th>Tipo Permiso</th>
+                            <th>Horas Solicitadas</th>
+                            <th>Estado</th>
+                            <th>Justificacion</th>
+                            <th>Nombre Colaborador</th>
+                            <th>Departamento</th>
+                            <th>Rol de Usuario</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var permiso in ViewBag.PermisosPendientes)
+                        {
+                            <tr>
+                                <td>@permiso.IdPermiso</td>
+                                <td>@permiso.FechaGeneracion.ToString("yyyy-MM-dd")</td>
+                                <td>@permiso.FechaPermiso.ToString("yyyy-MM-dd")</td>
+                                <td>@permiso.TipoPermiso.Descripcion</td>
+                                <td>@permiso.Horas</td>
+                                <td>@permiso.Estado</td>
+                                <td>@permiso.Justificacion</td>
+                                <td>@permiso.Colaborador.Persona.Nombre @permiso.Colaborador.Persona.Apellido1 @permiso.Colaborador.Persona.Apellido2</td>
+                                <td>@permiso.Colaborador.Departamento.Nombre</td>
+                                <td>@permiso.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                                <td>
+                                    <a href="@Url.Action("EliminarPermiso", "GestionPermisos", new { idPermiso = permiso.IdPermiso })" class="btn btn-danger">Eliminar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed bg-success text-white" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                Permisos Aprobadas
+            </button>
+        </h2>
+        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+            <div class="accordion-body">
+                <table class="table table-success table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID Permiso</th>
+                            <th>Fecha Generacion</th>
+                            <th>Fecha Permiso</th>
+                            <th>Tipo Permiso</th>
+                            <th>Horas Solicitadas</th>
+                            <th>Estado</th>
+                            <th>Justificacion</th>
+                            <th>Nombre Colaborador</th>
+                            <th>Departamento</th>
+                            <th>Rol de Usuario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var permiso in ViewBag.PermisosAprobados)
+                        {
+                            <tr>
+                                <td>@permiso.IdPermiso</td>
+                                <td>@permiso.FechaGeneracion.ToString("yyyy-MM-dd")</td>
+                                <td>@permiso.FechaPermiso.ToString("yyyy-MM-dd")</td>
+                                <td>@permiso.TipoPermiso.Descripcion</td>
+                                <td>@permiso.Horas</td>
+                                <td>@permiso.Estado</td>
+                                <td>@permiso.Justificacion</td>
+                                <td>@permiso.Colaborador.Persona.Nombre @permiso.Colaborador.Persona.Apellido1 @permiso.Colaborador.Persona.Apellido2</td>
+                                <td>@permiso.Colaborador.Departamento.Nombre</td>
+                                <td>@permiso.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed bg-danger text-white" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                Permisos Rechazadas
+            </button>
+        </h2>
+        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+            <div class="accordion-body">
+                <table class="table table-danger table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID Permiso</th>
+                            <th>Fecha Generacion</th>
+                            <th>Fecha Permiso</th>
+                            <th>Tipo Permiso</th>
+                            <th>Horas Solicitadas</th>
+                            <th>Estado</th>
+                            <th>Justificacion</th>
+                            <th>Nombre Colaborador</th>
+                            <th>Departamento</th>
+                            <th>Rol de Usuario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var permiso in ViewBag.PermisosRechazados)
+                        {
+                            <tr>
+                                <td>@permiso.IdPermiso</td>
+                                <td>@permiso.FechaGeneracion.ToString("yyyy-MM-dd")</td>
+                                <td>@permiso.FechaPermiso.ToString("yyyy-MM-dd")</td>
+                                <td>@permiso.TipoPermiso.Descripcion</td>
+                                <td>@permiso.Horas</td>
+                                <td>@permiso.Estado</td>
+                                <td>@permiso.Justificacion</td>
+                                <td>@permiso.Colaborador.Persona.Nombre @permiso.Colaborador.Persona.Apellido1 @permiso.Colaborador.Persona.Apellido2</td>
+                                <td>@permiso.Colaborador.Departamento.Nombre</td>
+                                <td>@permiso.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

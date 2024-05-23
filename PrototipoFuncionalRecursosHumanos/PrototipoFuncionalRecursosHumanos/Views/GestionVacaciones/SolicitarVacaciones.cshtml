@@ -23,6 +23,9 @@
                             <th>Fecha Inicio</th>
                             <th>Fecha Fin</th>
                             <th>Estado</th>
+                            <th>Nombre Colaborador</th>
+                            <th>Departamento</th>
+                            <th>Rol de Usuario</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -34,6 +37,9 @@
                                 <td>@vacacion.FechaInicio.ToString("yyyy-MM-dd")</td>
                                 <td>@vacacion.FechaFin.ToString("yyyy-MM-dd")</td>
                                 <td>@vacacion.Estado</td>
+                                <td>@vacacion.Colaborador.Persona.Nombre @vacacion.Colaborador.Persona.Apellido1 @vacacion.Colaborador.Persona.Apellido2</td>
+                                <td>@vacacion.Colaborador.Departamento.Nombre</td>
+                                <td>@vacacion.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
                                 <td>
                                     <a href="@Url.Action("EliminarVacacion", "GestionVacaciones", new { idVacacion = vacacion.IdVacaciones })" class="btn btn-danger">Eliminar</a>
                                 </td>
@@ -59,7 +65,9 @@
                             <th>Fecha Inicio</th>
                             <th>Fecha Fin</th>
                             <th>Estado</th>
-                            <th>Acciones</th>
+                            <th>Nombre Colaborador</th>
+                            <th>Departamento</th>
+                            <th>Rol de Usuario</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,9 +78,9 @@
                                 <td>@vacacion.FechaInicio.ToString("yyyy-MM-dd")</td>
                                 <td>@vacacion.FechaFin.ToString("yyyy-MM-dd")</td>
                                 <td>@vacacion.Estado</td>
-                                <td>
-                                    <a href="@Url.Action("EliminarVacacion", "GestionVacaciones", new { idVacacion = vacacion.IdVacaciones })" class="btn btn-danger">Eliminar</a>
-                                </td>
+                                <td>@vacacion.Colaborador.Persona.Nombre @vacacion.Colaborador.Persona.Apellido1 @vacacion.Colaborador.Persona.Apellido2</td>
+                                <td>@vacacion.Colaborador.Departamento.Nombre</td>
+                                <td>@vacacion.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
                             </tr>
                         }
                     </tbody>
@@ -95,7 +103,9 @@
                             <th>Fecha Inicio</th>
                             <th>Fecha Fin</th>
                             <th>Estado</th>
-                            <th>Acciones</th>
+                            <th>Nombre Colaborador</th>
+                            <th>Departamento</th>
+                            <th>Rol de Usuario</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -106,9 +116,9 @@
                                 <td>@vacacion.FechaInicio.ToString("yyyy-MM-dd")</td>
                                 <td>@vacacion.FechaFin.ToString("yyyy-MM-dd")</td>
                                 <td>@vacacion.Estado</td>
-                                <td>
-                                    <a href="@Url.Action("EliminarVacacion", "GestionVacaciones", new { idVacacion = vacacion.IdVacaciones })" class="btn btn-danger">Eliminar</a>
-                                </td>
+                                <td>@vacacion.Colaborador.Persona.Nombre @vacacion.Colaborador.Persona.Apellido1 @vacacion.Colaborador.Persona.Apellido2</td>
+                                <td>@vacacion.Colaborador.Departamento.Nombre</td>
+                                <td>@vacacion.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
                             </tr>
                         }
                     </tbody>

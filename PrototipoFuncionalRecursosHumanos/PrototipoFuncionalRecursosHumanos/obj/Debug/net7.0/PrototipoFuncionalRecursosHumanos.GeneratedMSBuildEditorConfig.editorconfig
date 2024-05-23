@@ -18,6 +18,22 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\carlo\source\repos\PrototipoFuncionalRecursosHumanos\PrototipoFuncionalRecursosHumanos\PrototipoFuncionalRecursosHumanos
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/carlo/source/repos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/Views/GestionPermisos/AprobarPermisos.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VzdGlvblBlcm1pc29zXEFwcm9iYXJQZXJtaXNvcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/carlo/source/repos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/Views/GestionPermisos/CrearSolicitudPermiso.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VzdGlvblBlcm1pc29zXENyZWFyU29saWNpdHVkUGVybWlzby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/carlo/source/repos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/Views/GestionPermisos/SolicitarPermisos.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VzdGlvblBlcm1pc29zXFNvbGljaXRhclBlcm1pc29zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/carlo/source/repos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/Views/GestionVacaciones/AprobarVacaciones.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VzdGlvblZhY2FjaW9uZXNcQXByb2JhclZhY2FjaW9uZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/carlo/source/repos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/Views/GestionVacaciones/CrearSolicitudVacaciones.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VzdGlvblZhY2FjaW9uZXNcQ3JlYXJTb2xpY2l0dWRWYWNhY2lvbmVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

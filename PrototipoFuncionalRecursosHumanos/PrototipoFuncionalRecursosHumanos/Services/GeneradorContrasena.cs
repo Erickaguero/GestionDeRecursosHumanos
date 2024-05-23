@@ -2,9 +2,9 @@
 
 namespace PrototipoFuncionalRecursosHumanos.Services
 {
-    public class PasswordGenerator
+    public class GeneradorContrasena
     {
-        public PasswordGenerator()
+        public GeneradorContrasena()
         {
         }
         public string GenerarContrasenaSegura()

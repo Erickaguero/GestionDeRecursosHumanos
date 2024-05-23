@@ -4,9 +4,9 @@ using System.Net;
 
 namespace PrototipoFuncionalRecursosHumanos.Services
 {
-    public class EmailSender
+    public class EnviadorCorreos
     {
-        public EmailSender()
+        public EnviadorCorreos()
         {
         }
 

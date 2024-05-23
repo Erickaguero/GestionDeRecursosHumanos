@@ -12,9 +12,9 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private Authenticator authenticator = new Authenticator();
-        private EmailSender emailSender = new EmailSender();
-        private PasswordGenerator passwordGenerator = new PasswordGenerator();
+        private Autenticador authenticator = new Autenticador();
+        private EnviadorCorreos emailSender = new EnviadorCorreos();
+        private GeneradorContrasena passwordGenerator = new GeneradorContrasena();
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -56,6 +56,13 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
                 }
             }
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult CerrarSesion()
+        {
+            Response.Cookies.Delete("token");
+            return RedirectToAction("IniciarSesion");
         }
 
         [HttpGet]
