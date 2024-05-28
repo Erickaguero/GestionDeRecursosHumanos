@@ -1,0 +1,141 @@
+﻿@{
+    ViewData["Title"] = "Solicitud de incapacidades";
+}
+
+<h2>Solicitar Incapacidades</h2>
+
+<!-- Botón para reenviar a la vista de crear solicitud -->
+<a href="@Url.Action("CrearSolicitudIncapacidad", "GestionIncapacidades")" class="btn btn-primary mt-2">Crear Solicitud</a>
+
+<div class="accordion mt-3" id="accordionPanelsStayOpenExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button bg-secondary text-white" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                Incapacidades Pendientes
+            </button>
+        </h2>
+        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+            <div class="accordion-body">
+                <table class="table table-secondary table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID Incapacidad</th>
+                            <th>Fecha Inicio</th>
+                            <th>Fecha Fin</th>
+                            <th>Tipo Incapacidad</th>
+                            <th>Estado</th>
+                            <th>Justificacion</th>
+                            <th>Nombre Colaborador</th>
+                            <th>Departamento</th>
+                            <th>Rol de Usuario</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var incapacidad in ViewBag.IncapacidadesPendientes)
+                        {
+                            <tr>
+                                <td>@incapacidad.IdIncapacidad</td>
+                                <td>@incapacidad.FechaInicio.ToString("yyyy-MM-dd")</td>
+                                <td>@incapacidad.FechaFin.ToString("yyyy-MM-dd")</td>
+                                <td>@incapacidad.TipoIncapacidad.Descripcion</td>
+                                <td>@incapacidad.Estado</td>
+                                <td>@incapacidad.Justificacion</td>
+                                <td>@incapacidad.Colaborador.Persona.Nombre @incapacidad.Colaborador.Persona.Apellido1 @incapacidad.Colaborador.Persona.Apellido2</td>
+                                <td>@incapacidad.Colaborador.Departamento.Nombre</td>
+                                <td>@incapacidad.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                                <td>
+                                    <a href="@Url.Action("EliminarIncapacidad", "GestionIncapacidades", new { idIncapacidad = incapacidad.IdIncapacidad })" class="btn btn-danger">Eliminar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed bg-success text-white" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                Incapacidades Aprobadas
+            </button>
+        </h2>
+        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+            <div class="accordion-body">
+                <table class="table table-success table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID Incapacidad</th>
+                            <th>Fecha Inicio</th>
+                            <th>Fecha Fin</th>
+                            <th>Tipo Incapacidad</th>
+                            <th>Estado</th>
+                            <th>Justificacion</th>
+                            <th>Nombre Colaborador</th>
+                            <th>Departamento</th>
+                            <th>Rol de Usuario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var incapacidad in ViewBag.IncapacidadesAprobadas)
+                        {
+                            <tr>
+                                <td>@incapacidad.IdIncapacidad</td>
+                                <td>@incapacidad.FechaInicio.ToString("yyyy-MM-dd")</td>
+                                <td>@incapacidad.FechaFin.ToString("yyyy-MM-dd")</td>
+                                <td>@incapacidad.TipoIncapacidad.Descripcion</td>
+                                <td>@incapacidad.Estado</td>
+                                <td>@incapacidad.Justificacion</td>
+                                <td>@incapacidad.Colaborador.Persona.Nombre @incapacidad.Colaborador.Persona.Apellido1 @incapacidad.Colaborador.Persona.Apellido2</td>
+                                <td>@incapacidad.Colaborador.Departamento.Nombre</td>
+                                <td>@incapacidad.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed bg-danger text-white" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                Incapacidades Rechazadas
+            </button>
+        </h2>
+        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+            <div class="accordion-body">
+                <table class="table table-danger table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID Incapacidad</th>
+                            <th>Fecha Inicio</th>
+                            <th>Fecha Fin</th>
+                            <th>Tipo Incapacidad</th>
+                            <th>Estado</th>
+                            <th>Justificacion</th>
+                            <th>Nombre Colaborador</th>
+                            <th>Departamento</th>
+                            <th>Rol de Usuario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var incapacidad in ViewBag.IncapacidadesRechazadas)
+                        {
+                            <tr>
+                                <td>@incapacidad.IdIncapacidad</td>
+                                <td>@incapacidad.FechaInicio.ToString("yyyy-MM-dd")</td>
+                                <td>@incapacidad.FechaFin.ToString("yyyy-MM-dd")</td>
+                                <td>@incapacidad.TipoIncapacidad.Descripcion</td>
+                                <td>@incapacidad.Estado</td>
+                                <td>@incapacidad.Justificacion</td>
+                                <td>@incapacidad.Colaborador.Persona.Nombre @incapacidad.Colaborador.Persona.Apellido1 @incapacidad.Colaborador.Persona.Apellido2</td>
+                                <td>@incapacidad.Colaborador.Departamento.Nombre</td>
+                                <td>@incapacidad.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

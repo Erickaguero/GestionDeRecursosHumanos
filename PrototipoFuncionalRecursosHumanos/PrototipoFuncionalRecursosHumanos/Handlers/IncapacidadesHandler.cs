@@ -3,18 +3,18 @@ using System.Data;
 using System.Collections.Generic;
 using PrototipoFuncionalRecursosHumanos.Models;
 
-public class PermisosHandler
+public class IncapacidadesHandler
 {
 
     private readonly string connectionString = "";
 
-    public PermisosHandler()
+    public IncapacidadesHandler()
     {
         var builder = WebApplication.CreateBuilder();
         connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
     }
 
-    public bool AgregarPermiso(Permisos permiso)
+    public bool AgregarIncapacidad(Incapacidades incapacidad)
     {
         bool exito = true;
         // Cambiar esto por un proceso almacenado a futuro
@@ -23,16 +23,16 @@ public class PermisosHandler
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO mydb.permisos (fechaPermiso, id_colaborador, idtipoPermiso, horas, estado, justificacion) " +
-                    "VALUES(@FechaPermiso, @IdColaborador, @IdTipoPermiso, @Horas, @Estado, @Justificacion)";
+                string query = "INSERT INTO mydb.incapacidades (fechaInicio, fechaFin, id_colaborador, idtipoincapacidad, estado, justificacion) " +
+                    "VALUES(@FechaInicio, @FechaFin, @IdColaborador, @IdTipoIncapacidad, @Estado, @Justificacion)";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@FechaPermiso", permiso.FechaPermiso);
-                    command.Parameters.AddWithValue("@IdColaborador", permiso.Colaborador.IdColaborador);
-                    command.Parameters.AddWithValue("@IdTipoPermiso", idTipoPermisoNoDefinido);
-                    command.Parameters.AddWithValue("@Horas", permiso.Horas);
-                    command.Parameters.AddWithValue("@Estado",permiso.Estado);
-                    command.Parameters.AddWithValue("@Justificacion", permiso.Justificacion);
+                    command.Parameters.AddWithValue("@FechaInicio", incapacidad.FechaInicio);
+                    command.Parameters.AddWithValue("@FechaFin", incapacidad.FechaFin);
+                    command.Parameters.AddWithValue("@IdColaborador", incapacidad.Colaborador.IdColaborador);
+                    command.Parameters.AddWithValue("@IdTipoIncapacidad", idTipoPermisoNoDefinido);
+                    command.Parameters.AddWithValue("@Estado", incapacidad.Estado);
+                    command.Parameters.AddWithValue("@Justificacion", incapacidad.Justificacion);
                     connection.Open();
                     command.ExecuteNonQuery();
                 }
@@ -48,18 +48,19 @@ public class PermisosHandler
         return exito;
     }
 
-    public bool PermisoExistente(Permisos permiso)
+    public bool IncapacidadExistente(Incapacidades incapacidad)
     {
         try
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                string query = "SELECT COUNT(*) FROM mydb.permisos WHERE id_colaborador = @IdColaborador AND (estado = 'Pendiente' OR estado = 'Aprobado') AND (fechaPermiso = @FechaPermiso)";
+                string query = "SELECT COUNT(*) FROM mydb.incapacidades WHERE id_colaborador = @IdColaborador AND (estado = 'Pendiente' OR estado = 'Aprobado') AND (fechaInicio <= @FechaFin AND fechaFin >= @FechaInicio)";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@IdColaborador", permiso.Colaborador.IdColaborador);
-                    command.Parameters.AddWithValue("@FechaPermiso", permiso.FechaPermiso);
+                    command.Parameters.AddWithValue("@IdColaborador", incapacidad.Colaborador.IdColaborador);
+                    command.Parameters.AddWithValue("@FechaInicio", incapacidad.FechaInicio);
+                    command.Parameters.AddWithValue("@FechaFin", incapacidad.FechaFin);
 
                     int count = (int)command.ExecuteScalar();
 
@@ -75,18 +76,18 @@ public class PermisosHandler
         }
     }
 
-    public bool EditarTipoPermiso(int idPermiso, int idTipoPermiso)
+    public bool EditarTipoIncapacidad(int idIncapacidad, int idTipoIncapacidad)
     {
         bool exito = true;
         try
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "UPDATE mydb.permisos SET idtipoPermiso = @IdTipoPermiso WHERE idpermisos = @IdPermiso";
+                string query = "UPDATE mydb.incapacidades SET idtipoincapacidad = @IdTipoIncapacidad WHERE idincapacidades = @IdIncapacidad";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@IdPermiso", idPermiso);
-                    command.Parameters.AddWithValue("@IdTipoPermiso", idTipoPermiso);
+                    command.Parameters.AddWithValue("@IdIncapacidad", idIncapacidad);
+                    command.Parameters.AddWithValue("@IdTipoIncapacidad", idTipoIncapacidad);
                     connection.Open();
                     command.ExecuteNonQuery();
                 }
@@ -102,17 +103,17 @@ public class PermisosHandler
         return exito;
     }
 
-    public bool AprobarPermisoAdministrador(int idPermiso)
+    public bool AprobarIncapacidadAdministrador(int idIncapacidad)
     {
         bool exito = true;
         try
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "UPDATE mydb.permisos SET estado = @Estado WHERE idpermisos = @IdPermiso";
+                string query = "UPDATE mydb.incapacidades SET estado = @Estado WHERE idincapacidades = @IdIncapacidad";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@IdPermiso", idPermiso);
+                    command.Parameters.AddWithValue("@IdIncapacidad", idIncapacidad);
                     command.Parameters.AddWithValue("@Estado", "Aprobado");
                     connection.Open();
                     command.ExecuteNonQuery();
@@ -129,17 +130,17 @@ public class PermisosHandler
         return exito;
     }
 
-    public bool AprobarPermisoJefatura(int idPermiso)
+    public bool AprobarIncapacidadJefatura(int idIncapacidad)
     {
         bool exito = true;
         try
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "UPDATE mydb.permisos SET estado = @Estado WHERE idpermisos = @IdPermiso";
+                string query = "UPDATE mydb.incapacidades SET estado = @Estado WHERE idincapacidades = @IdIncapacidad";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@IdPermiso", idPermiso);
+                    command.Parameters.AddWithValue("@IdIncapacidad", idIncapacidad);
                     command.Parameters.AddWithValue("@Estado", "Aprobado por jefatura");
                     connection.Open();
                     command.ExecuteNonQuery();
@@ -156,17 +157,17 @@ public class PermisosHandler
         return exito;
     }
 
-    public bool RechazarPermiso(int idPermiso)
+    public bool RechazarIncapacidad(int idIncapacidad)
     {
         bool exito = true;
         try
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "UPDATE mydb.permisos SET estado = @Estado WHERE idpermisos = @IdPermiso";
+                string query = "UPDATE mydb.incapacidades SET estado = @Estado WHERE idincapacidades = @IdIncapacidad";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@IdPermiso", idPermiso);
+                    command.Parameters.AddWithValue("@IdIncapacidad", idIncapacidad);
                     command.Parameters.AddWithValue("@Estado", "Rechazado");
                     connection.Open();
                     command.ExecuteNonQuery();
@@ -183,17 +184,17 @@ public class PermisosHandler
         return exito;
     }
 
-    public bool EliminarPermiso(int idPermiso)
+    public bool EliminarIncapacidad(int idIncapacidad)
     {
         bool exito = true;
         try
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "DELETE FROM mydb.permisos WHERE idpermisos = @IdPermiso";
+                string query = "DELETE FROM mydb.incapacidades WHERE idincapacidades = @IdIncapacidad";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@IdPermiso", idPermiso);
+                    command.Parameters.AddWithValue("@IdIncapacidad", idIncapacidad);
                     connection.Open();
                     command.ExecuteNonQuery();
                 }
@@ -209,14 +210,14 @@ public class PermisosHandler
         return exito;
     }
 
-    public List<Permisos> ObtenerPermisos(int? idColaborador)
+    public List<Incapacidades> ObtenerIncapacidades(int? idColaborador)
     {
-        List<Permisos> permisos = new List<Permisos>();
+        List<Incapacidades> incapacidades = new List<Incapacidades>();
         try
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT * FROM mydb.permisos WHERE id_colaborador = @IdColaborador";
+                string query = "SELECT * FROM mydb.incapacidades WHERE id_colaborador = @IdColaborador";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@IdColaborador", idColaborador);
@@ -225,24 +226,23 @@ public class PermisosHandler
                     {
                         while (reader.Read())
                         {
-                            Permisos permiso = new Permisos
+                            Incapacidades incapacidad = new Incapacidades
                             {
-                                IdPermiso = reader.GetInt32(reader.GetOrdinal("idpermisos")),
-                                FechaPermiso = reader.GetDateTime(reader.GetOrdinal("fechaPermiso")),
+                                IdIncapacidad = reader.GetInt32(reader.GetOrdinal("idincapacidades")),
+                                FechaInicio = reader.GetDateTime(reader.GetOrdinal("fechaInicio")),
+                                FechaFin = reader.GetDateTime(reader.GetOrdinal("fechaFin")),
                                 Colaborador = new Colaborador
                                 {
                                     IdColaborador = reader.GetInt32(reader.GetOrdinal("id_colaborador"))
                                 },
-                                TipoPermiso = new TipoPermiso
+                                TipoIncapacidad = new TipoIncapacidad
                                 {
-                                    IdTipoPermiso = reader.GetInt32(reader.GetOrdinal("idtipoPermiso"))
+                                    IdTipoIncapacidad = reader.GetInt32(reader.GetOrdinal("idtipoincapacidad"))
                                 },
-                                Horas = reader.GetInt32(reader.GetOrdinal("horas")),
-                                FechaGeneracion = reader.GetDateTime(reader.GetOrdinal("fechaGeneracion")),
                                 Estado = reader.GetString(reader.GetOrdinal("estado")),
                                 Justificacion = reader.GetString(reader.GetOrdinal("justificacion"))
                             };
-                            permisos.Add(permiso);
+                            incapacidades.Add(incapacidad);
                         }
                     }
                 }
@@ -254,17 +254,17 @@ public class PermisosHandler
             Console.WriteLine(e.Message);
         }
 
-        return permisos;
+        return incapacidades;
     }
 
-    public List<Permisos> ObtenerPermisosParaAprobarPorAdministrador(int? idAdministrador)
+    public List<Incapacidades> ObtenerIncapacidadesParaAprobarPorAdministrador(int? idAdministrador)
     {
-        List<Permisos> permisos = new List<Permisos>();
+        List<Incapacidades> incapacidades = new List<Incapacidades>();
         try
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlCommand command = new SqlCommand("ObtenerPermisosParaAprobarPorAdministrador", connection))
+                using (SqlCommand command = new SqlCommand("ObtenerIncapacidadesParaAprobarPorAdministrador", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add(new SqlParameter("@IdAdministrador", idAdministrador));
@@ -274,24 +274,23 @@ public class PermisosHandler
                     {
                         while (reader.Read())
                         {
-                            Permisos permiso = new Permisos
+                            Incapacidades incapacidad = new Incapacidades
                             {
-                                IdPermiso = reader.GetInt32(reader.GetOrdinal("idpermisos")),
-                                FechaPermiso = reader.GetDateTime(reader.GetOrdinal("fechaPermiso")),
+                                IdIncapacidad = reader.GetInt32(reader.GetOrdinal("idincapacidades")),
+                                FechaInicio = reader.GetDateTime(reader.GetOrdinal("fechaInicio")),
+                                FechaFin = reader.GetDateTime(reader.GetOrdinal("fechaFin")),
                                 Colaborador = new Colaborador
                                 {
                                     IdColaborador = reader.GetInt32(reader.GetOrdinal("id_colaborador"))
                                 },
-                                TipoPermiso = new TipoPermiso
+                                TipoIncapacidad = new TipoIncapacidad
                                 {
-                                    IdTipoPermiso = reader.GetInt32(reader.GetOrdinal("idtipoPermiso"))
+                                    IdTipoIncapacidad = reader.GetInt32(reader.GetOrdinal("idtipoincapacidad"))
                                 },
-                                Horas = reader.GetInt32(reader.GetOrdinal("horas")),
-                                FechaGeneracion = reader.GetDateTime(reader.GetOrdinal("fechaGeneracion")),
                                 Estado = reader.GetString(reader.GetOrdinal("estado")),
                                 Justificacion = reader.GetString(reader.GetOrdinal("justificacion"))
                             };
-                            permisos.Add(permiso);
+                            incapacidades.Add(incapacidad);
                         }
                         connection.Close();
                     }
@@ -300,24 +299,24 @@ public class PermisosHandler
         }
         catch (SqlException ex)
         {
-            Console.WriteLine("Ocurrió un error al obtener los permisos a aprobar " + ex.Message);
+            Console.WriteLine("Ocurrió un error al obtener las incapacidades para aprobar " + ex.Message);
         }
         catch (Exception e)
         {
             Console.WriteLine(e.Message);
         }
 
-        return permisos;
+        return incapacidades;
     }
 
-    public List<Permisos> ObtenerPermisosParaAprobarPorJefatura(int? idJefatura)
+    public List<Incapacidades> ObtenerIncapacidadesParaAprobarPorJefatura(int? idJefatura)
     {
-        List<Permisos> permisos = new List<Permisos>();
+        List<Incapacidades> incapacidades = new List<Incapacidades>();
         try
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlCommand command = new SqlCommand("ObtenerPermisosParaAprobarPorJefatura", connection))
+                using (SqlCommand command = new SqlCommand("ObtenerIncapacidadesParaAprobarPorJefatura", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add(new SqlParameter("@IdJefatura", idJefatura));
@@ -327,24 +326,23 @@ public class PermisosHandler
                     {
                         while (reader.Read())
                         {
-                            Permisos permiso = new Permisos
+                            Incapacidades incapacidad = new Incapacidades
                             {
-                                IdPermiso = reader.GetInt32(reader.GetOrdinal("idpermisos")),
-                                FechaPermiso = reader.GetDateTime(reader.GetOrdinal("fechaPermiso")),
+                                IdIncapacidad = reader.GetInt32(reader.GetOrdinal("idincapacidades")),
+                                FechaInicio = reader.GetDateTime(reader.GetOrdinal("fechaInicio")),
+                                FechaFin = reader.GetDateTime(reader.GetOrdinal("fechaFin")),
                                 Colaborador = new Colaborador
                                 {
                                     IdColaborador = reader.GetInt32(reader.GetOrdinal("id_colaborador"))
                                 },
-                                TipoPermiso = new TipoPermiso
+                                TipoIncapacidad = new TipoIncapacidad
                                 {
-                                    IdTipoPermiso = reader.GetInt32(reader.GetOrdinal("idtipoPermiso"))
+                                    IdTipoIncapacidad = reader.GetInt32(reader.GetOrdinal("idtipoincapacidad"))
                                 },
-                                Horas = reader.GetInt32(reader.GetOrdinal("horas")),
-                                FechaGeneracion = reader.GetDateTime(reader.GetOrdinal("fechaGeneracion")),
                                 Estado = reader.GetString(reader.GetOrdinal("estado")),
                                 Justificacion = reader.GetString(reader.GetOrdinal("justificacion"))
                             };
-                            permisos.Add(permiso);
+                            incapacidades.Add(incapacidad);
                         }
                         connection.Close();
                     }
@@ -353,12 +351,12 @@ public class PermisosHandler
         }
         catch (SqlException ex)
         {
-            Console.WriteLine("Ocurrió un error al obtener los permisos a aprobar " + ex.Message);
+            Console.WriteLine("Ocurrió un error al obtener las incapacidades para aprobar " + ex.Message);
         }
         catch (Exception e)
         {
             Console.WriteLine(e.Message);
         }
-        return permisos;
+        return incapacidades;
     }
 }

@@ -1,0 +1,99 @@
+﻿@{
+    ViewData["Title"] = "Aprobar Horas Extra";
+}
+
+<div class="accordion mt-3" id="accordionPanelsStayOpenExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button bg-secondary text-white" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                Horas Extra Pendientes
+            </button>
+        </h2>
+        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+            <div class="accordion-body">
+                <table class="table table-secondary table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID Horas Extra</th>
+                            <th>Fecha Horas Extra</th>
+                            <th>Horas</th>
+                            <th>Estado</th>
+                            <th>Justificacion</th>
+                            <th>Nombre Colaborador</th>
+                            <th>Departamento</th>
+                            <th>Rol de Usuario</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var horasExtra in ViewBag.HorasExtraPendientes)
+                        {
+                            <tr>
+                                <td>@horasExtra.IdHorasExtra</td>
+                                <td>@horasExtra.FechaHorasExtra.ToString("yyyy-MM-dd")</td>
+                                <td>@horasExtra.Horas</td>
+                                <td>@horasExtra.Estado</td>
+                                <td>@horasExtra.Justificacion</td>
+                                <td>@horasExtra.Colaborador.Persona.Nombre @horasExtra.Colaborador.Persona.Apellido1 @horasExtra.Colaborador.Persona.Apellido2</td>
+                                <td>@horasExtra.Colaborador.Departamento.Nombre</td>
+                                <td>@horasExtra.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                                <td>
+                                    <a href="@Url.Action("AprobarHoraExtra", "GestionHorasExtra", new { idHoraExtra = horasExtra.IdHorasExtra })" class="btn btn-success">Aprobar</a>
+                                    <a href="@Url.Action("RechazarHoraExtra", "GestionHorasExtra", new { idHoraExtra = horasExtra.IdHorasExtra })" class="btn btn-danger">Rechazar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @if (ViewBag.HorasExtraAprobadasPorJefatura.Count != 0)
+    {
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-success text-white" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                    Horas Extra Aprobadas Por Jefatura
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <table class="table table-success table-bordered">
+                        <thead>
+                            <tr>
+                                <th>ID Horas Extra</th>
+                                <th>Fecha Horas Extra</th>
+                                <th>Horas</th>
+                                <th>Estado</th>
+                                <th>Justificacion</th>
+                                <th>Nombre Colaborador</th>
+                                <th>Departamento</th>
+                                <th>Rol de Usuario</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var horasExtra in ViewBag.HorasExtraAprobadasPorJefatura)
+                            {
+                                <tr>
+                                    <td>@horasExtra.IdHorasExtra</td>
+                                    <td>@horasExtra.FechaHorasExtra.ToString("yyyy-MM-dd")</td>
+                                    <td>@horasExtra.Horas</td>
+                                    <td>@horasExtra.Estado</td>
+                                    <td>@horasExtra.Justificacion</td>
+                                    <td>@horasExtra.Colaborador.Persona.Nombre @horasExtra.Colaborador.Persona.Apellido1 @horasExtra.Colaborador.Persona.Apellido2</td>
+                                    <td>@horasExtra.Colaborador.Departamento.Nombre</td>
+                                    <td>@horasExtra.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                                    <td>
+                                        <a href="@Url.Action("AprobarHoraExtra", "GestionHorasExtra", new { idHoraExtra = horasExtra.IdHorasExtra })" class="btn btn-success">Aprobar</a>
+                                        <a href="@Url.Action("RechazarHoraExtra", "GestionHorasExtra", new { idHoraExtra = horasExtra.IdHorasExtra })" class="btn btn-danger">Rechazar</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>

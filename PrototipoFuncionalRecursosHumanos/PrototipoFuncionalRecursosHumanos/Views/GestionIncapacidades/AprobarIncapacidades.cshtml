@@ -1,0 +1,137 @@
+﻿@{
+    ViewData["Title"] = "Aprobar Incapacidades";
+}
+
+<div class="accordion mt-3" id="accordionPanelsStayOpenExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button bg-secondary text-white" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                Incapacidades Pendientes
+            </button>
+        </h2>
+        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+            <div class="accordion-body">
+                <table class="table table-secondary table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID Incapacidad</th>
+                            <th>Fecha Inicio</th>
+                            <th>Fecha Fin</th>
+                            <th>Tipo Incapacidad</th>
+                            <th>Estado</th>
+                            <th>Justificacion</th>
+                            <th>Nombre Colaborador</th>
+                            <th>Departamento</th>
+                            <th>Rol de Usuario</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var incapacidad in ViewBag.IncapacidadesPendientes)
+                        {
+                            <tr>
+                                <td>@incapacidad.IdIncapacidad</td>
+                                <td>@incapacidad.FechaInicio.ToString("yyyy-MM-dd")</td>
+                                <td>@incapacidad.FechaFin.ToString("yyyy-MM-dd")</td>
+                                <td>
+                                    <form asp-action="EditarTipoIncapacidad" asp-controller="GestionIncapacidades" method="post">
+                                        <input type="hidden" name="idIncapacidad" value="@incapacidad.IdIncapacidad" style="display:none" />
+                                        <select name="idTipoIncapacidad" onchange="this.form.submit()">
+                                            @foreach (var tipoIncapacidad in ViewBag.TipoIncapacidades)
+                                            {
+                                                if (tipoIncapacidad.IdTipoIncapacidad == incapacidad.TipoIncapacidad.IdTipoIncapacidad)
+                                                {
+                                                    <option value="@tipoIncapacidad.IdTipoIncapacidad" selected disabled>@tipoIncapacidad.Descripcion</option>
+                                                }
+                                                else if (tipoIncapacidad.Descripcion != "no definido")
+                                                {
+                                                    <option value="@tipoIncapacidad.IdTipoIncapacidad">@tipoIncapacidad.Descripcion</option>
+                                                }
+                                            }
+                                        </select>
+                                    </form>
+                                </td>
+                                <td>@incapacidad.Estado</td>
+                                <td>@incapacidad.Justificacion</td>
+                                <td>@incapacidad.Colaborador.Persona.Nombre @incapacidad.Colaborador.Persona.Apellido1 @incapacidad.Colaborador.Persona.Apellido2</td>
+                                <td>@incapacidad.Colaborador.Departamento.Nombre</td>
+                                <td>@incapacidad.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                                <td>
+                                    <a href="@Url.Action("AprobarIncapacidad", "GestionIncapacidades", new { idIncapacidad = incapacidad.IdIncapacidad, tipoIncapacidad = incapacidad.TipoIncapacidad.Descripcion })" class="btn btn-success">Aprobar</a>
+                                    <a href="@Url.Action("RechazarIncapacidad", "GestionIncapacidades", new { idIncapacidad = incapacidad.IdIncapacidad })" class="btn btn-danger">Rechazar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @if (ViewBag.IncapacidadesAprobadasPorJefatura.Count != 0)
+    {
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-success text-white" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                    Incapacidades Aprobadas Por Jefatura
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <table class="table table-success table-bordered">
+                        <thead>
+                            <tr>
+                                <th>ID Incapacidad</th>
+                                <th>Fecha Inicio</th>
+                                <th>Fecha Fin</th>
+                                <th>Tipo Incapacidad</th>
+                                <th>Estado</th>
+                                <th>Justificacion</th>
+                                <th>Nombre Colaborador</th>
+                                <th>Departamento</th>
+                                <th>Rol de Usuario</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var incapacidad in ViewBag.IncapacidadesAprobadasPorJefatura)
+                            {
+                                <tr>
+                                    <td>@incapacidad.IdIncapacidad</td>
+                                    <td>@incapacidad.FechaInicio.ToString("yyyy-MM-dd")</td>
+                                    <td>@incapacidad.FechaFin.ToString("yyyy-MM-dd")</td>
+                                    <td>
+                                        <form asp-action="EditarTipoIncapacidad" asp-controller="GestionIncapacidades" method="post">
+                                            <input type="hidden" name="idIncapacidad" value="@incapacidad.IdIncapacidad" style="display:none" />
+                                            <select name="idTipoIncapacidad" onchange="this.form.submit()">
+                                                @foreach (var tipoIncapacidad in ViewBag.TipoIncapacidades)
+                                                {
+                                                    if (tipoIncapacidad.IdTipoIncapacidad == incapacidad.TipoIncapacidad.IdTipoIncapacidad)
+                                                    {
+                                                        <option value="@tipoIncapacidad.IdTipoIncapacidad" selected disabled>@tipoIncapacidad.Descripcion</option>
+                                                    }
+                                                    else if (tipoIncapacidad.Descripcion != "no definido")
+                                                    {
+                                                        <option value="@tipoIncapacidad.IdTipoIncapacidad">@tipoIncapacidad.Descripcion</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </form>
+                                    </td>
+                                    <td>@incapacidad.Estado</td>
+                                    <td>@incapacidad.Justificacion</td>
+                                    <td>@incapacidad.Colaborador.Persona.Nombre @incapacidad.Colaborador.Persona.Apellido1 @incapacidad.Colaborador.Persona.Apellido2</td>
+                                    <td>@incapacidad.Colaborador.Departamento.Nombre</td>
+                                    <td>@incapacidad.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                                    <td>
+                                        <a href="@Url.Action("AprobarIncapacidad", "GestionIncapacidades", new { idIncapacidad = incapacidad.IdIncapacidad, tipoIncapacidad = incapacidad.TipoIncapacidad.Descripcion })" class="btn btn-success">Aprobar</a>
+                                        <a href="@Url.Action("RechazarIncapacidad", "GestionIncapacidades", new { idIncapacidad = incapacidad.IdIncapacidad })" class="btn btn-danger">Rechazar</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>
