@@ -18,6 +18,18 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\carlo\source\repos\PrototipoFuncionalRecursosHumanos\PrototipoFuncionalRecursosHumanos\PrototipoFuncionalRecursosHumanos
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/carlo/source/repos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/Views/EvaluacionEmpleado/EvaluarEmpleado.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZhbHVhY2lvbkVtcGxlYWRvXEV2YWx1YXJFbXBsZWFkby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/carlo/source/repos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/Views/EvaluacionEmpleado/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZhbHVhY2lvbkVtcGxlYWRvXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/carlo/source/repos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/Views/EvaluacionEmpleado/ListaEvaluaciones.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZhbHVhY2lvbkVtcGxlYWRvXExpc3RhRXZhbHVhY2lvbmVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/carlo/source/repos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/Views/GestionHorasExtra/AprobarHorasExtra.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VzdGlvbkhvcmFzRXh0cmFcQXByb2JhckhvcmFzRXh0cmEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

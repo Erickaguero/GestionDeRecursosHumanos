@@ -1,0 +1,41 @@
+﻿@model IEnumerable<PrototipoFuncionalRecursosHumanos.Models.Colaborador>
+@{
+    ViewData["Title"] = "Evaluacion de empleados";
+}
+
+<h2 class="text-center mb-3">Evaluacion de empleados</h2>
+
+<div class="mt-2">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id Colaborador</th>
+                <th>Identificacion</th>
+                <th>Nombre completo</th>
+                <th>Correo</th>
+                <th>Departamento</th>
+                <th>Fecha de ingreso</th>
+                <th>Rol de Usuario</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var colaborador in Model)
+            {
+                <tr>
+                    <td>@colaborador.IdColaborador</td>
+                    <td>@colaborador.Persona.Identificacion</td>
+                    <td>@colaborador.Persona.Nombre @colaborador.Persona.Apellido1 @colaborador.Persona.Apellido2</td>
+                    <td>@colaborador.Usuario.Correo</td>
+                    <td>@colaborador.Departamento.Nombre</td>
+                    <td>@colaborador.FechaContratacion?.ToString("dd/MM/yyyy")</td>
+                    <td>@colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                    <td>
+                        <a href="@Url.Action("EvaluarEmpleado", "EvaluacionEmpleado", new { idColaborador = colaborador.IdColaborador })" class="btn btn-success">Evaluar</a>
+                        <a href="@Url.Action("ListaEvaluaciones", "EvaluacionEmpleado", new { idColaborador = colaborador.IdColaborador })" class="btn btn-primary">Ver Evaluaciones</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
