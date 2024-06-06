@@ -6,13 +6,13 @@
         public DateTime? FechaEvaluacion { get; set; }
         public Colaborador? Colaborador { get; set; }
         
-        public double? PromedioEvaluacion { get; set; }
+        public double? NotaEvaluacion { get; set; }
 
         public List<Pregunta>? Preguntas { get; set; }
 
         public Evaluacion()
         {
-            PromedioEvaluacion = 0;
+            NotaEvaluacion = 0;
             Preguntas = new List<Pregunta>();
         }
 
@@ -21,7 +21,7 @@
             IdEvaluacion = idEvaluacion;
             FechaEvaluacion = fechaEvaluacion;
             Colaborador = colaborador;
-            PromedioEvaluacion = promedioEvaluacion;
+            NotaEvaluacion = promedioEvaluacion;
             Preguntas = new List<Pregunta>();
         }
     }

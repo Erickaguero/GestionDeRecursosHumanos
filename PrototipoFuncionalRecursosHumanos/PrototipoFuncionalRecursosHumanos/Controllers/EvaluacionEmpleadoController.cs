@@ -33,7 +33,8 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             var rolDeUsuario = colaborador.Usuario.RolDeUsuario.Descripcion;
             if (rolDeUsuario != "administrador") return RedirectToAction("Index", "Home");
             Evaluacion evaluacion = new Evaluacion();
-            evaluacion.Colaborador = colaborador;
+            var colaboradorEvaluado = colaboradorHandler.ObtenerColaborador(idColaborador);
+            evaluacion.Colaborador = colaboradorEvaluado;
 
             evaluacion.Preguntas = new List<Pregunta>
             {
@@ -57,7 +58,8 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             var rolDeUsuario = colaborador.Usuario.RolDeUsuario.Descripcion;
             if (rolDeUsuario != "administrador") return RedirectToAction("Index", "Home");
-            evaluacion.Colaborador = colaborador;
+            var colaboradorEvaluado = colaboradorHandler.ObtenerColaborador((int)evaluacion.Colaborador.IdColaborador);
+            evaluacion.Colaborador = colaboradorEvaluado;
             if (ModelState.IsValid) 
             {
                 if (evaluacion.Preguntas.Any(p => p.Respuesta == null))
@@ -65,7 +67,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
                     // TODO: Implementar un mensaje de error en la vista
                     return View(evaluacion);
                 }
-                evaluacion.PromedioEvaluacion = CalcularNotaEvaluacion(evaluacion.Preguntas);
+                evaluacion.NotaEvaluacion = CalcularNotaEvaluacion(evaluacion.Preguntas);
                 if (evaluacionHandler.AgregarEvaluacion(evaluacion))
                 {
                     return RedirectToAction("Index");
@@ -95,7 +97,8 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (colaborador.IdColaborador == idColaborador) return RedirectToAction("Index", "Home");
             var rolDeUsuario = colaborador.Usuario.RolDeUsuario.Descripcion;
             if (rolDeUsuario != "administrador") return RedirectToAction("Index", "Home");
-            return RedirectToAction("Index");
+            evaluacionHandler.EliminarEvaluacion(idEvaluacion);
+            return RedirectToAction("ListaEvaluaciones", new { idColaborador = idColaborador });
         }
 
         public double CalcularNotaEvaluacion(List<Pregunta> preguntas)
@@ -105,7 +108,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             foreach (var pregunta in preguntas)
             {
                 ptsObtenidos += pregunta.Respuesta ?? 0;
-                ptsMaximos += 5;
+                ptsMaximos += 4;
             }
             double notaFinal = (ptsObtenidos * 100) / ptsMaximos;
             return notaFinal;

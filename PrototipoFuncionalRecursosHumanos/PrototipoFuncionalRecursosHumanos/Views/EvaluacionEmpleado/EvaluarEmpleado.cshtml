@@ -24,15 +24,16 @@
                 {
                     <tr>
                         <th scope="row">@Model.Preguntas[i].Texto</th>
+                        <td><input type="radio" name="Preguntas[@i].Respuesta" value="0"></td>
                         <td><input type="radio" name="Preguntas[@i].Respuesta" value="1"></td>
                         <td><input type="radio" name="Preguntas[@i].Respuesta" value="2"></td>
                         <td><input type="radio" name="Preguntas[@i].Respuesta" value="3"></td>
                         <td><input type="radio" name="Preguntas[@i].Respuesta" value="4"></td>
-                        <td><input type="radio" name="Preguntas[@i].Respuesta" value="5"></td>
                     </tr>
                 }
             </tbody>
         </table>
+        <input type="hidden" name="Colaborador.IdColaborador" value="@Model.Colaborador.IdColaborador" />
         <input type="submit" value="Evaluar" class="d-block w-100 mx-auto btn btn-primary mt-4" />
     </div>
 </form>

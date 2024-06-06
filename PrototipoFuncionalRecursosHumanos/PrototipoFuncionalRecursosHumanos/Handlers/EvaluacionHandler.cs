@@ -21,12 +21,12 @@ public class EvaluacionHandler
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO mydb.evaluacion (id_colaborador, promedioEvaluacion) " +
-                    "VALUES(@IdColaborador, @PromedioEvaluacion)";
+                string query = "INSERT INTO mydb.evaluacion (id_colaborador, notaEvaluacion) " +
+                    "VALUES(@IdColaborador, @NotaEvaluacion)";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@IdColaborador", evaluacion.Colaborador.IdColaborador);
-                    command.Parameters.AddWithValue("@PromedioEvaluacion", evaluacion.PromedioEvaluacion);
+                    command.Parameters.AddWithValue("@NotaEvaluacion", evaluacion.NotaEvaluacion);
                     connection.Open();
                     command.ExecuteNonQuery();
                 }
@@ -63,7 +63,7 @@ public class EvaluacionHandler
                                 IdEvaluacion = reader.GetInt32(reader.GetOrdinal("idevaluacion")),
                                 FechaEvaluacion = reader.GetDateTime(reader.GetOrdinal("fechaEvaluacion")),
                                 Colaborador = new ColaboradorHandler().ObtenerColaborador(reader.GetInt32(reader.GetOrdinal("id_colaborador"))),
-                                PromedioEvaluacion = reader.GetDouble(reader.GetOrdinal("promedioEvaluacion"))
+                                NotaEvaluacion = reader.GetDouble(reader.GetOrdinal("notaEvaluacion"))
                             };
                             evaluaciones.Add(evaluacion);
                         }
