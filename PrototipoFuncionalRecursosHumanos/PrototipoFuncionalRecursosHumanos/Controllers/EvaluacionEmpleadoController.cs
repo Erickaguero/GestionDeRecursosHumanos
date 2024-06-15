@@ -76,15 +76,16 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             return View(evaluacion);
         }
 
-        public IActionResult ListaEvaluaciones(int idColaborador)
+        public IActionResult ListaEvaluaciones(int idColaborador = -1)
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
-            var colaborador = colaboradorHandler.ObtenerColaborador(correo);
-            if (colaborador.IdColaborador == idColaborador) return RedirectToAction("Index", "Home");
-            var rolDeUsuario = colaborador.Usuario.RolDeUsuario.Descripcion;
-            if (rolDeUsuario != "administrador") return RedirectToAction("Index", "Home");
 
+            if (idColaborador == -1)
+            {
+                var colaborador = colaboradorHandler.ObtenerColaborador(correo);
+                idColaborador = (int)colaborador.IdColaborador;
+            }
             List<Evaluacion> evaluaciones = evaluacionHandler.ObtenerEvaluaciones(idColaborador);
             return View(evaluaciones);
         }
@@ -94,9 +95,8 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
-            if (colaborador.IdColaborador == idColaborador) return RedirectToAction("Index", "Home");
             var rolDeUsuario = colaborador.Usuario.RolDeUsuario.Descripcion;
-            if (rolDeUsuario != "administrador") return RedirectToAction("Index", "Home");
+            if (rolDeUsuario != "administrador") return RedirectToAction("ListaEvaluaciones", new { idColaborador = idColaborador });
             evaluacionHandler.EliminarEvaluacion(idEvaluacion);
             return RedirectToAction("ListaEvaluaciones", new { idColaborador = idColaborador });
         }

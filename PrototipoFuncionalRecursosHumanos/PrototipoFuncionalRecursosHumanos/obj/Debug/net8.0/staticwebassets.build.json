@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "5LkXLFh6/pYYqgR2X/EPg+LyFeE6KJKX+iXv5oUHfD8=",
+  "Hash": "StnwvoDkmtouO6KH7v6veVlAorSreCkftifgVNBopV0=",
   "Source": "PrototipoFuncionalRecursosHumanos",
   "BasePath": "_content/PrototipoFuncionalRecursosHumanos",
   "Mode": "Default",
@@ -1193,6 +1193,44 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\rotativa\\wkhtmltoimage.exe",
+      "SourceId": "PrototipoFuncionalRecursosHumanos",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\",
+      "BasePath": "_content/PrototipoFuncionalRecursosHumanos",
+      "RelativePath": "rotativa/wkhtmltoimage.exe",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\rotativa\\wkhtmltoimage.exe"
+    },
+    {
+      "Identity": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\rotativa\\wkhtmltopdf.exe",
+      "SourceId": "PrototipoFuncionalRecursosHumanos",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\",
+      "BasePath": "_content/PrototipoFuncionalRecursosHumanos",
+      "RelativePath": "rotativa/wkhtmltopdf.exe",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\rotativa\\wkhtmltopdf.exe"
     }
   ]
 }

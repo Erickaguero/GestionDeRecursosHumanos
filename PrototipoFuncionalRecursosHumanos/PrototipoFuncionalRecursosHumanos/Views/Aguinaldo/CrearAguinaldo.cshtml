@@ -1,0 +1,41 @@
+﻿@model IEnumerable<PrototipoFuncionalRecursosHumanos.Models.Colaborador>
+
+@{
+    ViewData["Title"] = "Crear Aguinaldo";
+}
+
+<a href="@Url.Action("GenerarAguinaldoColaboradores", "Aguinaldo")" class="btn btn-success">Generar aguinaldo para todos los colaboradores</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID Colaborador</th>
+            <th>Identificación</th>
+            <th>Nombre</th>
+            <th>Apellido 1</th>
+            <th>Apellido 2</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Correo</th>
+            <th>Rol de Usuario</th>
+            <th>Departamento</th>
+            <th>Puesto</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var colaborador in Model)
+        {
+            <tr>
+                <td>@colaborador.IdColaborador</td>
+                <td>@colaborador.Persona.Identificacion</td>
+                <td>@colaborador.Persona.Nombre</td>
+                <td>@colaborador.Persona.Apellido1</td>
+                <td>@colaborador.Persona.Apellido2</td>
+                <td>@colaborador.Persona.FechaDeNacimiento?.ToString("dd/MM/yyyy")</td>
+                <td>@colaborador.Usuario.Correo</td>
+                <td>@colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                <td>@colaborador.Departamento.Nombre</td>
+                <td>@colaborador.Puesto.NombrePuesto</td>
+            </tr>
+        }
+    </tbody>
+</table>

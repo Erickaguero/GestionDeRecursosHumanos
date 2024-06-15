@@ -13,6 +13,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         private ColaboradorHandler colaboradorHandler = new ColaboradorHandler();
         private RolDeUsuarioHandler rolDeUsuarioHandler = new RolDeUsuarioHandler();
         private DepartamentoHandler departamentoHandler = new DepartamentoHandler();
+        private PuestoHandler puestoHandler = new PuestoHandler();
         private EnviadorCorreos emailSender = new EnviadorCorreos();
         private GeneradorContrasena passwordGenerator = new GeneradorContrasena();
 
@@ -34,6 +35,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (Autorizador.ObtenerRolColaborador(Request) != "administrador") return RedirectToAction("Index", "Home");
             ViewBag.RolesDeUsuario = rolDeUsuarioHandler.ObtenerRolesDeUsuario();
             ViewBag.Departamentos = departamentoHandler.ObtenerDepartamentos();
+            ViewBag.Puestos = puestoHandler.ObtenerPuestos();
             return View();
         }
 
@@ -43,13 +45,15 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (ModelState.IsValid)
             {
                 colaborador.Usuario.Contrasena = passwordGenerator.GenerarContrasenaSegura();
-                colaboradorHandler.AgregarColaborador(colaborador);
-                emailSender.EnviarCorreoColaborador(colaborador);
-                return RedirectToAction("Index"); // Redirige al usuario a la página de inicio después de agregar el colaborador
+                if (colaboradorHandler.AgregarColaborador(colaborador)) { 
+                    emailSender.EnviarCorreoColaborador(colaborador);
+                    return RedirectToAction("Index"); // Redirige al usuario a la página de inicio después de agregar el colaborador
+                }
             }
             // Si los modelos no son válidos, devuelve la vista con los modelos para mostrar los errores de validación
-            RolDeUsuarioHandler rolDeUsuarioHandler = new RolDeUsuarioHandler();
             ViewBag.RolesDeUsuario = rolDeUsuarioHandler.ObtenerRolesDeUsuario();
+            ViewBag.Departamentos = departamentoHandler.ObtenerDepartamentos();
+            ViewBag.Puestos = puestoHandler.ObtenerPuestos();
             return View();
         }
 
@@ -69,6 +73,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             TempData["ContrasenaUsuario"] = colaborador.Usuario.Contrasena;
             ViewBag.RolesDeUsuario = rolDeUsuarioHandler.ObtenerRolesDeUsuario();
             ViewBag.Departamentos = departamentoHandler.ObtenerDepartamentos();
+            ViewBag.Puestos = puestoHandler.ObtenerPuestos();
 
             return View(colaborador);
         }
@@ -82,13 +87,16 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
                 {
                     colaborador.IdColaborador = (int)TempData["IdColaborador"];
                     colaborador.Usuario.Contrasena = (string)TempData["ContrasenaUsuario"];
-                    colaboradorHandler.EditarColaborador(colaborador);
-                    return RedirectToAction("Index"); // Redirige al usuario a la página de inicio después de agregar el colaborador
+                    if (colaboradorHandler.EditarColaborador(colaborador))
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
             }
             // Si los modelos no son válidos, devuelve la vista con los modelos para mostrar los errores de validación
             ViewBag.RolesDeUsuario = rolDeUsuarioHandler.ObtenerRolesDeUsuario();
             ViewBag.Departamentos = departamentoHandler.ObtenerDepartamentos();
+            ViewBag.Puestos = puestoHandler.ObtenerPuestos();
             return View();
         }
 

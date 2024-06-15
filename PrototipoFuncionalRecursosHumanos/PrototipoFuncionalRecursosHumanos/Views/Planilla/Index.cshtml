@@ -1,0 +1,50 @@
+﻿@model IEnumerable<PrototipoFuncionalRecursosHumanos.Models.Planilla>
+
+@{
+    ViewData["Title"] = "Gestion Planilla";
+}
+
+<a href="@Url.Action("CrearPlanilla", "Planilla")" class="btn btn-success">Crear Planilla</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID Planilla</th>
+            <th>Fecha Generacion</th>
+            <th>Monto Planilla</th>
+            <th>Deduccion CCSS</th>
+            <th>Deduccion renta</th>
+            <th>Salario bruto</th>
+            <th>Identificación</th>
+            <th>Nombre</th>
+            <th>Apellido 1</th>
+            <th>Apellido 2</th>
+            <th>Correo</th>
+            <th>Rol de Usuario</th>
+            <th>Departamento</th>
+            <th>Puesto</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var planilla in Model)
+        {
+            <tr>
+                <td>@planilla.IdPlanilla</td>
+                <td>@planilla.FechaGeneracion?.ToString("dd/MM/yyyy")</td>
+                <td>&#8353; @planilla.Monto</td>
+                <td>&#8353; @planilla.DeduccionCCSS</td>
+                <td>&#8353; @planilla.DeduccionRenta</td>
+                <td>&#8353; @planilla.SalarioBruto</td>
+                <td>@planilla.Colaborador.Persona.Identificacion</td>
+                <td>@planilla.Colaborador.Persona.Nombre</td>
+                <td>@planilla.Colaborador.Persona.Apellido1</td>
+                <td>@planilla.Colaborador.Persona.Apellido2</td>
+                <td>@planilla.Colaborador.Usuario.Correo</td>
+                <td>@planilla.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                <td>@planilla.Colaborador.Departamento.Nombre</td>
+                <td>@planilla.Colaborador.Puesto.NombrePuesto</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

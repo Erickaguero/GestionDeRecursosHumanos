@@ -1,0 +1,33 @@
+﻿@model IEnumerable<PrototipoFuncionalRecursosHumanos.Models.Puesto>
+
+@{
+    ViewData["Title"] = "Mantenimiento Puestos";
+}
+
+<a href="@Url.Action("CrearPuesto", "MantenimientoPuestos")" class="btn btn-success">Crear Puesto</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID Puesto</th>
+            <th>Nombre</th>
+            <th>Costo por hora</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var puesto in Model)
+        {
+            <tr>
+                <td>@puesto.IdPuesto</td>
+                <td>@puesto.NombrePuesto</td>
+                <td>@puesto.CostoPorHora</td>
+                <td>
+                    <a href="@Url.Action("EditarPuesto", "MantenimientoPuestos", new { idPuesto = puesto.IdPuesto })" class="btn btn-primary">Editar</a>
+                    <a href="@Url.Action("EliminarPuesto", "MantenimientoPuestos", new { idPuesto = puesto.IdPuesto })" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -4,6 +4,7 @@
     ViewData["Title"] = "Crear Colaborador";
     var listaRoles = new SelectList(ViewBag.RolesDeUsuario, "IdRolDeUsuario", "Descripcion");
     var listaDepartamentos = new SelectList(ViewBag.Departamentos, "IdDepartamento", "Nombre");
+    var listaPuestos = new SelectList(ViewBag.Puestos, "IdPuesto", "NombrePuesto");
 }
 
 <div class="container">
@@ -54,6 +55,13 @@
                         <option value="">Selecciona un Departamento</option>
                     </select>
                     <span asp-validation-for="Departamento.IdDepartamento" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Puesto.IdPuesto">Puesto del colaborador</label>
+                    <select asp-for="Puesto.IdPuesto" asp-items="listaPuestos" class="form-control">
+                        <option value="">Selecciona un Puesto</option>
+                    </select>
+                    <span asp-validation-for="Puesto.IdPuesto" class="text-danger"></span>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block mt-4 mx-auto">Crear Colaborador</button>
             </form>

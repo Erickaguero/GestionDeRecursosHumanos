@@ -1,6 +1,4 @@
-﻿
-
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 using System.Data;
 using System.Collections.Generic;
 using PrototipoFuncionalRecursosHumanos.Models;

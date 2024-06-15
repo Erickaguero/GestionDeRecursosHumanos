@@ -36,13 +36,24 @@
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <li><a class="dropdown-item" asp-area="" asp-controller="MantenimientoDepartamentos" asp-action="Index">Mantenimiento Departamentos</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="MantenimientoPuestos" asp-action="Index">Mantenimiento Puestos</a></li>
                                         <li><a class="dropdown-item" asp-area="" asp-controller="MantenimientoColaboradores" asp-action="Index">Mantenimiento Colaboradores</a></li>
                                     </ul>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="ConsultasYReportes" asp-action="Index">Consultas y reportes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Planilla" asp-action="Index">Gestionar Planilla</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Aguinaldo" asp-action="Index">Gestionar Aguinaldo</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Liquidacion" asp-action="Index">Gestionar Liquidacion</a>
+                                </li>
+
                             }
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="MenuPrincipal">Calcular Planilla</a>
-                            </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Gestión de vacaciones
@@ -97,6 +108,9 @@
                                     <a class="nav-link text-dark" asp-area="" asp-controller="EvaluacionEmpleado" asp-action="Index">Evaluar Empleados</a>
                                 </li>
                             }
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="EvaluacionEmpleado" asp-action="ListaEvaluaciones">Ver mis evaluaciones</a>
+                            </li>
                             <li class="nav-item mt-5">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CerrarSesion">Cerrar Sesion</a>
                             </li>

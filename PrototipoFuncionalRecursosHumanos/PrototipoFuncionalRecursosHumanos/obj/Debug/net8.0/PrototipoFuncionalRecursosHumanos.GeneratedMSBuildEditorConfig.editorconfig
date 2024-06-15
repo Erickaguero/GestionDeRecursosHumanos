@@ -18,6 +18,18 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\carlo\source\repos\PrototipoFuncionalRecursosHumanos\PrototipoFuncionalRecursosHumanos\PrototipoFuncionalRecursosHumanos
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/carlo/source/repos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/Views/Aguinaldo/CrearAguinaldo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWd1aW5hbGRvXENyZWFyQWd1aW5hbGRvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/carlo/source/repos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/Views/Aguinaldo/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWd1aW5hbGRvXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/carlo/source/repos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/Views/ConsultasYReportes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VsdGFzWVJlcG9ydGVzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/carlo/source/repos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/Views/EvaluacionEmpleado/EvaluarEmpleado.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZhbHVhY2lvbkVtcGxlYWRvXEV2YWx1YXJFbXBsZWFkby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -90,6 +102,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZWN1cGVyYXJDb250cmFzZW5hLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/carlo/source/repos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/Views/Liquidacion/CrearLiquidacion.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGlxdWlkYWNpb25cQ3JlYXJMaXF1aWRhY2lvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/carlo/source/repos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/Views/Liquidacion/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGlxdWlkYWNpb25cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/carlo/source/repos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/Views/MantenimientoColaboradores/CrearColaborador.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFudGVuaW1pZW50b0NvbGFib3JhZG9yZXNcQ3JlYXJDb2xhYm9yYWRvci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -112,6 +132,26 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/carlo/source/repos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/Views/MantenimientoDepartamentos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFudGVuaW1pZW50b0RlcGFydGFtZW50b3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/carlo/source/repos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/Views/MantenimientoPuestos/CrearPuesto.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFudGVuaW1pZW50b1B1ZXN0b3NcQ3JlYXJQdWVzdG8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/carlo/source/repos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/Views/MantenimientoPuestos/EditarPuesto.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFudGVuaW1pZW50b1B1ZXN0b3NcRWRpdGFyUHVlc3RvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/carlo/source/repos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/Views/MantenimientoPuestos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFudGVuaW1pZW50b1B1ZXN0b3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/carlo/source/repos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/Views/Planilla/CrearPlanilla.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhbmlsbGFcQ3JlYXJQbGFuaWxsYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/carlo/source/repos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/Views/Planilla/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhbmlsbGFcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/carlo/source/repos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/PrototipoFuncionalRecursosHumanos/Views/Shared/Error.cshtml]

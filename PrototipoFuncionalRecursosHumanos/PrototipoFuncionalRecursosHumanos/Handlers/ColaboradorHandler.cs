@@ -34,6 +34,7 @@ public class ColaboradorHandler
                     command.Parameters.Add(new SqlParameter("@Contrasena", colaborador.Usuario.Contrasena));
                     command.Parameters.Add(new SqlParameter("@IdRolDeUsuario", colaborador.Usuario.RolDeUsuario.IdRolDeUsuario));
                     command.Parameters.Add(new SqlParameter("@IdDepartamento", colaborador.Departamento.IdDepartamento));
+                    command.Parameters.Add(new SqlParameter("@IdPuesto", colaborador.Puesto.IdPuesto));
                     connection.Open();
                     command.ExecuteNonQuery();
                 }
@@ -74,6 +75,7 @@ public class ColaboradorHandler
                     command.Parameters.Add(new SqlParameter("@Contrasena", colaborador.Usuario.Contrasena));
                     command.Parameters.Add(new SqlParameter("@IdRolDeUsuario", colaborador.Usuario.RolDeUsuario.IdRolDeUsuario));
                     command.Parameters.Add(new SqlParameter("@IdDepartamento", colaborador.Departamento.IdDepartamento));
+                    command.Parameters.Add(new SqlParameter("@IdPuesto", colaborador.Puesto.IdPuesto));
                     connection.Open();
                     command.ExecuteNonQuery();
                 }
@@ -136,6 +138,11 @@ public class ColaboradorHandler
                                 {
                                     IdDepartamento = Convert.ToInt32(reader["iddepartamento"]),
                                     Nombre = reader["nombreDepartamento"].ToString(),
+                                },
+                                Puesto = new Puesto
+                                {
+                                    IdPuesto = Convert.ToInt32(reader["idpuesto"]),
+                                    NombrePuesto = reader["nombrePuesto"].ToString(),
                                 },
                             };
 
@@ -202,6 +209,11 @@ public class ColaboradorHandler
                                     IdDepartamento = Convert.ToInt32(reader["iddepartamento"]),
                                     Nombre = reader["nombreDepartamento"].ToString(),
                                 },
+                                Puesto = new Puesto
+                                {
+                                    IdPuesto = Convert.ToInt32(reader["idpuesto"]),
+                                    NombrePuesto = reader["nombrePuesto"].ToString(),
+                                },
                             };
                         }
                     }
@@ -264,6 +276,11 @@ public class ColaboradorHandler
                                 {
                                     IdDepartamento = Convert.ToInt32(reader["iddepartamento"]),
                                     Nombre = reader["nombreDepartamento"].ToString(),
+                                },
+                                Puesto = new Puesto
+                                {
+                                    IdPuesto = Convert.ToInt32(reader["idpuesto"]),
+                                    NombrePuesto = reader["nombrePuesto"].ToString(),
                                 },
                             };
                         }

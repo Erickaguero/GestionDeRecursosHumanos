@@ -8,6 +8,8 @@
 
         public Departamento? Departamento { get; set; }
         
+        public Puesto? Puesto { get; set; }
+
         public DateTime? FechaContratacion { get; set; }
 
         public Colaborador()
@@ -17,12 +19,13 @@
             Departamento = new Departamento();
         }
 
-        public Colaborador(int idColaborador, Persona persona, Usuario usuario, Departamento departamento, DateTime fechaContratacion)
+        public Colaborador(int idColaborador, Persona persona, Usuario usuario, Puesto puesto, Departamento departamento, DateTime fechaContratacion)
         {
             IdColaborador = idColaborador;
             Persona = persona;
             Usuario = usuario;
             FechaContratacion = fechaContratacion;
+            Puesto = puesto;
             Departamento = departamento;
         }
     }
