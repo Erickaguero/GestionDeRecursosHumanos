@@ -48,11 +48,11 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
                         return RedirectToAction("MenuPrincipal");
                     } else
                     {
-                        ModelState.AddModelError("Contrasena", "El usuario o contraseña no son validos");
+                        ModelState.AddModelError("Contrasena", "El usuario o contraseña no son válidos");
                     }
                 } else
                 {
-                    ModelState.AddModelError("Contrasena", "El usuario o contraseña no son validos");
+                    ModelState.AddModelError("Contrasena", "El usuario o contraseña no son válidos");
                 }
             }
             return View();
@@ -88,7 +88,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
                     }
                 } else
                 {
-                    ModelState.AddModelError("Correo", "El correo no se encuentra registrado");
+                    ModelState.AddModelError("Correo", "Datos inválidos para recuperar contraseña");
                 }
             }
             ModelState.AddModelError("Correo", "Hubo un error a la hora de procesar su peticion");

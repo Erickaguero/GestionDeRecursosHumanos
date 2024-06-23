@@ -4,6 +4,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Security.Cryptography;
 using PrototipoFuncionalRecursosHumanos.Services;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace PrototipoFuncionalRecursosHumanos.Controllers
 {
@@ -42,6 +43,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         [HttpPost]
         public IActionResult CrearColaborador(Colaborador colaborador)
         {
+            ValidarColaborador(colaborador, ModelState);
             if (ModelState.IsValid)
             {
                 colaborador.Usuario.Contrasena = passwordGenerator.GenerarContrasenaSegura();
@@ -64,13 +66,8 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (correo == null) return RedirectToAction("Index", "Home");
             if (Autorizador.ObtenerRolColaborador(Request) != "administrador") return RedirectToAction("Index", "Home");
             Colaborador colaborador = colaboradorHandler.ObtenerColaborador(idColaborador);
-            if (colaborador == null)
-            {
-                return NotFound();
-            }
-
             TempData["IdColaborador"] = colaborador.IdColaborador;
-            TempData["ContrasenaUsuario"] = colaborador.Usuario.Contrasena;
+            TempData["CorreoColaborador"] = colaborador.Usuario.Correo;
             ViewBag.RolesDeUsuario = rolDeUsuarioHandler.ObtenerRolesDeUsuario();
             ViewBag.Departamentos = departamentoHandler.ObtenerDepartamentos();
             ViewBag.Puestos = puestoHandler.ObtenerPuestos();
@@ -81,19 +78,26 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         [HttpPost]
         public IActionResult EditarColaborador(Colaborador colaborador)
         {
+            ValidarColaborador(colaborador, ModelState);
             if (ModelState.IsValid)
             {
-                if (TempData["IdColaborador"] != null && TempData["ContrasenaUsuario"] != null)
+                if (TempData["IdColaborador"] != null && TempData["CorreoColaborador"] != null)
                 {
                     colaborador.IdColaborador = (int)TempData["IdColaborador"];
-                    colaborador.Usuario.Contrasena = (string)TempData["ContrasenaUsuario"];
+                    if (colaborador.Usuario.Correo != (string)TempData["CorreoColaborador"])
+                    {
+                        colaborador.Usuario.Contrasena = passwordGenerator.GenerarContrasenaSegura();
+                    }
                     if (colaboradorHandler.EditarColaborador(colaborador))
                     {
+                        emailSender.EnviarCorreoColaborador(colaborador);
                         return RedirectToAction("Index");
                     }
                 }
             }
             // Si los modelos no son válidos, devuelve la vista con los modelos para mostrar los errores de validación
+            TempData["IdColaborador"] = colaborador.IdColaborador;
+            TempData["CorreoColaborador"] = colaborador.Usuario.Correo;
             ViewBag.RolesDeUsuario = rolDeUsuarioHandler.ObtenerRolesDeUsuario();
             ViewBag.Departamentos = departamentoHandler.ObtenerDepartamentos();
             ViewBag.Puestos = puestoHandler.ObtenerPuestos();
@@ -108,6 +112,57 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (Autorizador.ObtenerRolColaborador(Request) != "administrador") return RedirectToAction("Index", "Home");
             colaboradorHandler.EliminarColaborador(idColaborador);
             return RedirectToAction("Index");
+        }
+
+        public void ValidarColaborador(Colaborador colaborador, ModelStateDictionary ModelState)
+        {
+            if (string.IsNullOrEmpty(colaborador.Persona.Identificacion))
+            {
+                ModelState.AddModelError("Persona.Identificacion", "La identificación es requerida.");
+            }
+            if (string.IsNullOrEmpty(colaborador.Persona.Nombre))
+            {
+                ModelState.AddModelError("Persona.Nombre", "El nombre es requerido.");
+            }
+            if (string.IsNullOrEmpty(colaborador.Persona.Apellido1))
+            {
+                ModelState.AddModelError("Persona.Apellido1", "El primer apellido es requerido.");
+            }
+            if (string.IsNullOrEmpty(colaborador.Persona.Apellido2))
+            {
+                ModelState.AddModelError("Persona.Apellido2", "El segundo apellido es requerido.");
+            }
+            if (colaborador.Persona.FechaDeNacimiento == null)
+            {
+                ModelState.AddModelError("Persona.FechaDeNacimiento", "La fecha de nacimiento es requerida.");
+            }
+            else
+            {
+                if (colaborador.Persona.FechaDeNacimiento.Value.Date > DateTime.Now.Date)
+                {
+                    ModelState.AddModelError("Persona.FechaDeNacimiento", "La fecha de nacimiento no puede ser en el futuro.");
+                }
+                else if (colaborador.Persona.FechaDeNacimiento.Value.Date > DateTime.Now.Date.AddYears(-18))
+                {
+                    ModelState.AddModelError("Persona.FechaDeNacimiento", "La persona debe tener al menos 18 años.");
+                }
+            }
+            if (string.IsNullOrEmpty(colaborador.Usuario.Correo))
+            {
+                ModelState.AddModelError("Usuario.Correo", "El correo es requerido.");
+            }
+            if (colaborador.Usuario.RolDeUsuario == null || colaborador.Usuario.RolDeUsuario.IdRolDeUsuario == null)
+            {
+                ModelState.AddModelError("Usuario.RolDeUsuario.IdRolDeUsuario", "El rol de usuario es requerido.");
+            }
+            if (colaborador.Departamento == null || colaborador.Departamento.IdDepartamento == null)
+            {
+                ModelState.AddModelError("Departamento.IdDepartamento", "El departamento es requerido.");
+            }
+            if (colaborador.Puesto == null || colaborador.Puesto.IdPuesto == null)
+            {
+                ModelState.AddModelError("Puesto.IdPuesto", "El puesto es requerido.");
+            }
         }
     }
 }
