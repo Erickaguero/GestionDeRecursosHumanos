@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using PrototipoFuncionalRecursosHumanos.Models;
 using PrototipoFuncionalRecursosHumanos.Services;
 
@@ -32,10 +33,12 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         [HttpPost]
         public IActionResult CrearPuesto(Puesto puesto)
         {
+            ValidarPuesto(puesto, ModelState);
             if (ModelState.IsValid)
             {
-                puestoHandler.AgregarPuesto(puesto);
-                return RedirectToAction("Index");
+                if (puestoHandler.AgregarPuesto(puesto)) {
+                    return RedirectToAction("Index");
+                }
             }
             return View();
         }
@@ -59,6 +62,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         [HttpPost]
         public IActionResult EditarPuesto(Puesto puesto)
         {
+            ValidarPuesto(puesto, ModelState);
             if (ModelState.IsValid)
             {
                 if (TempData["IdPuesto"] != null)
@@ -79,6 +83,25 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (Autorizador.ObtenerRolColaborador(Request) != "administrador") return RedirectToAction("Index", "Home");
             puestoHandler.EliminarPuesto(idPuesto);
             return RedirectToAction("Index");
+        }
+
+        public void ValidarPuesto(Puesto puesto, ModelStateDictionary ModelState)
+        {
+            if (string.IsNullOrEmpty(puesto.NombrePuesto))
+            {
+                ModelState.AddModelError("NombrePuesto", "El nombre del puesto es requerido.");
+            }
+            if (puesto.CostoPorHora == null)
+            {
+                ModelState.AddModelError("CostoPorHora", "El costo por hora es requerido.");
+
+            } else 
+            {
+                if (puesto.CostoPorHora <= 0)
+                {
+                    ModelState.AddModelError("CostoPorHora", "El costo por hora debe ser mayor a 0.");
+                }
+            }
         }
 
     }

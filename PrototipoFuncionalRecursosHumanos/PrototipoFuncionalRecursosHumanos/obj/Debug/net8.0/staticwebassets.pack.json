@@ -17,6 +17,18 @@
       "PackagePath": "staticwebassets\\icons\\left_back_icon.svg"
     },
     {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\icons\\lock-icon.svg",
+      "PackagePath": "staticwebassets\\icons\\lock-icon.svg"
+    },
+    {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\icons\\mail_icon.svg",
+      "PackagePath": "staticwebassets\\icons\\mail_icon.svg"
+    },
+    {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\images\\login_img.jpg",
+      "PackagePath": "staticwebassets\\images\\login_img.jpg"
+    },
+    {
       "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

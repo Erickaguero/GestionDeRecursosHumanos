@@ -1,10 +1,15 @@
-﻿namespace PrototipoFuncionalRecursosHumanos.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PrototipoFuncionalRecursosHumanos.Models
 {
     public class Usuario
     {
         public int? IdUsuario { get; set; }
         public int? IdPersona { get; set; }
         public RolDeUsuario? RolDeUsuario { get; set; }
+
+        [EmailAddress(ErrorMessage = "El formato del correo es inválido")]
+        [MaxLength(45, ErrorMessage = "El correo es demasiado largo.")]
         public string? Correo { get; set; }
         public string? Contrasena { get; set; }
 

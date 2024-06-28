@@ -75,6 +75,18 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             return View(colaborador);
         }
 
+        [HttpGet]
+        public IActionResult ReiniciarContrasena(int idColaborador)
+        {
+            var correo = authenticator.ValidarToken(Request);
+            if (correo == null) return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerRolColaborador(Request) != "administrador") return RedirectToAction("Index", "Home");
+            Colaborador colaborador = colaboradorHandler.ObtenerColaborador(idColaborador);
+            colaborador.Usuario.Contrasena = passwordGenerator.GenerarContrasenaSegura();
+            emailSender.EnviarCorreoColaborador(colaborador);
+            return RedirectToAction("Index");
+        }
+
         [HttpPost]
         public IActionResult EditarColaborador(Colaborador colaborador)
         {
@@ -142,9 +154,9 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
                 {
                     ModelState.AddModelError("Persona.FechaDeNacimiento", "La fecha de nacimiento no puede ser en el futuro.");
                 }
-                else if (colaborador.Persona.FechaDeNacimiento.Value.Date > DateTime.Now.Date.AddYears(-18))
+                else if (colaborador.Persona.FechaDeNacimiento.Value.Date > DateTime.Now.Date.AddYears(-15))
                 {
-                    ModelState.AddModelError("Persona.FechaDeNacimiento", "La persona debe tener al menos 18 años.");
+                    ModelState.AddModelError("Persona.FechaDeNacimiento", "La persona debe tener al menos 15 años.");
                 }
             }
             if (string.IsNullOrEmpty(colaborador.Usuario.Correo))

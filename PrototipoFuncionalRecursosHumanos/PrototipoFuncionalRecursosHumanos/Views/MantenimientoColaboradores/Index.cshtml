@@ -37,8 +37,17 @@
                 <td>@colaborador.Departamento.Nombre</td>
                 <td>@colaborador.Puesto.NombrePuesto</td>
                 <td>
-                    <a href="@Url.Action("EditarColaborador", "MantenimientoColaboradores", new { idColaborador = colaborador.IdColaborador })" class="btn btn-primary">Editar</a>
-                    <a href="@Url.Action("EliminarColaborador", "MantenimientoColaboradores", new { idColaborador = colaborador.IdColaborador })" class="btn btn-danger">Eliminar</a>
+                    <div class="row">
+                        <div class="col">
+                            <a href="@Url.Action("EditarColaborador", "MantenimientoColaboradores", new { idColaborador = colaborador.IdColaborador })" class="btn btn-primary text-nowrap">Editar</a>
+                        </div>
+                        <div class="col">
+                            <a href="@Url.Action("EliminarColaborador", "MantenimientoColaboradores", new { idColaborador = colaborador.IdColaborador })" class="btn btn-danger text-nowrap">Eliminar</a>
+                        </div>
+                        <div class="col mt-2">
+                            <a href="@Url.Action("ReiniciarContrasena", "MantenimientoColaboradores", new { idColaborador = colaborador.IdColaborador })" class="btn btn-info text-nowrap">Reiniciar Contraseña</a>
+                        </div>
+                    </div>
                 </td>
             </tr>
         }

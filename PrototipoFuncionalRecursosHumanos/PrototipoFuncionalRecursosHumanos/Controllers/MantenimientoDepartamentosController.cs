@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using PrototipoFuncionalRecursosHumanos.Models;
 using PrototipoFuncionalRecursosHumanos.Services;
 
@@ -32,6 +33,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         [HttpPost]
         public IActionResult CrearDepartamento(Departamento departamento)
         {
+            ValidarDepartamento(departamento, ModelState);
             if (ModelState.IsValid)
             {
                 departamentoHandler.AgregarDepartamento(departamento.Nombre);
@@ -59,13 +61,16 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         [HttpPost]
         public IActionResult EditarDepartamento(Departamento departamento)
         {
+            ValidarDepartamento(departamento, ModelState);
             if (ModelState.IsValid)
             {
                 if (TempData["IdDepartamento"] != null)
                 {
                     departamento.IdDepartamento = (int)TempData["IdDepartamento"];
-                    departamentoHandler.EditarDepartamento(departamento);
-                    return RedirectToAction("Index");
+                    if (departamentoHandler.EditarDepartamento(departamento))
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
             }
             return View();
@@ -79,6 +84,14 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (Autorizador.ObtenerRolColaborador(Request) != "administrador") return RedirectToAction("Index", "Home");
             departamentoHandler.EliminarDepartamento(idDepartamento);
             return RedirectToAction("Index");
+        }
+
+        public void ValidarDepartamento(Departamento departamento, ModelStateDictionary ModelState)
+        {
+            if (string.IsNullOrEmpty(departamento.Nombre))
+            {
+                ModelState.AddModelError("Nombre", "El nombre del departamento es requerido.");
+            }
         }
     }
 }

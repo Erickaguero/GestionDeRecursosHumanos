@@ -19,7 +19,8 @@ namespace PrototipoFuncionalRecursosHumanos.Services
             correo.From = new MailAddress(correoAplicacion);
             correo.To.Add(colaborador.Usuario.Correo);
             correo.Subject = "Bienvenido al equipo de trabajo " + colaborador.Persona.Nombre;
-            correo.Body = "Esta es tu contraseña para que inicies sesion: " + colaborador.Usuario.Contrasena;
+            correo.Body = "Esta es tu contraseña para que inicies sesión: " + colaborador.Usuario.Contrasena;
+            correo.Body += "\n\nPuedes iniciar sesión en el sistema a través de este enlace: https://localhost:7120/";
             correo.IsBodyHtml = false;
 
             using (var smtp = new SmtpClient("smtp.gmail.com"))
@@ -40,7 +41,8 @@ namespace PrototipoFuncionalRecursosHumanos.Services
             correo.From = new MailAddress(correoAplicacion);
             correo.To.Add(correoUsuario);
             correo.Subject = "Se hizo una solicitud de recuperación de contraseña";
-            correo.Body = "Esta es tu nueva contraseña para que inicies sesion: " + contrasenaNueva;
+            correo.Body = "Esta es tu nueva contraseña para que inicies sesión: " + contrasenaNueva;
+            correo.Body += "\n\nPuedes iniciar sesión en el sistema a través de este enlace: https://localhost:7120/";
             correo.IsBodyHtml = false;
 
             using (var smtp = new SmtpClient("smtp.gmail.com"))

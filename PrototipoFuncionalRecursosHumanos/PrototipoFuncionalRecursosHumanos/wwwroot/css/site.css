@@ -1,5 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+:root {
+    --white: #FFFFFF;
+    --dark: #202133ff;
+    --light-gray: #F8F8FAff;
+    --bronze: #DB812Dff;
+    --black: #000000ff;
+    --orange: #F24713ff;
+    --deep-dark: #212233ff;
+    --blue: #6289B5ff;
+    --night: #191726ff;
+    --gray: #5A5B6Dff;
+    --cool-gray: #898B99ff;
+    --purple: #4444F9FF;
+}
+
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
@@ -9,14 +25,144 @@ html {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
+    height: 100%
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    height: 100%;
+    background-color: var(--dark);
+    color: var(--white);
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Tablas */
+
+
+.table {
+    color: var(--white);
+    border: 1px solid var(--white);
+    padding: 2em;
+    border-radius: 5px;
+    margin-top: 2em;
+}
+
+.table-success {
+    color: var(--dark);
+}
+
+.table-secondary {
+    color: var(--dark);
+}
+
+.table-danger {
+    color: var(--dark);
+}
+/* Header */
+.header_navbar {
+    background-color: var(--light-gray);
+    color: var(--white);
+}
+
+.header_menu {
+    background-color: var(--night);
+    color: var(--white);
+}
+
+.header_link {
+    color: var(--white) !important;
+}
+/* Iniciar Sesion */
+.login_page {
+    display: flex;
+    height: 100%;
+}
+
+.login_page > div {
+    width: 50%;
+}
+
+
+.login_form {
+    background-color: var(--dark);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login_elements {
+    width: 60%;
+}
+
+.login_input_box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.login_input_label {
+    padding-left: 1.5em;
+    position: absolute;
+    min-width: 40px;
+}
+
+.login_input_icon {
+    height: 30px;
+    width: 30px;
+}
+
+.login_input {
+    width: 100%;
+    height: 50px;
+    padding-left: 4em;
+    border-radius: 5px;
+    background-color: var(--white);
+    border: 2px solid var(--light-gray);
+    transition: border-color 0.1s ease;
+}
+
+.login_input:focus {
+    border: 2px solid var(--orange);
+    outline: none;
+}
+
+.login_btn {
+    background-color: var(--purple);
+    color: var(--white);
+}
+
+.login_img {
+    background-image: url('/images/login_img.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+}
+
+/* Recuperar contrasena*/
+
+.password_recovery_page {
+    color: var(--white);
+    background-color: var(--dark);
+    height: 100vh;
+    padding-top: 2em;
+    padding-left: 3em;
+}
+
+.password_recovery_img a img {
+    filter: invert(1) grayscale(1) brightness(10);
+}
+
+.password_recovery_elements {
+    width: 45%;
 }

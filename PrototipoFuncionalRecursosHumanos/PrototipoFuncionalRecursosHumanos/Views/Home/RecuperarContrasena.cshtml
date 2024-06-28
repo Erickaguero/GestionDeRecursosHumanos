@@ -5,24 +5,31 @@
     Layout = "~/Views/Shared/_Layout_Without_Header_And_Footer.cshtml";
 }
 
-<div class="my-5">
-    <a href="@Url.Action("IniciarSesion", "Home")">
-        <img src="~/icons/left_back_icon.svg" alt="icono de regreso" height="50px" width="50px" />
-    </a>
-</div>
+<div class="password_recovery_page">
+    <div class="password_recovery_img">
+        <a href="@Url.Action("IniciarSesion", "Home")">
+            <img src="~/icons/left_back_icon.svg" alt="icono de regreso" height="50px" width="50px" />
+        </a>
+    </div>
+    <div class="password_recovery_elements">
 
-<div class="container">
-    <div>
-        <div class="mt-5">
-            <h2 class="text-center">Recuperar contraseña</h2>
-            <form asp-action="RecuperarContrasena" asp-controller="Home" class="mt-3">
-                <div class="form-group">
-                    <label asp-for="Correo">Correo</label>
-                    <input asp-for="Correo" type="text" class="form-control" placeholder="Introduce el correo de la cuenta que quieres recuperar">
-                    <span asp-validation-for="Correo" class="text-danger"></span>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block mt-4 mx-auto">Recuperar contraseña</button>
-            </form>
+        <div class="mt-3 password_recovery_form">
+            <div>
+                <h2>Recuperar contraseña</h2>
+                <form asp-action="RecuperarContrasena" asp-controller="Home" class="mt-3">
+                    <div class="form-group login_elements">
+                        <div class="login_input_box">
+                            <label asp-for="Correo" class="login_input_label">
+                                <img src="~/icons/mail_icon.svg" class="login_input_icon" alt="icono correo" />
+                            </label>
+                            <input asp-for="Correo" type="text" class="login_input" placeholder="Introduce tu correo">
+                        </div>
+                        <span asp-validation-for="Correo" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn login_btn btn-block mt-4 mx-auto">Recuperar contraseña</button>
+                </form>
+            </div>
         </div>
+
     </div>
 </div>
