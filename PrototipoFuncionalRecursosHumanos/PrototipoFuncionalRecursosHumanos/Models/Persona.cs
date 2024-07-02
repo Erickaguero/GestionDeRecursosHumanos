@@ -11,6 +11,8 @@ namespace PrototipoFuncionalRecursosHumanos.Models
         [MaxLength(20, ErrorMessage = "El número de identificación es demasiado largo.")]
         public string? Identificacion { get; set; }
 
+        public string? TipoIdentificacion { get; set; }
+
         [RegularExpression(@"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$", ErrorMessage = "El nombre solo debe contener letras.")]
         [MaxLength(45, ErrorMessage = "El nombre es demasiado largo.")]
         public string? Nombre { get; set; }
@@ -29,10 +31,11 @@ namespace PrototipoFuncionalRecursosHumanos.Models
         {
         }
 
-        public Persona(int idPersona, string identificacion, string nombre, string apellido1, string apellido2, DateTime fechaDeNacimiento)
+        public Persona(int idPersona, string identificacion, string tipoIdentificacion, string nombre, string apellido1, string apellido2, DateTime fechaDeNacimiento)
         {
             IdPersona = idPersona;
             Identificacion = identificacion;
+            TipoIdentificacion = tipoIdentificacion;
             Nombre = nombre;
             Apellido1 = apellido1;
             Apellido2 = apellido2;

@@ -6,7 +6,11 @@
     <div class="accordion-item">
         <h2 class="accordion-header">
             <button class="accordion-button bg-secondary text-white" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                Permisos Pendientes
+                Permisos Pendientes 
+                @if (ViewBag.PermisosPendientes.Count != 0)
+                {
+                    <img src="~/icons/bell_icon.svg" alt="notification" class="table_notification_icon"> @ViewBag.PermisosPendientes.Count
+                }
             </button>
         </h2>
         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
@@ -74,6 +78,10 @@
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed bg-success text-white" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
                     Permisos Aprobados Por Jefatura
+                    @if (ViewBag.PermisosAprobadosPorJefatura.Count != 0)
+                    {
+                        <img src="~/icons/bell_icon.svg" alt="notification" class="table_notification_icon"> @ViewBag.PermisosAprobadosPorJefatura.Count
+                    }
                 </button>
             </h2>
             <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">

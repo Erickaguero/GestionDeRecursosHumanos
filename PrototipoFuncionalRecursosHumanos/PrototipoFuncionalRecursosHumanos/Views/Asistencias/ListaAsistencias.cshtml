@@ -1,0 +1,31 @@
+﻿@model IEnumerable<PrototipoFuncionalRecursosHumanos.Models.Asistencia>
+
+@{
+    ViewData["Title"] = "Lista Asistencias";
+}
+
+<div class="container">
+    <h2 class="text-center mb-3">Lista de asistencias de @ViewBag.NombreColaborador</h2>
+    
+        <div class="mt-2">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID Asistencia</th>
+                        <th>Fecha Ingreso</th>
+                        <th>Fecha Salida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var asistencia in Model)
+                    {
+                        <tr>
+                            <td>@asistencia.IdAsistencia</td>
+                            <td>@asistencia.FechaIngreso?.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>@asistencia.FechaSalida?.ToString("dd/MM/yyyy HH:mm")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+</div>

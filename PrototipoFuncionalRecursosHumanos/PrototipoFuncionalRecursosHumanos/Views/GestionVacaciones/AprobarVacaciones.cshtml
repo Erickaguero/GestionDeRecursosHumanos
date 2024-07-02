@@ -7,6 +7,10 @@
         <h2 class="accordion-header">
             <button class="accordion-button bg-secondary text-white" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
                 Vacaciones Pendientes
+                @if (ViewBag.VacacionesPendientes.Count != 0)
+                {
+                    <img src="~/icons/bell_icon.svg" alt="notification" class="table_notification_icon"> @ViewBag.VacacionesPendientes.Count
+                }
             </button>
         </h2>
         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
@@ -52,6 +56,10 @@
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed bg-success text-white" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
                     Vacaciones Aprobadas Por Jefatura
+                    @if (ViewBag.VacacionesAprobadasPorJefatura.Count != 0)
+                    {
+                        <img src="~/icons/bell_icon.svg" alt="notification" class="table_notification_icon"> @ViewBag.VacacionesAprobadasPorJefatura.Count
+                    }
                 </button>
             </h2>
             <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">

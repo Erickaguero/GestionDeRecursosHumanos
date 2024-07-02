@@ -44,3 +44,4 @@ C:\Users\carlo\source\repos\PrototipoFuncionalRecursosHumanos\PrototipoFuncional
 C:\Users\carlo\source\repos\PrototipoFuncionalRecursosHumanos\PrototipoFuncionalRecursosHumanos\PrototipoFuncionalRecursosHumanos\obj\Debug\net8.0\ref\PrototipoFuncionalRecursosHumanos.dll
 C:\Users\carlo\source\repos\PrototipoFuncionalRecursosHumanos\PrototipoFuncionalRecursosHumanos\PrototipoFuncionalRecursosHumanos\bin\Debug\net8.0\Rotativa.AspNetCore.dll
 C:\Users\carlo\source\repos\PrototipoFuncionalRecursosHumanos\PrototipoFuncionalRecursosHumanos\PrototipoFuncionalRecursosHumanos\obj\Debug\net8.0\PrototipoFuncionalRecursosHumanos.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\carlo\source\repos\PrototipoFuncionalRecursosHumanos\PrototipoFuncionalRecursosHumanos\PrototipoFuncionalRecursosHumanos\bin\Debug\net8.0\Newtonsoft.Json.dll

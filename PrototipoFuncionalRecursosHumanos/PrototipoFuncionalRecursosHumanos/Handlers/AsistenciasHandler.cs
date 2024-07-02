@@ -52,4 +52,44 @@ public class AsistenciasHandler
         }
         return asistencias;
     }
+
+    public List<Asistencia> ObtenerAsistencias(int idColaborador)
+    {
+        List<Asistencia> asistencias = new List<Asistencia>();
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM mydb.asistencia WHERE id_colaborador = @IdColaborador";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@IdColaborador", idColaborador);
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Asistencia asistencia = new Asistencia
+                            {
+                                IdAsistencia = reader.GetInt32(reader.GetOrdinal("idasistencia")),
+                                FechaIngreso = reader.GetDateTime(reader.GetOrdinal("fechaIngreso")),
+                                FechaSalida = reader.GetDateTime(reader.GetOrdinal("fechaSalida")),
+                                Colaborador = new Colaborador
+                                {
+                                    IdColaborador = reader.GetInt32(reader.GetOrdinal("id_colaborador")),
+                                }
+                            };
+                            asistencias.Add(asistencia);
+                        }
+                    }
+                }
+                connection.Close();
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        return asistencias;
+    }
 }

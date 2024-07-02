@@ -6,6 +6,12 @@
         public Colaborador? Colaborador { get; set; }
         public DateTime? FechaGeneracion { get; set; }
         public double? Monto { get; set; }
+
+        public double? HorasExtra { get; set; }
+        public double? HorasIncapacidades { get; set; }
+        public double? HorasPermiso { get; set; }
+        public double? HorasTrabajadas { get; set; }
+        public double? HorasVacaciones { get; set; }
         public double? DeduccionCCSS { get; set; }
         public double? DeduccionRenta { get; set; }
         public double? SalarioBruto { get; set; }

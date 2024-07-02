@@ -68,6 +68,11 @@ public class PlanillaHandler
                                 },
                                 FechaGeneracion = reader.GetDateTime(reader.GetOrdinal("fechaGeneracion")),
                                 Monto = reader.GetDouble(reader.GetOrdinal("monto")),
+                                HorasExtra = reader.GetDouble(reader.GetOrdinal("horasExtra")),
+                                HorasIncapacidades = reader.GetDouble(reader.GetOrdinal("horasIncapacidades")),
+                                HorasPermiso = reader.GetDouble(reader.GetOrdinal("horasPermiso")),
+                                HorasTrabajadas = reader.GetDouble(reader.GetOrdinal("horasTrabajadas")),
+                                HorasVacaciones = reader.GetDouble(reader.GetOrdinal("horasVacaciones")),
                                 DeduccionCCSS = reader.GetDouble(reader.GetOrdinal("deduccionCCSS")),
                                 DeduccionRenta = reader.GetDouble(reader.GetOrdinal("deduccionRenta")),
                                 SalarioBruto = reader.GetDouble(reader.GetOrdinal("salarioBruto"))

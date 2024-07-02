@@ -12,6 +12,7 @@
     --gray: #5A5B6Dff;
     --cool-gray: #898B99ff;
     --purple: #4444F9FF;
+    --yellow: #F3CE45FF;
 }
 
 html {
@@ -65,6 +66,13 @@ body {
 
 .table-danger {
     color: var(--dark);
+}
+
+.table_notification_icon {
+    height: 25px;
+    width: 25px;
+    margin-left: .7em;
+    filter: invert(87%) sepia(99%) saturate(3174%) hue-rotate(323deg) brightness(102%) contrast(91%);
 }
 /* Header */
 .header_navbar {
@@ -166,3 +174,4 @@ body {
 .password_recovery_elements {
     width: 45%;
 }
+

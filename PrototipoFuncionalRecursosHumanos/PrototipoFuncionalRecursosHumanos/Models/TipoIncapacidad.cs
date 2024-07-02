@@ -9,7 +9,7 @@
         {
         }
 
-        public TipoIncapacidad(int idTipoIncapacidad, string descripcion)
+        public TipoIncapacidad(int? idTipoIncapacidad, string? descripcion)
         {
             IdTipoIncapacidad = idTipoIncapacidad;
             Descripcion = descripcion;

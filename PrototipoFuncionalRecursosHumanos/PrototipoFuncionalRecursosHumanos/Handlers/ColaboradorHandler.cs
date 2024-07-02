@@ -35,6 +35,7 @@ public class ColaboradorHandler
                     command.Parameters.Add(new SqlParameter("@IdRolDeUsuario", colaborador.Usuario.RolDeUsuario.IdRolDeUsuario));
                     command.Parameters.Add(new SqlParameter("@IdDepartamento", colaborador.Departamento.IdDepartamento));
                     command.Parameters.Add(new SqlParameter("@IdPuesto", colaborador.Puesto.IdPuesto));
+                    command.Parameters.Add(new SqlParameter("@TipoIdentificacion", colaborador.Persona.TipoIdentificacion));
                     connection.Open();
                     command.ExecuteNonQuery();
                 }
@@ -76,6 +77,7 @@ public class ColaboradorHandler
                     command.Parameters.Add(new SqlParameter("@IdRolDeUsuario", colaborador.Usuario.RolDeUsuario.IdRolDeUsuario));
                     command.Parameters.Add(new SqlParameter("@IdDepartamento", colaborador.Departamento.IdDepartamento));
                     command.Parameters.Add(new SqlParameter("@IdPuesto", colaborador.Puesto.IdPuesto));
+                    command.Parameters.Add(new SqlParameter("@TipoIdentificacion", colaborador.Persona.TipoIdentificacion));
                     connection.Open();
                     command.ExecuteNonQuery();
                 }
@@ -119,6 +121,7 @@ public class ColaboradorHandler
                                 Persona = new Persona
                                 {
                                     Identificacion = reader["identificacion"].ToString(),
+                                    TipoIdentificacion = reader["tipoIdentificacion"].ToString(),
                                     Nombre = reader["nombre"].ToString(),
                                     Apellido1 = reader["apellido1"].ToString(),
                                     Apellido2 = reader["apellido2"].ToString(),
@@ -189,6 +192,7 @@ public class ColaboradorHandler
                                 Persona = new Persona
                                 {
                                     Identificacion = reader["identificacion"].ToString(),
+                                    TipoIdentificacion = reader["tipoIdentificacion"].ToString(),
                                     Nombre = reader["nombre"].ToString(),
                                     Apellido1 = reader["apellido1"].ToString(),
                                     Apellido2 = reader["apellido2"].ToString(),
@@ -257,6 +261,7 @@ public class ColaboradorHandler
                                 Persona = new Persona
                                 {
                                     Identificacion = reader["identificacion"].ToString(),
+                                    TipoIdentificacion = reader["tipoIdentificacion"].ToString(),
                                     Nombre = reader["nombre"].ToString(),
                                     Apellido1 = reader["apellido1"].ToString(),
                                     Apellido2 = reader["apellido2"].ToString(),

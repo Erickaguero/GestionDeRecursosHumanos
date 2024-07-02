@@ -17,6 +17,18 @@
                     <input asp-for="Persona.Identificacion" class="form-control">
                     <span asp-validation-for="Persona.Identificacion" class="text-danger"></span>
                 </div>
+                <fieldset class="form-group">
+                    <legend>Seleccione el tipo de identificación</legend>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" asp-for="Persona.TipoIdentificacion" value="nacional" id="tipoNacional">
+                        <label class="form-check-label" for="tipoNacional">Nacional</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" asp-for="Persona.TipoIdentificacion" value="extranjero" id="tipoExtranjero">
+                        <label class="form-check-label" for="tipoExtranjero">Extranjero</label>
+                    </div>
+                    <span asp-validation-for="Persona.TipoIdentificacion" class="text-danger"></span>
+                </fieldset>
                 <div class="form-group">
                     <label asp-for="Persona.Nombre">Nombre</label>
                     <input asp-for="Persona.Nombre" class="form-control">

@@ -4,38 +4,40 @@
     ViewData["Title"] = "Lista Evaluaciones";
 }
 
-<h2 class="text-center mb-3">Lista de evaluaciones</h2>
+<div class="container">
+    <h2 class="text-center mb-3">Lista de evaluaciones</h2>
 
-<div class="mt-2">
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Id Evaluacion</th>
-                <th>Fecha Evaluacion</th>
-                <th>Nota Evaluacion</th>
-                <th>Nombre completo</th>
-                <th>Correo</th>
-                <th>Departamento</th>
-                <th>Rol de Usuario</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var evaluacion in Model)
-            {
+    <div class="mt-2">
+        <table class="table table-bordered">
+            <thead>
                 <tr>
-                    <td>@evaluacion.IdEvaluacion</td>
-                    <td>@evaluacion.FechaEvaluacion?.ToString("yyyy-MM-dd")</td>
-                    <td>@evaluacion.NotaEvaluacion</td>
-                    <td>@evaluacion.Colaborador.Persona.Nombre @evaluacion.Colaborador.Persona.Apellido1 @evaluacion.Colaborador.Persona.Apellido2</td>
-                    <td>@evaluacion.Colaborador.Usuario.Correo</td>
-                    <td>@evaluacion.Colaborador.Departamento.Nombre</td>
-                    <td>@evaluacion.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
-                    <td>
-                        <a href="@Url.Action("EliminarEvaluacion", "EvaluacionEmpleado", new { idColaborador = evaluacion.Colaborador.IdColaborador, idEvaluacion = evaluacion.IdEvaluacion })" class="btn btn-danger">Eliminar</a>
-                    </td>
+                    <th>Id Evaluacion</th>
+                    <th>Fecha Evaluacion</th>
+                    <th>Nota Evaluacion</th>
+                    <th>Nombre completo</th>
+                    <th>Correo</th>
+                    <th>Departamento</th>
+                    <th>Rol de Usuario</th>
+                    <th>Acciones</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var evaluacion in Model)
+                {
+                    <tr>
+                        <td>@evaluacion.IdEvaluacion</td>
+                        <td>@evaluacion.FechaEvaluacion?.ToString("yyyy-MM-dd")</td>
+                        <td>@evaluacion.NotaEvaluacion</td>
+                        <td>@evaluacion.Colaborador.Persona.Nombre @evaluacion.Colaborador.Persona.Apellido1 @evaluacion.Colaborador.Persona.Apellido2</td>
+                        <td>@evaluacion.Colaborador.Usuario.Correo</td>
+                        <td>@evaluacion.Colaborador.Departamento.Nombre</td>
+                        <td>@evaluacion.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                        <td>
+                            <a href="@Url.Action("EliminarEvaluacion", "EvaluacionEmpleado", new { idColaborador = evaluacion.Colaborador.IdColaborador, idEvaluacion = evaluacion.IdEvaluacion })" class="btn btn-danger">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

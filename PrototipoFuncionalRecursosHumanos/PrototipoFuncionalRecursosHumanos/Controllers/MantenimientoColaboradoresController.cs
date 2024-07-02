@@ -5,6 +5,7 @@ using System.Net;
 using System.Security.Cryptography;
 using PrototipoFuncionalRecursosHumanos.Services;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Newtonsoft.Json;
 
 namespace PrototipoFuncionalRecursosHumanos.Controllers
 {
@@ -68,6 +69,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             Colaborador colaborador = colaboradorHandler.ObtenerColaborador(idColaborador);
             TempData["IdColaborador"] = colaborador.IdColaborador;
             TempData["CorreoColaborador"] = colaborador.Usuario.Correo;
+            TempData["ContrasenaColaborador"] = colaborador.Usuario.Contrasena;
             ViewBag.RolesDeUsuario = rolDeUsuarioHandler.ObtenerRolesDeUsuario();
             ViewBag.Departamentos = departamentoHandler.ObtenerDepartamentos();
             ViewBag.Puestos = puestoHandler.ObtenerPuestos();
@@ -84,6 +86,8 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             Colaborador colaborador = colaboradorHandler.ObtenerColaborador(idColaborador);
             colaborador.Usuario.Contrasena = passwordGenerator.GenerarContrasenaSegura();
             emailSender.EnviarCorreoColaborador(colaborador);
+            var alerta = Alertas.Exito("Se reinicio la contraseña con exito.");
+            TempData["Alerta"] = JsonConvert.SerializeObject(alerta);
             return RedirectToAction("Index");
         }
 
@@ -91,25 +95,30 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         public IActionResult EditarColaborador(Colaborador colaborador)
         {
             ValidarColaborador(colaborador, ModelState);
+            if (TempData["IdColaborador"] != null && TempData["CorreoColaborador"] != null)
+            {
+                colaborador.IdColaborador = (int)TempData["IdColaborador"];
+                if (colaborador.Usuario.Correo != (string)TempData["CorreoColaborador"])
+                {
+                    colaborador.Usuario.Contrasena = passwordGenerator.GenerarContrasenaSegura();
+                }
+                else
+                {
+                    colaborador.Usuario.Contrasena = (string)TempData["ContrasenaColaborador"];
+                }
+            }
             if (ModelState.IsValid)
             {
-                if (TempData["IdColaborador"] != null && TempData["CorreoColaborador"] != null)
+                if (colaboradorHandler.EditarColaborador(colaborador))
                 {
-                    colaborador.IdColaborador = (int)TempData["IdColaborador"];
-                    if (colaborador.Usuario.Correo != (string)TempData["CorreoColaborador"])
-                    {
-                        colaborador.Usuario.Contrasena = passwordGenerator.GenerarContrasenaSegura();
-                    }
-                    if (colaboradorHandler.EditarColaborador(colaborador))
-                    {
-                        emailSender.EnviarCorreoColaborador(colaborador);
-                        return RedirectToAction("Index");
-                    }
+                    emailSender.EnviarCorreoColaborador(colaborador);
+                    return RedirectToAction("Index");
                 }
             }
             // Si los modelos no son válidos, devuelve la vista con los modelos para mostrar los errores de validación
             TempData["IdColaborador"] = colaborador.IdColaborador;
             TempData["CorreoColaborador"] = colaborador.Usuario.Correo;
+            TempData["ContrasenaColaborador"] = colaborador.Usuario.Contrasena;
             ViewBag.RolesDeUsuario = rolDeUsuarioHandler.ObtenerRolesDeUsuario();
             ViewBag.Departamentos = departamentoHandler.ObtenerDepartamentos();
             ViewBag.Puestos = puestoHandler.ObtenerPuestos();
@@ -131,6 +140,21 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (string.IsNullOrEmpty(colaborador.Persona.Identificacion))
             {
                 ModelState.AddModelError("Persona.Identificacion", "La identificación es requerida.");
+            }
+            if (string.IsNullOrEmpty(colaborador.Persona.TipoIdentificacion))
+            {
+                ModelState.AddModelError("Persona.TipoIdentificacion", "El tipo de identificación es requerida.");
+            }
+            if (!string.IsNullOrEmpty(colaborador.Persona.Identificacion) && !string.IsNullOrEmpty(colaborador.Persona.TipoIdentificacion))
+            {
+                if (colaborador.Persona.TipoIdentificacion == "nacional" && colaborador.Persona.Identificacion.Length != 9)
+                {
+                    ModelState.AddModelError("Persona.Identificacion", "La cédula ingresada no es valida.");
+                }
+                else if (colaborador.Persona.TipoIdentificacion == "extranjero" && colaborador.Persona.Identificacion.Length < 10)
+                {
+                    ModelState.AddModelError("Persona.Identificacion", "El dimex ingresado no es valido.");
+                }
             }
             if (string.IsNullOrEmpty(colaborador.Persona.Nombre))
             {

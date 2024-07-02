@@ -7,6 +7,10 @@
         <h2 class="accordion-header">
             <button class="accordion-button bg-secondary text-white" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
                 Horas Extra Pendientes
+                @if (ViewBag.HorasExtraPendientes.Count != 0)
+                {
+                    <img src="~/icons/bell_icon.svg" alt="notification" class="table_notification_icon"> @ViewBag.HorasExtraPendientes.Count
+                }
             </button>
         </h2>
         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
@@ -54,6 +58,10 @@
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed bg-success text-white" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
                     Horas Extra Aprobadas Por Jefatura
+                    @if (ViewBag.HorasExtraAprobadasPorJefatura.Count != 0)
+                    {
+                        <img src="~/icons/bell_icon.svg" alt="notification" class="table_notification_icon"> @ViewBag.HorasExtraAprobadasPorJefatura.Count
+                    }
                 </button>
             </h2>
             <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">

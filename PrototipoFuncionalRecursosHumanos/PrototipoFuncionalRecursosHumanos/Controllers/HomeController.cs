@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.IdentityModel.JsonWebTokens;
 using PrototipoFuncionalRecursosHumanos.Services;
+using Newtonsoft.Json;
 
 namespace PrototipoFuncionalRecursosHumanos.Controllers
 {
