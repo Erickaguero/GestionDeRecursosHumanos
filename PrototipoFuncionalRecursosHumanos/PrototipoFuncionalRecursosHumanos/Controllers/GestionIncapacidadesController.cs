@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using PrototipoFuncionalRecursosHumanos.Models;
 using PrototipoFuncionalRecursosHumanos.Services;
 
@@ -10,6 +11,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         private ColaboradorHandler colaboradorHandler = new ColaboradorHandler();
         private IncapacidadesHandler incapacidadesHandler = new IncapacidadesHandler();
         private TipoIncapacidadesHandler tipoIncapacidadesHandler = new TipoIncapacidadesHandler();
+        private ValidacionesHandler validacionesHandler = new ValidacionesHandler();
 
         [HttpGet]
         public IActionResult SolicitarIncapacidades()
@@ -44,13 +46,9 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (correo == null) return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             incapacidad.Colaborador = colaborador;
+            ValidarIncapacidades(incapacidad, ModelState);
             if (ModelState.IsValid)
             {
-                if (incapacidadesHandler.IncapacidadExistente(incapacidad))
-                {
-                    ModelState.AddModelError("FechaFin", "Ya tienes una solicitud de incapacidad en esa fecha");
-                    return View();
-                }
                 incapacidad.Estado = "Pendiente";
 
                 if (incapacidadesHandler.AgregarIncapacidad(incapacidad))
@@ -125,6 +123,36 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             incapacidadesHandler.RechazarIncapacidad(idIncapacidad);
 
             return RedirectToAction("AprobarIncapacidades");
+        }
+
+        public void ValidarIncapacidades(Incapacidades incapacidad, ModelStateDictionary ModelState)
+        {
+            if (incapacidad.FechaFin == null)
+            {
+                ModelState.AddModelError("FechaFin", "La fecha de fin es obligatoria.");
+            }
+            if (string.IsNullOrEmpty(incapacidad.Justificacion))
+            {
+                ModelState.AddModelError("Justificacion", "La justificación es obligatoria.");
+            }
+            if (incapacidad.FechaFin != null && incapacidad.FechaFin < DateTime.Now.Date)
+            {
+                ModelState.AddModelError("FechaFin", "La fecha de fin no puede ser una fecha anterior.");
+            }
+            if (incapacidad.FechaFin != null)
+            {
+                if (incapacidadesHandler.IncapacidadExistente(incapacidad))
+                {
+                    ModelState.AddModelError("FechaFin", "Ya tienes una solicitud de incapacidad en esa fecha");
+                }
+                if (validacionesHandler.ValidarSiContieneFeriado(DateTime.Now.Date, (DateTime)incapacidad.FechaFin))
+                {
+                    ModelState.AddModelError("FechaFin", "No puede crear incapacidades en periodos que contengan feriados.");
+                }
+                if (!validacionesHandler.ValidarFechasUnicas(DateTime.Now.Date, (DateTime)incapacidad.FechaFin, (int)incapacidad.Colaborador.IdColaborador)) {
+                    ModelState.AddModelError("FechaFin", "No puede solicitar una incapacidad si ya solicito una hora extra, incapacidad, vacacion o permiso en el mismo periodo.");
+                }
+            }
         }
 
         public void ObtenerInformacionColaboradores(List<Incapacidades> incapacidades)

@@ -24,16 +24,18 @@
                 {
                     <tr>
                         <th scope="row">@Model.Preguntas[i].Texto</th>
-                        <td><input type="radio" name="Preguntas[@i].Respuesta" value="0"></td>
-                        <td><input type="radio" name="Preguntas[@i].Respuesta" value="1"></td>
-                        <td><input type="radio" name="Preguntas[@i].Respuesta" value="2"></td>
-                        <td><input type="radio" name="Preguntas[@i].Respuesta" value="3"></td>
-                        <td><input type="radio" name="Preguntas[@i].Respuesta" value="4"></td>
+                        <td><input type="radio" name="Preguntas[@i].Respuesta" value="0" @(Model.Preguntas[i].Respuesta == 0 ? "checked" : "")></td>
+                        <td><input type="radio" name="Preguntas[@i].Respuesta" value="1" @(Model.Preguntas[i].Respuesta == 1 ? "checked" : "")></td>
+                        <td><input type="radio" name="Preguntas[@i].Respuesta" value="2" @(Model.Preguntas[i].Respuesta == 2 ? "checked" : "")></td>
+                        <td><input type="radio" name="Preguntas[@i].Respuesta" value="3" @(Model.Preguntas[i].Respuesta == 3 ? "checked" : "")></td>
+                        <td><input type="radio" name="Preguntas[@i].Respuesta" value="4" @(Model.Preguntas[i].Respuesta == 4 ? "checked" : "")></td>
+                        <input type="hidden" name="Preguntas.Index" value="@i" />
                     </tr>
                 }
             </tbody>
         </table>
         <input type="hidden" name="Colaborador.IdColaborador" value="@Model.Colaborador.IdColaborador" />
+        <span asp-validation-for="Preguntas" class="text-danger"></span>
         <input type="submit" value="Evaluar" class="d-block w-100 mx-auto btn btn-primary mt-4" />
     </div>
 </form>

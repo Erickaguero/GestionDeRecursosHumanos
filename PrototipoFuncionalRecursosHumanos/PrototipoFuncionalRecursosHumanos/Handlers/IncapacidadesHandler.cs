@@ -54,11 +54,11 @@ public class IncapacidadesHandler
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                string query = "SELECT COUNT(*) FROM mydb.incapacidades WHERE id_colaborador = @IdColaborador AND (estado = 'Pendiente' OR estado = 'Aprobado') AND (fechaInicio <= @FechaFin AND fechaFin >= @FechaInicio)";
+                string query = "SELECT COUNT(*) FROM mydb.incapacidades WHERE id_colaborador = @IdColaborador AND (estado = 'Pendiente' OR estado = 'Aprobado') AND (CONVERT(date, fechaInicio) <= @FechaFin AND CONVERT(date, fechaFin) >= @FechaInicio)";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@IdColaborador", incapacidad.Colaborador.IdColaborador);
-                    command.Parameters.AddWithValue("@FechaInicio", DateTime.Now);
+                    command.Parameters.AddWithValue("@FechaInicio", DateTime.Now.Date);
                     command.Parameters.AddWithValue("@FechaFin", incapacidad.FechaFin);
 
                     int count = (int)command.ExecuteScalar();

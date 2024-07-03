@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using PrototipoFuncionalRecursosHumanos.Models;
 using PrototipoFuncionalRecursosHumanos.Services;
 
@@ -9,6 +10,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         private Autenticador authenticator = new Autenticador();
         private ColaboradorHandler colaboradorHandler = new ColaboradorHandler();
         private VacacionesHandler vacacionesHandler = new VacacionesHandler();
+        private ValidacionesHandler validacionesHandler = new ValidacionesHandler();
 
         [HttpGet]
         public IActionResult SolicitarVacaciones()
@@ -45,18 +47,9 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             vacacion.Colaborador = colaborador;
             ViewBag.CantidadDiasDisponibles = vacacionesHandler.ObtenerDiasDisponibles(colaborador.IdColaborador);
+            ValidarVacaciones(vacacion, ModelState);
             if (ModelState.IsValid)
             {
-                if (!TieneSuficientesDiasVacaciones(vacacion))
-                {
-                    ModelState.AddModelError("FechaFin", "No tienes suficientes días de vacaciones disponibles");
-                    return View();
-                }
-                if (vacacionesHandler.VacacionesExistentes(vacacion))
-                {
-                    ModelState.AddModelError("FechaFin", "Ya tienes una solicitud de vacaciones en esas fechas");
-                    return View();
-                }
                 vacacion.Estado = "Pendiente";
 
                 if (vacacionesHandler.AgregarVacacion(vacacion)) {
@@ -118,6 +111,49 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             vacacionesHandler.RechazarVacacion(idVacacion);
 
             return RedirectToAction("AprobarVacaciones");
+        }
+
+        public void ValidarVacaciones(Vacaciones vacacion, ModelStateDictionary ModelState)
+        {
+            if (vacacion.FechaInicio == null)
+            {
+                ModelState.AddModelError("FechaFin", "La fecha de inicio es obligatoria.");
+            }
+            if (vacacion.FechaInicio != null && vacacion.FechaInicio <= DateTime.Now.Date)
+            {
+                ModelState.AddModelError("FechaFin", "La fecha de inicio no puede ser hoy o una fecha anterior.");
+            }
+            if (vacacion.FechaFin != null && vacacion.FechaFin <= DateTime.Now.Date)
+            {
+                ModelState.AddModelError("FechaFin", "La fecha de fin no puede ser hoy o una fecha anterior.");
+            }
+            if (vacacion.FechaFin == null)
+            {
+                ModelState.AddModelError("FechaFin", "La fecha de fin es obligatoria.");
+            }
+            if (vacacion.FechaInicio != null && vacacion.FechaFin != null)
+            {
+                if (vacacion.FechaInicio > vacacion.FechaFin)
+                {
+                    ModelState.AddModelError("FechaFin", "La fecha de inicio no puede ser mayor a la fecha de fin.");
+                }
+                if (!TieneSuficientesDiasVacaciones(vacacion))
+                {
+                    ModelState.AddModelError("FechaFin", "No tienes suficientes días de vacaciones disponibles");
+                }
+                if (vacacionesHandler.VacacionesExistentes(vacacion))
+                {
+                    ModelState.AddModelError("FechaFin", "Ya tienes una solicitud de vacaciones en esas fechas");
+                }
+                if (validacionesHandler.ValidarSiContieneFeriado((DateTime)vacacion.FechaInicio, (DateTime)vacacion.FechaFin))
+                {
+                    ModelState.AddModelError("FechaFin", "No puede crear vacaciones en periodos que contengan feriados.");
+                }
+                if (!validacionesHandler.ValidarFechasUnicas((DateTime)vacacion.FechaInicio, (DateTime)vacacion.FechaFin, (int)vacacion.Colaborador.IdColaborador))
+                {
+                    ModelState.AddModelError("FechaFin", "No puede solicitar vacaciones si ya solicito una hora extra, incapacidad, vacacion o permiso en el mismo periodo.");
+                }
+            }
         }
 
         public bool TieneSuficientesDiasVacaciones(Vacaciones? vacacion)

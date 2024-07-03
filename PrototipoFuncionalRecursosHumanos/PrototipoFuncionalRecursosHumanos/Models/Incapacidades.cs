@@ -1,4 +1,6 @@
-﻿namespace PrototipoFuncionalRecursosHumanos.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PrototipoFuncionalRecursosHumanos.Models
 {
     public class Incapacidades
     {
@@ -8,6 +10,9 @@
         public DateTime? FechaInicio { get; set; }
         public DateTime? FechaFin { get; set; }
         public string? Estado { get; set; }
+
+        [RegularExpression(@"^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s]*$", ErrorMessage = "La justificación ingresada es invalida.")]
+        [MaxLength(125, ErrorMessage = "La justificación es demasiado larga.")]
         public string? Justificacion { get; set; }
 
         public Incapacidades()

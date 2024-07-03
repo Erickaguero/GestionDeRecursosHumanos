@@ -9,7 +9,7 @@
         {
         }
         
-        public Pregunta(string texto, int respuesta = 0)
+        public Pregunta(string texto, int respuesta = -1)
         {
             Texto = texto;
             Respuesta = respuesta;

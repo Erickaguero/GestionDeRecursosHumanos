@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using PrototipoFuncionalRecursosHumanos.Models;
 using PrototipoFuncionalRecursosHumanos.Services;
 
@@ -10,6 +11,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         private ColaboradorHandler colaboradorHandler = new ColaboradorHandler();
         private PermisosHandler permisosHandler = new PermisosHandler();
         private TipoPermisosHandler tipoPermisosHandler = new TipoPermisosHandler();
+        private ValidacionesHandler validacionesHandler = new ValidacionesHandler();
 
         [HttpGet]
         public IActionResult SolicitarPermisos()
@@ -44,13 +46,9 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (correo == null) return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             permiso.Colaborador = colaborador;
+            ValidarPermisos(permiso, ModelState);
             if (ModelState.IsValid)
             {
-                if (permisosHandler.PermisoExistente(permiso))
-                {
-                    ModelState.AddModelError("FechaPermiso", "Ya tienes una solicitud de permiso en esa fecha");
-                    return View();
-                }
                 permiso.Estado = "Pendiente";
 
                 if (permisosHandler.AgregarPermiso(permiso))
@@ -125,6 +123,45 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             permisosHandler.RechazarPermiso(idPermiso);
 
             return RedirectToAction("AprobarPermisos");
+        }
+
+        public void ValidarPermisos(Permisos permiso, ModelStateDictionary ModelState)
+        {
+            if (permiso.FechaPermiso == null)
+            {
+                ModelState.AddModelError("FechaPermiso", "La fecha de permiso es obligatoria.");
+            }
+            if (permiso.Horas == null)
+            {
+                ModelState.AddModelError("Horas", "La cantidad de horas es obligatoria.");
+            }
+            if (permiso.Horas < 1 || permiso.Horas > 2)
+            {
+                ModelState.AddModelError("Horas", "La cantidad de horas ingresada es invalida.");
+            }
+            if (string.IsNullOrEmpty(permiso.Justificacion))
+            {
+                ModelState.AddModelError("Justificacion", "La justificación es obligatoria.");
+            }
+            if (permiso.FechaPermiso != null && permiso.FechaPermiso < DateTime.Now.Date)
+            {
+                ModelState.AddModelError("FechaPermiso", "La fecha del permiso no puede ser una fecha anterior a la de hoy.");
+            }
+            if (permiso.FechaPermiso != null)
+            {
+                if (permisosHandler.PermisoExistente(permiso))
+                {
+                    ModelState.AddModelError("FechaPermiso", "Ya tienes una solicitud de permiso en esa fecha");
+                }
+                if (validacionesHandler.ValidarSiEsFeriado((DateTime)permiso.FechaPermiso))
+                {
+                    ModelState.AddModelError("FechaPermiso", "No puedes solicitar permisos en un día feriado.");
+                }
+                if (!validacionesHandler.ValidarFechaUnica((DateTime)permiso.FechaPermiso, (int)permiso.Colaborador.IdColaborador))
+                {
+                    ModelState.AddModelError("FechaPermiso", "No puede solicitar un permiso si ya solicito una hora extra, incapacidad, vacacion o permiso en esa misma fecha.");
+                }
+            }
         }
 
         public void ObtenerInformacionColaboradores(List<Permisos> permisos)
