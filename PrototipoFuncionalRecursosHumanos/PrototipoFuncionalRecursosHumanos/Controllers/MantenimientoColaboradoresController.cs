@@ -86,7 +86,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             Colaborador colaborador = colaboradorHandler.ObtenerColaborador(idColaborador);
             colaborador.Usuario.Contrasena = passwordGenerator.GenerarContrasenaSegura();
             emailSender.EnviarCorreoColaborador(colaborador);
-            var alerta = Alertas.Exito("Se reinicio la contraseña con exito.");
+            var alerta = Alertas.Exito("Se reinicio la contraseña con éxito.");
             TempData["Alerta"] = JsonConvert.SerializeObject(alerta);
             return RedirectToAction("Index");
         }

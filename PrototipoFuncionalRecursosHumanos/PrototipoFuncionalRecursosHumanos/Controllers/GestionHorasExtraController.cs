@@ -178,6 +178,15 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
                     ModelState.AddModelError("FechaHorasExtra", "No puede solicitar horas extra si ya solicito una hora extra, incapacidad, vacacion o permiso en esa misma fecha.");
                 }
             }
+            if (horasExtra.FechaHorasExtra != null && horasExtra.Horas >= 1)
+            {
+                if (horasExtra.Horas > horasExtraHandler.ObtenerHorasExtraTrabajadas((DateTime)horasExtra.FechaHorasExtra, (int)horasExtra.Colaborador.IdColaborador))
+                {
+                    {
+                        ModelState.AddModelError("Horas", "No puedes solicitar más horas extra de las que trabajaste.");
+                    }
+                }
+            }
         }
         public void ObtenerInformacionColaboradores(List<HorasExtra> horasExtras)
         {

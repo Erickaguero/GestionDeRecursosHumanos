@@ -179,6 +179,62 @@ public class HorasExtraHandler
         return exito;
     }
 
+    public double ObtenerHorasExtraTrabajadas(DateTime Fecha, int idColaborador)
+    {
+        double horasExtra = 0;
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                // Obtener la hora de salida según el contrato
+                string queryHoraSalidaContrato = @"
+                    SELECT j.horaSalida
+                    FROM mydb.accionpersonal a
+                    JOIN mydb.jornada j ON a.idjornada = j.idjornada
+                    WHERE a.id_colaborador = @idColaborador";
+
+                DateTime horaSalidaContrato;
+                using (SqlCommand command = new SqlCommand(queryHoraSalidaContrato, connection))
+                {
+                    command.Parameters.AddWithValue("@idColaborador", idColaborador);
+                    connection.Open();
+                    horaSalidaContrato = (DateTime)command.ExecuteScalar();
+                    connection.Close();
+                }
+
+                // Obtener la hora de salida real
+                string queryHoraSalidaReal = @"
+                    SELECT fechaSalida
+                    FROM mydb.asistencia
+                    WHERE id_colaborador = @idColaborador AND CONVERT(DATE, fechaSalida) = @Fecha";
+
+                DateTime horaSalidaReal;
+                using (SqlCommand command = new SqlCommand(queryHoraSalidaReal, connection))
+                {
+                    command.Parameters.AddWithValue("@idColaborador", idColaborador);
+                    command.Parameters.AddWithValue("@Fecha", Fecha.Date);
+                    connection.Open();
+                    object result = command.ExecuteScalar();
+                    if (result != null)
+                    {
+                        horaSalidaReal = (DateTime)result;
+                        // Calcular horas extra considerando solo la parte de tiempo
+                        TimeSpan diferencia = horaSalidaReal.TimeOfDay - horaSalidaContrato.TimeOfDay;
+                        horasExtra = diferencia.TotalHours > 0 ? diferencia.TotalHours : 0;
+                    }
+                    connection.Close();
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            // Manejar excepción, por ejemplo, registrando el error
+            Console.WriteLine($"Ocurrió un error al obtener las horas extra trabajadas: {ex.Message}");
+            return 0; // Indica que hubo un error
+        }
+        return horasExtra;
+    }
+
     public List<HorasExtra> ObtenerHorasExtra(int? idColaborador)
     {
         List<HorasExtra> horasExtra = new List<HorasExtra>();
