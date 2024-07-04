@@ -9,5 +9,11 @@ public static class Autorizador
         if (correo == null) return "";
         return colaboradorHandler.ObtenerColaborador(correo).Usuario.RolDeUsuario.Descripcion;
     }
+    public static string ObtenerEstadoColaborador(HttpRequest request)
+    {
+        var correo = autenticador.ValidarToken(request);
+        if (correo == null) return "";
+        return colaboradorHandler.ObtenerColaborador(correo).Estado;
+    }
 }
 

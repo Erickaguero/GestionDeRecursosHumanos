@@ -24,8 +24,10 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
-            if (Autorizador.ObtenerRolColaborador(Request) != "administrador") return RedirectToAction("Index", "Home");
-            List<Colaborador> colaboradores = colaboradorHandler.ObtenerColaboradores();
+            if (Autorizador.ObtenerRolColaborador(Request) != "administrador" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
+            List<Colaborador> colaboradoresActivos = colaboradorHandler.ObtenerColaboradores();
+            List<Colaborador> colaboradoresInactivos = colaboradorHandler.ObtenerColaboradoresInactivos();
+            List<Colaborador> colaboradores = new List<Colaborador>(colaboradoresActivos.Concat(colaboradoresInactivos));
             return View(colaboradores);
         }
 
@@ -34,7 +36,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
-            if (Autorizador.ObtenerRolColaborador(Request) != "administrador") return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerRolColaborador(Request) != "administrador" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             ViewBag.RolesDeUsuario = rolDeUsuarioHandler.ObtenerRolesDeUsuario();
             ViewBag.Departamentos = departamentoHandler.ObtenerDepartamentos();
             ViewBag.Puestos = puestoHandler.ObtenerPuestos();
@@ -65,7 +67,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
-            if (Autorizador.ObtenerRolColaborador(Request) != "administrador") return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerRolColaborador(Request) != "administrador" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             Colaborador colaborador = colaboradorHandler.ObtenerColaborador(idColaborador);
             TempData["IdColaborador"] = colaborador.IdColaborador;
             TempData["CorreoColaborador"] = colaborador.Usuario.Correo;
@@ -82,7 +84,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
-            if (Autorizador.ObtenerRolColaborador(Request) != "administrador") return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerRolColaborador(Request) != "administrador" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             Colaborador colaborador = colaboradorHandler.ObtenerColaborador(idColaborador);
             colaborador.Usuario.Contrasena = passwordGenerator.GenerarContrasenaSegura();
             emailSender.EnviarCorreoColaborador(colaborador);
@@ -130,7 +132,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
-            if (Autorizador.ObtenerRolColaborador(Request) != "administrador") return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerRolColaborador(Request) != "administrador" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             colaboradorHandler.EliminarColaborador(idColaborador);
             return RedirectToAction("Index");
         }

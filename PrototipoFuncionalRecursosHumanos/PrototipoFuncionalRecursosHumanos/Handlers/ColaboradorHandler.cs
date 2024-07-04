@@ -98,6 +98,34 @@ public class ColaboradorHandler
         return exito;
     }
 
+    public bool CambiarEstadoColaborador(string nuevoEstado, int idColaborador)
+    {
+        bool exito = true;
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "UPDATE mydb.colaborador " +
+                    "SET estado = @Estado WHERE id_colaborador = @IdColaborador";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Estado", nuevoEstado);
+                    command.Parameters.AddWithValue("@IdColaborador", idColaborador);
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            exito = false;
+        }
+
+        return exito;
+    }
+
     public List<Colaborador> ObtenerColaboradores()
     {
         List<Colaborador> listaColaboradores = new List<Colaborador>();
@@ -147,6 +175,7 @@ public class ColaboradorHandler
                                     IdPuesto = Convert.ToInt32(reader["idpuesto"]),
                                     NombrePuesto = reader["nombrePuesto"].ToString(),
                                 },
+                                Estado = reader["estado"].ToString(),
                             };
 
                             listaColaboradores.Add(colaborador);
@@ -156,9 +185,72 @@ public class ColaboradorHandler
                 }
             }
         }
-        catch (SqlException ex)
+        catch (Exception e)
         {
-            Console.WriteLine("Ocurrió un error al obtener los colaboradores " + ex.Message);
+            Console.WriteLine(e.Message);
+        }
+
+        return listaColaboradores;
+    }
+
+    public List<Colaborador> ObtenerColaboradoresInactivos()
+    {
+        List<Colaborador> listaColaboradores = new List<Colaborador>();
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("ObtenerColaboradoresInactivos", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Colaborador colaborador = new Colaborador
+                            {
+                                IdColaborador = Convert.ToInt32(reader["id_colaborador"]),
+                                FechaContratacion = Convert.ToDateTime(reader["fechaContratacion"]),
+                                Persona = new Persona
+                                {
+                                    Identificacion = reader["identificacion"].ToString(),
+                                    TipoIdentificacion = reader["tipoIdentificacion"].ToString(),
+                                    Nombre = reader["nombre"].ToString(),
+                                    Apellido1 = reader["apellido1"].ToString(),
+                                    Apellido2 = reader["apellido2"].ToString(),
+                                    FechaDeNacimiento = Convert.ToDateTime(reader["fecha_nacimiento"])
+                                },
+                                Usuario = new Usuario
+                                {
+                                    Correo = reader["correo"].ToString(),
+                                    Contrasena = reader["contrasena"].ToString(),
+                                    RolDeUsuario = new RolDeUsuario
+                                    {
+                                        IdRolDeUsuario = Convert.ToInt32(reader["idrolDeUsuario"]),
+                                        Descripcion = reader["descripcion"].ToString()
+                                    }
+                                },
+                                Departamento = new Departamento
+                                {
+                                    IdDepartamento = Convert.ToInt32(reader["iddepartamento"]),
+                                    Nombre = reader["nombreDepartamento"].ToString(),
+                                },
+                                Puesto = new Puesto
+                                {
+                                    IdPuesto = Convert.ToInt32(reader["idpuesto"]),
+                                    NombrePuesto = reader["nombrePuesto"].ToString(),
+                                },
+                                Estado = reader["estado"].ToString(),
+                            };
+
+                            listaColaboradores.Add(colaborador);
+                        }
+                    }
+                    connection.Close();
+                }
+            }
         }
         catch (Exception e)
         {
@@ -218,6 +310,7 @@ public class ColaboradorHandler
                                     IdPuesto = Convert.ToInt32(reader["idpuesto"]),
                                     NombrePuesto = reader["nombrePuesto"].ToString(),
                                 },
+                                Estado = reader["estado"].ToString(),
                             };
                         }
                     }
@@ -287,6 +380,7 @@ public class ColaboradorHandler
                                     IdPuesto = Convert.ToInt32(reader["idpuesto"]),
                                     NombrePuesto = reader["nombrePuesto"].ToString(),
                                 },
+                                Estado = reader["estado"].ToString(),
                             };
                         }
                     }

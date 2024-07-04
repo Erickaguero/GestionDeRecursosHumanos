@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PrototipoFuncionalRecursosHumanos.Models;
 using PrototipoFuncionalRecursosHumanos.Services;
 
@@ -14,7 +15,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
-            if (Autorizador.ObtenerRolColaborador(Request) != "administrador") return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerRolColaborador(Request) != "administrador" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             List<Planilla> planillas = planillaHandler.ObtenerPlanillas();
             ObtenerInformacionColaboradores(planillas);
             return View(planillas);
@@ -24,7 +25,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
-            if (Autorizador.ObtenerRolColaborador(Request) != "administrador") return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerRolColaborador(Request) != "administrador" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             List<Colaborador> colaboradores = colaboradorHandler.ObtenerColaboradores();
             return View(colaboradores);
         }
@@ -33,11 +34,16 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
-            if (Autorizador.ObtenerRolColaborador(Request) != "administrador") return RedirectToAction("Index", "Home");
-            if (planillaHandler.GenerarPlanillaColaboradores())
+            if (Autorizador.ObtenerRolColaborador(Request) != "administrador" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
+            if (!planillaHandler.PlanillaExistente(DateTime.Now.Date))
             {
-                return RedirectToAction("Index");
+                if (planillaHandler.GenerarPlanillaColaboradores())
+                {
+                    return RedirectToAction("Index");
+                }
             }
+            var alerta = Alertas.Error("Ya se genero la plantilla para el dia de hoy, no se pueden crear dos plantillas en un mismo dia.");
+            TempData["Alerta"] = JsonConvert.SerializeObject(alerta);
             return RedirectToAction("CrearPlanilla");
         }
 

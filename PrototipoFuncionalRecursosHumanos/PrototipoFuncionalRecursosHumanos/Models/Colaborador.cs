@@ -12,6 +12,8 @@
 
         public DateTime? FechaContratacion { get; set; }
 
+        public string? Estado { get; set; }
+
         public Colaborador()
         {
             Persona = new Persona();
@@ -19,14 +21,15 @@
             Departamento = new Departamento();
         }
 
-        public Colaborador(int idColaborador, Persona persona, Usuario usuario, Puesto puesto, Departamento departamento, DateTime fechaContratacion)
+        public Colaborador(int? idColaborador, Persona persona, Usuario usuario, Departamento departamento, Puesto puesto, DateTime fechaContratacion, string estado)
         {
             IdColaborador = idColaborador;
             Persona = persona;
             Usuario = usuario;
-            FechaContratacion = fechaContratacion;
-            Puesto = puesto;
             Departamento = departamento;
+            Puesto = puesto;
+            FechaContratacion = fechaContratacion;
+            Estado = estado;
         }
     }
 }

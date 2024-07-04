@@ -143,9 +143,9 @@ public class ValidacionesHandler
     private bool ExisteRegistroEnHorasExtra(DateTime Fecha, int idColaborador, SqlConnection connection)
     {
         string query = @"
-        SELECT COUNT(*) 
-        FROM mydb.horasextra 
-        WHERE CONVERT(DATE, fechaHoraExtra) = @Fecha AND id_colaborador = @idColaborador";
+            SELECT COUNT(*) 
+            FROM mydb.horasextra 
+            WHERE CONVERT(DATE, fechaHoraExtra) = @Fecha AND id_colaborador = @idColaborador";
         using (var command = new SqlCommand(query, connection))
         {
             command.Parameters.AddWithValue("@Fecha", Fecha.Date);
@@ -158,9 +158,9 @@ public class ValidacionesHandler
     private bool ExisteRegistroEnPermisos(DateTime Fecha, int idColaborador, SqlConnection connection)
     {
         string query = @"
-        SELECT COUNT(*) 
-        FROM mydb.permisos 
-        WHERE CONVERT(DATE, fechaPermiso) = @Fecha AND id_colaborador = @idColaborador";
+            SELECT COUNT(*) 
+            FROM mydb.permisos 
+            WHERE CONVERT(DATE, fechaPermiso) = @Fecha AND id_colaborador = @idColaborador";
         using (var command = new SqlCommand(query, connection))
         {
             command.Parameters.AddWithValue("@Fecha", Fecha.Date);

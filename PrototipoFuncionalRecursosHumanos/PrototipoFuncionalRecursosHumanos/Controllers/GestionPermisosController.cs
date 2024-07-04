@@ -18,6 +18,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             List<Permisos> permisos = permisosHandler.ObtenerPermisos(colaborador.IdColaborador);
             foreach (var permiso in permisos)
@@ -36,6 +37,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -44,6 +46,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             permiso.Colaborador = colaborador;
             ValidarPermisos(permiso, ModelState);
@@ -64,6 +67,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             permisosHandler.EliminarPermiso(idPermiso);
             return RedirectToAction("SolicitarPermisos");
         }
@@ -75,7 +79,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (correo == null) return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             var rolDeUsuario = colaborador.Usuario.RolDeUsuario.Descripcion;
-            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura") return RedirectToAction("Index", "Home");
+            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             List<Permisos> permisos = new List<Permisos>();
             if (rolDeUsuario == "administrador") permisos = permisosHandler.ObtenerPermisosParaAprobarPorAdministrador(colaborador.IdColaborador);
             if (rolDeUsuario == "jefatura") permisos = permisosHandler.ObtenerPermisosParaAprobarPorJefatura(colaborador.IdColaborador);
@@ -92,6 +96,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             permisosHandler.EditarTipoPermiso(idPermiso, idTipoPermiso);
             return RedirectToAction("AprobarPermisos");
         }
@@ -104,7 +109,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (correo == null) return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             var rolDeUsuario = colaborador.Usuario.RolDeUsuario.Descripcion;
-            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura") return RedirectToAction("Index", "Home");
+            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
 
             if (rolDeUsuario == "administrador") permisosHandler.AprobarPermisoAdministrador(idPermiso);
             if (rolDeUsuario == "jefatura") permisosHandler.AprobarPermisoJefatura(idPermiso);
@@ -119,7 +124,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (correo == null) return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             var rolDeUsuario = colaborador.Usuario.RolDeUsuario.Descripcion;
-            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura") return RedirectToAction("Index", "Home");
+            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             permisosHandler.RechazarPermiso(idPermiso);
 
             return RedirectToAction("AprobarPermisos");

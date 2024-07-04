@@ -44,6 +44,30 @@ public class AguinaldoHandler
         return exito;
     }
 
+    public bool AguinaldoExistente(DateTime fecha)
+    {
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT COUNT(*) FROM mydb.aguinaldo WHERE CAST(fechaGeneracion AS DATE) = @Fecha";
+                connection.Open();
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Fecha", fecha.Date);
+                    int count = (int)command.ExecuteScalar();
+                    return count > 0;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return true;
+        }
+    }
+
+
     public List<Aguinaldo> ObtenerAguinaldos()
     {
         List<Aguinaldo> aguinaldos = new List<Aguinaldo>();

@@ -209,6 +209,53 @@ public class PermisosHandler
         return exito;
     }
 
+    public List<Permisos> ObtenerPermisos()
+    {
+        List<Permisos> permisos = new List<Permisos>();
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM mydb.permisos";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Permisos permiso = new Permisos
+                            {
+                                IdPermiso = reader.GetInt32(reader.GetOrdinal("idpermisos")),
+                                FechaPermiso = reader.GetDateTime(reader.GetOrdinal("fechaPermiso")),
+                                Colaborador = new Colaborador
+                                {
+                                    IdColaborador = reader.GetInt32(reader.GetOrdinal("id_colaborador"))
+                                },
+                                TipoPermiso = new TipoPermiso
+                                {
+                                    IdTipoPermiso = reader.GetInt32(reader.GetOrdinal("idtipoPermiso"))
+                                },
+                                Horas = reader.GetInt32(reader.GetOrdinal("horas")),
+                                FechaGeneracion = reader.GetDateTime(reader.GetOrdinal("fechaGeneracion")),
+                                Estado = reader.GetString(reader.GetOrdinal("estado")),
+                                Justificacion = reader.GetString(reader.GetOrdinal("justificacion"))
+                            };
+                            permisos.Add(permiso);
+                        }
+                    }
+                }
+                connection.Close();
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
+        return permisos;
+    }
+
     public List<Permisos> ObtenerPermisos(int? idColaborador)
     {
         List<Permisos> permisos = new List<Permisos>();

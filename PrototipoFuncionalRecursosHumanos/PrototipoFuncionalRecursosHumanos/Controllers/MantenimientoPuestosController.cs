@@ -17,7 +17,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
-            if (Autorizador.ObtenerRolColaborador(Request) != "administrador") return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerRolColaborador(Request) != "administrador" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             List<Puesto> puestos = puestoHandler.ObtenerPuestos();
             return View(puestos);
         }
@@ -26,7 +26,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
-            if (Autorizador.ObtenerRolColaborador(Request) != "administrador") return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerRolColaborador(Request) != "administrador" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -48,7 +48,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
-            if (Autorizador.ObtenerRolColaborador(Request) != "administrador") return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerRolColaborador(Request) != "administrador" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             Puesto puesto = puestoHandler.ObtenerPuesto(idPuesto);
             if (puesto == null)
             {
@@ -80,7 +80,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
-            if (Autorizador.ObtenerRolColaborador(Request) != "administrador") return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerRolColaborador(Request) != "administrador" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             puestoHandler.EliminarPuesto(idPuesto);
             return RedirectToAction("Index");
         }

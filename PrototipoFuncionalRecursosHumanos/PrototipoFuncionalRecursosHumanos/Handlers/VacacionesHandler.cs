@@ -215,6 +215,47 @@ public class VacacionesHandler
         return exito;
     }
 
+    public List<Vacaciones> ObtenerVacaciones()
+    {
+        List<Vacaciones> vacaciones = new List<Vacaciones>();
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM mydb.vacaciones";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Vacaciones vacacion = new Vacaciones
+                            {
+                                IdVacaciones = reader.GetInt32(reader.GetOrdinal("idvacaciones")),
+                                Colaborador = new Colaborador
+                                {
+                                    IdColaborador = reader.GetInt32(reader.GetOrdinal("id_colaborador"))
+                                },
+                                FechaInicio = reader.GetDateTime(reader.GetOrdinal("fechaInicio")),
+                                FechaFin = reader.GetDateTime(reader.GetOrdinal("fechaFin")),
+                                Estado = reader.GetString(reader.GetOrdinal("estado"))
+                            };
+                            vacaciones.Add(vacacion);
+                        }
+                    }
+                }
+                connection.Close();
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
+        return vacaciones;
+    }
+
     public List<Vacaciones> ObtenerVacaciones(int? idColaborador)
     {
         List<Vacaciones> vacaciones = new List<Vacaciones>();

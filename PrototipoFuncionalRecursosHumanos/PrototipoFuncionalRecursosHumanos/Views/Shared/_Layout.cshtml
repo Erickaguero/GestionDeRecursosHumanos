@@ -1,5 +1,6 @@
 ﻿@{
     var rolDeUsuario = Autorizador.ObtenerRolColaborador(Context.Request);
+    var estadoUsuario = Autorizador.ObtenerEstadoColaborador(Context.Request);
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -29,85 +30,87 @@
                             <li class="nav-item">
                                 <a class="nav-link header_link" asp-area="" asp-controller="Home" asp-action="MenuPrincipal">Menu Principal</a>
                             </li>
-                            @if (rolDeUsuario == "administrador")
+                            @if (estadoUsuario == "activo")
                             {
+                                @if (rolDeUsuario == "administrador")
+                                {
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link header_link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Mantenimientos
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="MantenimientoDepartamentos" asp-action="Index">Mantenimiento Departamentos</a></li>
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="MantenimientoPuestos" asp-action="Index">Mantenimiento Puestos</a></li>
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="MantenimientoColaboradores" asp-action="Index">Mantenimiento Colaboradores</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link header_link" asp-area="" asp-controller="ConsultasYReportes" asp-action="Index">Consultas y reportes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link header_link" asp-area="" asp-controller="Planilla" asp-action="Index">Gestionar Planilla</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link header_link" asp-area="" asp-controller="Aguinaldo" asp-action="Index">Gestionar Aguinaldo</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link header_link" asp-area="" asp-controller="Liquidacion" asp-action="Index">Gestionar Liquidacion</a>
+                                    </li>
+                                }
                                 <li class="nav-item dropdown">
                                     <a class="nav-link header_link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Mantenimientos
+                                        Gestión de vacaciones
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="MantenimientoDepartamentos" asp-action="Index">Mantenimiento Departamentos</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="MantenimientoPuestos" asp-action="Index">Mantenimiento Puestos</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="MantenimientoColaboradores" asp-action="Index">Mantenimiento Colaboradores</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="GestionVacaciones" asp-action="SolicitarVacaciones">Solicitar vacaciones</a></li>
+                                        @if (rolDeUsuario == "administrador" || rolDeUsuario == "jefatura")
+                                        {
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="GestionVacaciones" asp-action="AprobarVacaciones">Aprobar vacaciones</a></li>
+                                        }
                                     </ul>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link header_link" asp-area="" asp-controller="ConsultasYReportes" asp-action="Index">Consultas y reportes</a>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link header_link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Gestión de permisos
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="GestionPermisos" asp-action="SolicitarPermisos">Solicitar permisos</a></li>
+                                        @if (rolDeUsuario == "administrador" || rolDeUsuario == "jefatura")
+                                        {
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="GestionPermisos" asp-action="AprobarPermisos">Aprobar permisos</a></li>
+                                        }
+                                    </ul>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link header_link" asp-area="" asp-controller="Planilla" asp-action="Index">Gestionar Planilla</a>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link header_link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Gestión de incapacidades
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="GestionIncapacidades" asp-action="SolicitarIncapacidades">Solicitar incapacidades</a></li>
+                                        @if (rolDeUsuario == "administrador" || rolDeUsuario == "jefatura")
+                                        {
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="GestionIncapacidades" asp-action="AprobarIncapacidades">Aprobar incapacidades</a></li>
+                                        }
+                                    </ul>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link header_link" asp-area="" asp-controller="Aguinaldo" asp-action="Index">Gestionar Aguinaldo</a>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link header_link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Gestión de horas extra
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="GestionHorasExtra" asp-action="SolicitarHorasExtra">Solicitar horas extra</a></li>
+                                        @if (rolDeUsuario == "administrador" || rolDeUsuario == "jefatura")
+                                        {
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="GestionHorasExtra" asp-action="AprobarHorasExtra">Aprobar horas extra</a></li>
+                                        }
+                                    </ul>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link header_link" asp-area="" asp-controller="Liquidacion" asp-action="Index">Gestionar Liquidacion</a>
-                                </li>
-
-                            }
-                            <li class="nav-item dropdown">
-                                <a class="nav-link header_link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Gestión de vacaciones
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="GestionVacaciones" asp-action="SolicitarVacaciones">Solicitar vacaciones</a></li>
-                                    @if (rolDeUsuario == "administrador" || rolDeUsuario == "jefatura")
-                                    {
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="GestionVacaciones" asp-action="AprobarVacaciones">Aprobar vacaciones</a></li>
-                                    }
-                                </ul>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link header_link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Gestión de permisos
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="GestionPermisos" asp-action="SolicitarPermisos">Solicitar permisos</a></li>
-                                    @if (rolDeUsuario == "administrador" || rolDeUsuario == "jefatura")
-                                    {
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="GestionPermisos" asp-action="AprobarPermisos">Aprobar permisos</a></li>
-                                    }
-                                </ul>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link header_link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Gestión de incapacidades
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="GestionIncapacidades" asp-action="SolicitarIncapacidades">Solicitar incapacidades</a></li>
-                                    @if (rolDeUsuario == "administrador" || rolDeUsuario == "jefatura")
-                                    {
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="GestionIncapacidades" asp-action="AprobarIncapacidades">Aprobar incapacidades</a></li>
-                                    }
-                                </ul>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link header_link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Gestión de horas extra
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="GestionHorasExtra" asp-action="SolicitarHorasExtra">Solicitar horas extra</a></li>
-                                    @if (rolDeUsuario == "administrador" || rolDeUsuario == "jefatura")
-                                    {
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="GestionHorasExtra" asp-action="AprobarHorasExtra">Aprobar horas extra</a></li>
-                                    }
-                                </ul>
-                            </li>
-                            @if (rolDeUsuario == "administrador")
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link header_link" asp-area="" asp-controller="EvaluacionEmpleado" asp-action="Index">Evaluar Empleados</a>
-                                </li>
+                                @if (rolDeUsuario == "administrador")
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link header_link" asp-area="" asp-controller="EvaluacionEmpleado" asp-action="Index">Evaluar Empleados</a>
+                                    </li>
+                                }
                             }
                             <li class="nav-item">
                                 <a class="nav-link header_link" asp-area="" asp-controller="EvaluacionEmpleado" asp-action="ListaEvaluaciones">Ver mis evaluaciones</a>

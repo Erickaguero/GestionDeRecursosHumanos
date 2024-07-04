@@ -17,6 +17,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             List<HorasExtra> horasExtra = horasExtraHandler.ObtenerHorasExtra(colaborador.IdColaborador);
             foreach (var horaExtra in horasExtra)
@@ -34,6 +35,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -42,6 +44,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             horasExtra.Colaborador = colaborador;
             ValidarHorasExtra(horasExtra, ModelState);
@@ -62,6 +65,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             horasExtraHandler.EliminarHorasExtra(idHorasExtra);
             return RedirectToAction("SolicitarHorasExtra");
         }
@@ -73,7 +77,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (correo == null) return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             var rolDeUsuario = colaborador.Usuario.RolDeUsuario.Descripcion;
-            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura") return RedirectToAction("Index", "Home");
+            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             List<HorasExtra> horasExtras = new List<HorasExtra>();
             if (rolDeUsuario == "administrador") horasExtras = horasExtraHandler.ObtenerHorasExtraParaAprobarPorAdministrador(colaborador.IdColaborador);
             if (rolDeUsuario == "jefatura") horasExtras = horasExtraHandler.ObtenerHorasExtraParaAprobarPorJefatura(colaborador.IdColaborador);
@@ -90,7 +94,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (correo == null) return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             var rolDeUsuario = colaborador.Usuario.RolDeUsuario.Descripcion;
-            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura") return RedirectToAction("Index", "Home");
+            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
 
             if (rolDeUsuario == "administrador") horasExtraHandler.AprobarHorasExtraAdministrador(idHoraExtra);
             if (rolDeUsuario == "jefatura") horasExtraHandler.AprobarHorasExtraJefatura(idHoraExtra);
@@ -105,7 +109,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (correo == null) return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             var rolDeUsuario = colaborador.Usuario.RolDeUsuario.Descripcion;
-            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura") return RedirectToAction("Index", "Home");
+            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             horasExtraHandler.RechazarHorasExtra(idHoraExtra);
 
             return RedirectToAction("AprobarHorasExtra");

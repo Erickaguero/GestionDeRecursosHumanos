@@ -209,6 +209,52 @@ public class IncapacidadesHandler
         return exito;
     }
 
+    public List<Incapacidades> ObtenerIncapacidades()
+    {
+        List<Incapacidades> incapacidades = new List<Incapacidades>();
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM mydb.incapacidades";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Incapacidades incapacidad = new Incapacidades
+                            {
+                                IdIncapacidad = reader.GetInt32(reader.GetOrdinal("idincapacidades")),
+                                FechaInicio = reader.GetDateTime(reader.GetOrdinal("fechaInicio")),
+                                FechaFin = reader.GetDateTime(reader.GetOrdinal("fechaFin")),
+                                Colaborador = new Colaborador
+                                {
+                                    IdColaborador = reader.GetInt32(reader.GetOrdinal("id_colaborador"))
+                                },
+                                TipoIncapacidad = new TipoIncapacidad
+                                {
+                                    IdTipoIncapacidad = reader.GetInt32(reader.GetOrdinal("idtipoincapacidad"))
+                                },
+                                Estado = reader.GetString(reader.GetOrdinal("estado")),
+                                Justificacion = reader.GetString(reader.GetOrdinal("justificacion"))
+                            };
+                            incapacidades.Add(incapacidad);
+                        }
+                    }
+                }
+                connection.Close();
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
+        return incapacidades;
+    }
+
     public List<Incapacidades> ObtenerIncapacidades(int? idColaborador)
     {
         List<Incapacidades> incapacidades = new List<Incapacidades>();

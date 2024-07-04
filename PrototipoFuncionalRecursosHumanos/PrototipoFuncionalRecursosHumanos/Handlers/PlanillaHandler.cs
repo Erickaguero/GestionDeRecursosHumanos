@@ -44,6 +44,30 @@ public class PlanillaHandler
         return exito;
     }
 
+    public bool PlanillaExistente(DateTime fecha)
+    {
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT COUNT(*) FROM mydb.planilla WHERE CAST(fechaGeneracion AS DATE) = @Fecha";
+                connection.Open();
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    // Añadir el parámetro @Fecha a la consulta
+                    command.Parameters.AddWithValue("@Fecha", fecha.Date);
+                    int count = (int)command.ExecuteScalar();
+                    return count > 0;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return true;
+        }
+    }
+
     public List<Planilla> ObtenerPlanillas()
     {
         List<Planilla> planillas = new List<Planilla>();

@@ -235,6 +235,48 @@ public class HorasExtraHandler
         return horasExtra;
     }
 
+    public List<HorasExtra> ObtenerHorasExtra()
+    {
+        List<HorasExtra> horasExtra = new List<HorasExtra>();
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM mydb.horasextra";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            HorasExtra horaExtra = new HorasExtra
+                            {
+                                IdHorasExtra = reader.GetInt32(reader.GetOrdinal("idhorasextra")),
+                                FechaHorasExtra = reader.GetDateTime(reader.GetOrdinal("fechaHoraExtra")),
+                                Colaborador = new Colaborador
+                                {
+                                    IdColaborador = reader.GetInt32(reader.GetOrdinal("id_colaborador"))
+                                },
+                                Horas = reader.GetInt32(reader.GetOrdinal("horas")),
+                                Estado = reader.GetString(reader.GetOrdinal("estado")),
+                                Justificacion = reader.GetString(reader.GetOrdinal("justificacion"))
+                            };
+                            horasExtra.Add(horaExtra);
+                        }
+                    }
+                }
+                connection.Close();
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
+        return horasExtra;
+    }
+
     public List<HorasExtra> ObtenerHorasExtra(int? idColaborador)
     {
         List<HorasExtra> horasExtra = new List<HorasExtra>();

@@ -14,14 +14,76 @@ public class LiquidacionHandler
         connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
     }
 
-    public bool GenerarLiquidacionColaborador(int idColaborador)
+    public bool GenerarLiquidacionConResponsabilidadColaborador(int idColaborador)
     {
         bool exito = true;
         try
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlCommand command = new SqlCommand("CrearLiquidacionColaborador", connection))
+                using (SqlCommand command = new SqlCommand("CrearLiquidacionConResponsabilidadColaborador", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@IdColaborador", idColaborador));
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
+        catch (SqlException ex)
+        {
+            Console.WriteLine("Ocurrió un error al generar la liquidacion para el colaborador: " + ex.Message);
+            exito = false;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            exito = false;
+        }
+
+        return exito;
+    }
+
+    public bool GenerarLiquidacionSinResponsabilidadColaborador(int idColaborador)
+    {
+        bool exito = true;
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("CrearLiquidacionSinResponsabilidadColaborador", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@IdColaborador", idColaborador));
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
+        catch (SqlException ex)
+        {
+            Console.WriteLine("Ocurrió un error al generar la liquidacion para el colaborador: " + ex.Message);
+            exito = false;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            exito = false;
+        }
+
+        return exito;
+    }
+
+    public bool GenerarLiquidacionRenunciaColaborador(int idColaborador)
+    {
+        bool exito = true;
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("CrearLiquidacionRenunciaColaborador", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add(new SqlParameter("@IdColaborador", idColaborador));
@@ -69,6 +131,10 @@ public class LiquidacionHandler
                                 },
                                 FechaGeneracion = reader.GetDateTime(reader.GetOrdinal("fechaGeneracion")),
                                 Monto = reader.GetDouble(reader.GetOrdinal("monto")),
+                                Preaviso = reader.GetDouble(reader.GetOrdinal("preaviso")),
+                                Cesantia = reader.GetDouble(reader.GetOrdinal("cesantia")),
+                                Aguinaldo = reader.GetDouble(reader.GetOrdinal("aguinaldo")),
+                                VacacionesNoUsadas = reader.GetDouble(reader.GetOrdinal("horasVacacionesNoUsadas")),
                             };
                             liquidaciones.Add(liquidacion);
                         }

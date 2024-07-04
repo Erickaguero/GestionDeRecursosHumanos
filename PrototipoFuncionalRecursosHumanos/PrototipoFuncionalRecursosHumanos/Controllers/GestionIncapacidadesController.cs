@@ -18,6 +18,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             List<Incapacidades> incapacidades = incapacidadesHandler.ObtenerIncapacidades(colaborador.IdColaborador);
             foreach (var incapacidad in incapacidades)
@@ -36,6 +37,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -44,6 +46,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             incapacidad.Colaborador = colaborador;
             ValidarIncapacidades(incapacidad, ModelState);
@@ -64,6 +67,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             incapacidadesHandler.EliminarIncapacidad(idIncapacidad);
             return RedirectToAction("SolicitarIncapacidades");
         }
@@ -75,7 +79,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (correo == null) return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             var rolDeUsuario = colaborador.Usuario.RolDeUsuario.Descripcion;
-            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura") return RedirectToAction("Index", "Home");
+            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             List<Incapacidades> incapacidades = new List<Incapacidades>();
             if (rolDeUsuario == "administrador") incapacidades = incapacidadesHandler.ObtenerIncapacidadesParaAprobarPorAdministrador(colaborador.IdColaborador);
             if (rolDeUsuario == "jefatura") incapacidades = incapacidadesHandler.ObtenerIncapacidadesParaAprobarPorJefatura(colaborador.IdColaborador);
@@ -104,7 +108,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (correo == null) return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             var rolDeUsuario = colaborador.Usuario.RolDeUsuario.Descripcion;
-            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura") return RedirectToAction("Index", "Home");
+            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
 
             if (rolDeUsuario == "administrador") incapacidadesHandler.AprobarIncapacidadAdministrador(idIncapacidad);
             if (rolDeUsuario == "jefatura") incapacidadesHandler.AprobarIncapacidadJefatura(idIncapacidad);
@@ -119,7 +123,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (correo == null) return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             var rolDeUsuario = colaborador.Usuario.RolDeUsuario.Descripcion;
-            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura") return RedirectToAction("Index", "Home");
+            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             incapacidadesHandler.RechazarIncapacidad(idIncapacidad);
 
             return RedirectToAction("AprobarIncapacidades");

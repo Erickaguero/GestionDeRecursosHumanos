@@ -17,7 +17,7 @@
             <th>Rol de Usuario</th>
             <th>Departamento</th>
             <th>Puesto</th>
-            <th>Accion</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -35,7 +35,17 @@
                 <td>@colaborador.Departamento.Nombre</td>
                 <td>@colaborador.Puesto.NombrePuesto</td>
                 <td>
-                    <a href="@Url.Action("GenerarLiquidacionColaborador", "Liquidacion", new { idColaborador = colaborador.IdColaborador })" class="btn btn-primary">Generar Liquidacion</a>
+                    <div class="row">
+                        <div class="col">
+                            <a href="@Url.Action("GenerarLiquidacionConResponsabilidadColaborador", "Liquidacion", new { idColaborador = colaborador.IdColaborador })" class="btn btn-success">Generar Liquidacion Con Responsabilidad</a>
+                        </div>
+                        <div class="col mt-3">
+                            <a href="@Url.Action("GenerarLiquidacionSinResponsabilidadColaborador", "Liquidacion", new { idColaborador = colaborador.IdColaborador })" class="btn btn-info">Generar Liquidacion Sin Responsabilidad</a>
+                        </div>
+                        <div class="col mt-3">
+                            <a href="@Url.Action("GenerarLiquidacionRenunciaColaborador", "Liquidacion", new { idColaborador = colaborador.IdColaborador })" class="btn btn-danger">Generar Liquidacion Renuncia</a>
+                        </div>
+                    </div>
                 </td>
             </tr>
         }

@@ -17,6 +17,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             List <Vacaciones> vacaciones = vacacionesHandler.ObtenerVacaciones(colaborador.IdColaborador);
             foreach (var vacacion in vacaciones)
@@ -34,6 +35,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             ViewBag.CantidadDiasDisponibles = vacacionesHandler.ObtenerDiasDisponibles(colaborador.IdColaborador);
             return View();
@@ -44,6 +46,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             vacacion.Colaborador = colaborador;
             ViewBag.CantidadDiasDisponibles = vacacionesHandler.ObtenerDiasDisponibles(colaborador.IdColaborador);
@@ -64,8 +67,9 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
+            if (Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             vacacionesHandler.EliminarVacacion(idVacacion);
-                    return RedirectToAction("SolicitarVacaciones");
+            return RedirectToAction("SolicitarVacaciones");
         }
 
         [HttpGet]
@@ -75,7 +79,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (correo == null) return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             var rolDeUsuario = colaborador.Usuario.RolDeUsuario.Descripcion;
-            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura") return RedirectToAction("Index", "Home");
+            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             List <Vacaciones> vacaciones = new List<Vacaciones>();
             if (rolDeUsuario == "administrador") vacaciones = vacacionesHandler.ObtenerVacacionesParaAprobarPorAdministrador(colaborador.IdColaborador);
             if (rolDeUsuario == "jefatura") vacaciones = vacacionesHandler.ObtenerVacacionesParaAprobarPorJefatura(colaborador.IdColaborador);
@@ -92,7 +96,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (correo == null) return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             var rolDeUsuario = colaborador.Usuario.RolDeUsuario.Descripcion;
-            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura") return RedirectToAction("Index", "Home");
+            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
 
             if (rolDeUsuario == "administrador") vacacionesHandler.AprobarVacacionAdministrador(idVacacion);
             if (rolDeUsuario == "jefatura") vacacionesHandler.AprobarVacacionJefatura(idVacacion);
@@ -107,7 +111,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (correo == null) return RedirectToAction("Index", "Home");
             var colaborador = colaboradorHandler.ObtenerColaborador(correo);
             var rolDeUsuario = colaborador.Usuario.RolDeUsuario.Descripcion;
-            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura") return RedirectToAction("Index", "Home");
+            if (rolDeUsuario != "administrador" && rolDeUsuario != "jefatura" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
             vacacionesHandler.RechazarVacacion(idVacacion);
 
             return RedirectToAction("AprobarVacaciones");

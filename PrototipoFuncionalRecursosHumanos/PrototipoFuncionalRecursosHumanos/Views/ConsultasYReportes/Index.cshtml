@@ -3,10 +3,16 @@
 @{
     ViewData["Title"] = "Consultas y reportes";
     var asistencias = Model.Asistencias;
-    var colaboradores = Model.Colaboradores;
+    var colaboradoresActivos = Model.ColaboradoresActivos;
+    var colaboradoresInactivos = Model.ColaboradoresInactivos;
     var planillas = Model.Planillas;
     var aguinaldos = Model.Aguinaldos;
     var liquidaciones = Model.Liquidaciones;
+    var horasExtra = Model.HorasExtras;
+    var permisos = Model.Permisos;
+    var incapacidades = Model.Incapacidades;
+    var vacaciones = Model.Vacaciones;
+
     var elementoADesplegar = Model.ElementoADesplegar;
 
     if (!Model.DesplegarBotones)
@@ -19,16 +25,21 @@
 @if (Model.DesplegarBotones == true)
 {
     <div class="d-flex justify-content-between">
-        <div class="d-flex">
-            <a href="@Url.Action("Index", "ConsultasYReportes", new { elementoADesplegar = "asistencias" })" class="btn btn-primary me-3">Ver asistencias</a>
-            <a href="@Url.Action("Index", "ConsultasYReportes", new { elementoADesplegar = "colaboradores" })" class="btn btn-primary me-3">Ver colaboradores</a>
-            <a href="@Url.Action("Index", "ConsultasYReportes", new { elementoADesplegar = "planilla" })" class="btn btn-primary me-3">Ver planilla</a>
-            <a href="@Url.Action("Index", "ConsultasYReportes", new { elementoADesplegar = "aguinaldo" })" class="btn btn-primary me-3">Ver aguinaldo</a>
-            <a href="@Url.Action("Index", "ConsultasYReportes", new { elementoADesplegar = "liquidacion" })" class="btn btn-primary">Ver liquidacion</a>
-
-
+        <div class="d-flex flex-wrap">
+            <a href="@Url.Action("Index", "ConsultasYReportes", new { elementoADesplegar = "asistencias" })" class="btn btn-info me-2 mb-2">Ver asistencias</a>
+            <a href="@Url.Action("Index", "ConsultasYReportes", new { elementoADesplegar = "colaboradoresActivos" })" class="btn btn-info me-2 mb-2">Ver colaboradores activos</a>
+            <a href="@Url.Action("Index", "ConsultasYReportes", new { elementoADesplegar = "colaboradoresInactivos" })" class="btn btn-info me-2 mb-2">Ver colaboradores inactivos</a>
+            <a href="@Url.Action("Index", "ConsultasYReportes", new { elementoADesplegar = "planilla" })" class="btn btn-info me-2 mb-2">Ver planillas</a>
+            <a href="@Url.Action("Index", "ConsultasYReportes", new { elementoADesplegar = "aguinaldo" })" class="btn btn-info me-2 mb-2">Ver aguinaldos</a>
+            <a href="@Url.Action("Index", "ConsultasYReportes", new { elementoADesplegar = "liquidacion" })" class="btn btn-info me-2 mb-2">Ver liquidaciones</a>
+            <a href="@Url.Action("Index", "ConsultasYReportes", new { elementoADesplegar = "horasExtra" })" class="btn btn-info me-2 mb-2">Ver horas extra</a>
+            <a href="@Url.Action("Index", "ConsultasYReportes", new { elementoADesplegar = "permisos" })" class="btn btn-info me-2 mb-2">Ver permisos</a>
+            <a href="@Url.Action("Index", "ConsultasYReportes", new { elementoADesplegar = "incapacidades" })" class="btn btn-info me-2 mb-2">Ver incapacidades</a>
+            <a href="@Url.Action("Index", "ConsultasYReportes", new { elementoADesplegar = "vacaciones" })" class="btn btn-info me-2 mb-2">Ver vacaciones</a>
         </div>
-        <a href="@Url.Action("GenerarReporte", "ConsultasYReportes", new { elementoADesplegar = Model.ElementoADesplegar })" class="btn btn-primary">Generar reporte</a>
+        <div>
+            <a href="@Url.Action("GenerarReporte", "ConsultasYReportes", new { elementoADesplegar = Model.ElementoADesplegar })" class="btn btn-success mb-2">Generar reporte</a>
+        </div>
     </div>
 }
 
@@ -70,7 +81,7 @@
         </tbody>
     </table>
 }
-else if ((colaboradores?.Count ?? 0) != 0)
+else if ((colaboradoresActivos?.Count ?? 0) != 0)
 {
     <table class="table">
         <thead>
@@ -85,10 +96,11 @@ else if ((colaboradores?.Count ?? 0) != 0)
                 <th>Rol de Usuario</th>
                 <th>Departamento</th>
                 <th>Puesto</th>
+                <th>Estado</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var colaborador in colaboradores)
+            @foreach (var colaborador in colaboradoresActivos)
             {
                 <tr>
                     <td>@colaborador.IdColaborador</td>
@@ -101,6 +113,46 @@ else if ((colaboradores?.Count ?? 0) != 0)
                     <td>@colaborador.Usuario.RolDeUsuario.Descripcion</td>
                     <td>@colaborador.Departamento.Nombre</td>
                     <td>@colaborador.Puesto.NombrePuesto</td>
+                    <td>@colaborador.Estado</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+else if ((colaboradoresInactivos?.Count ?? 0) != 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID Colaborador</th>
+                <th>Identificación</th>
+                <th>Nombre</th>
+                <th>Apellido 1</th>
+                <th>Apellido 2</th>
+                <th>Fecha de Nacimiento</th>
+                <th>Correo</th>
+                <th>Rol de Usuario</th>
+                <th>Departamento</th>
+                <th>Puesto</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var colaborador in colaboradoresInactivos)
+            {
+                <tr>
+                    <td>@colaborador.IdColaborador</td>
+                    <td>@colaborador.Persona.Identificacion</td>
+                    <td>@colaborador.Persona.Nombre</td>
+                    <td>@colaborador.Persona.Apellido1</td>
+                    <td>@colaborador.Persona.Apellido2</td>
+                    <td>@colaborador.Persona.FechaDeNacimiento?.ToString("dd/MM/yyyy")</td>
+                    <td>@colaborador.Usuario.Correo</td>
+                    <td>@colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                    <td>@colaborador.Departamento.Nombre</td>
+                    <td>@colaborador.Puesto.NombrePuesto</td>
+                    <td>@colaborador.Estado</td>
                 </tr>
             }
         </tbody>
@@ -113,19 +165,20 @@ else if ((planillas?.Count ?? 0) != 0)
         <thead>
             <tr>
                 <th>ID Planilla</th>
-                <th>Fecha Generacion</th>
-                <th>Monto Planilla</th>
-                <th>Deduccion CCSS</th>
-                <th>Deduccion renta</th>
-                <th>Salario bruto</th>
                 <th>Identificación</th>
                 <th>Nombre</th>
-                <th>Apellido 1</th>
-                <th>Apellido 2</th>
-                <th>Correo</th>
-                <th>Rol de Usuario</th>
                 <th>Departamento</th>
                 <th>Puesto</th>
+                <th>Fecha Generacion</th>
+                <th>Horas Extra pagadas</th>
+                <th>Horas Incapacidades pagadas</th>
+                <th>Horas Permiso Con Goce pagadas</th>
+                <th>Horas Vacaciones pagadas</th>
+                <th>Horas Trabajadas pagadas</th>
+                <th>Deduccion CCSS (10.67%)</th>
+                <th>Deduccion renta</th>
+                <th>Salario bruto</th>
+                <th>Salario neto (monto)</th>
             </tr>
         </thead>
         <tbody>
@@ -133,19 +186,20 @@ else if ((planillas?.Count ?? 0) != 0)
             {
                 <tr>
                     <td>@planilla.IdPlanilla</td>
+                    <td>@planilla.Colaborador.Persona.Identificacion</td>
+                    <td>@planilla.Colaborador.Persona.Nombre @planilla.Colaborador.Persona.Apellido1 @planilla.Colaborador.Persona.Apellido2</td>
+                    <td>@planilla.Colaborador.Departamento.Nombre</td>
+                    <td>@planilla.Colaborador.Puesto.NombrePuesto</td>
                     <td>@planilla.FechaGeneracion?.ToString("dd/MM/yyyy")</td>
-                    <td>&#8353; @planilla.Monto</td>
+                    <td>@planilla.HorasExtra</td>
+                    <td>@planilla.HorasIncapacidades</td>
+                    <td>@planilla.HorasPermiso</td>
+                    <td>@planilla.HorasVacaciones</td>
+                    <td>@planilla.HorasTrabajadas</td>
                     <td>&#8353; @planilla.DeduccionCCSS</td>
                     <td>&#8353; @planilla.DeduccionRenta</td>
                     <td>&#8353; @planilla.SalarioBruto</td>
-                    <td>@planilla.Colaborador.Persona.Identificacion</td>
-                    <td>@planilla.Colaborador.Persona.Nombre</td>
-                    <td>@planilla.Colaborador.Persona.Apellido1</td>
-                    <td>@planilla.Colaborador.Persona.Apellido2</td>
-                    <td>@planilla.Colaborador.Usuario.Correo</td>
-                    <td>@planilla.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
-                    <td>@planilla.Colaborador.Departamento.Nombre</td>
-                    <td>@planilla.Colaborador.Puesto.NombrePuesto</td>
+                    <td>&#8353; @planilla.Monto</td>
                 </tr>
             }
         </tbody>
@@ -196,15 +250,15 @@ else if ((liquidaciones?.Count ?? 0) != 0)
             <tr>
                 <th>ID Liquidacion</th>
                 <th>Fecha Generacion</th>
-                <th>Monto Liquidacion</th>
                 <th>Identificación</th>
                 <th>Nombre</th>
-                <th>Apellido 1</th>
-                <th>Apellido 2</th>
-                <th>Correo</th>
-                <th>Rol de Usuario</th>
                 <th>Departamento</th>
                 <th>Puesto</th>
+                <th>Preaviso</th>
+                <th>Cesantia</th>
+                <th>Vacaciones No Usadas</th>
+                <th>Aguinaldo</th>
+                <th>Monto Liquidacion</th>
             </tr>
         </thead>
         <tbody>
@@ -213,15 +267,147 @@ else if ((liquidaciones?.Count ?? 0) != 0)
                 <tr>
                     <td>@liquidacion.IdLiquidacion</td>
                     <td>@liquidacion.FechaGeneracion?.ToString("dd/MM/yyyy")</td>
-                    <td>&#8353; @liquidacion.Monto</td>
                     <td>@liquidacion.Colaborador.Persona.Identificacion</td>
-                    <td>@liquidacion.Colaborador.Persona.Nombre</td>
-                    <td>@liquidacion.Colaborador.Persona.Apellido1</td>
-                    <td>@liquidacion.Colaborador.Persona.Apellido2</td>
-                    <td>@liquidacion.Colaborador.Usuario.Correo</td>
-                    <td>@liquidacion.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                    <td>@liquidacion.Colaborador.Persona.Nombre @liquidacion.Colaborador.Persona.Apellido1 @liquidacion.Colaborador.Persona.Apellido2</td>
                     <td>@liquidacion.Colaborador.Departamento.Nombre</td>
                     <td>@liquidacion.Colaborador.Puesto.NombrePuesto</td>
+                    <td>&#8353; @liquidacion.Preaviso</td>
+                    <td>&#8353; @liquidacion.Cesantia</td>
+                    <td>&#8353; @liquidacion.VacacionesNoUsadas</td>
+                    <td>&#8353; @liquidacion.Aguinaldo</td>
+                    <td>&#8353; @liquidacion.Monto</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if ((horasExtra?.Count ?? 0) != 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID Horas Extra</th>
+                <th>Fecha Horas Extra</th>
+                <th>Horas</th>
+                <th>Estado</th>
+                <th>Justificacion</th>
+                <th>Nombre Colaborador</th>
+                <th>Departamento</th>
+                <th>Rol de Usuario</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var horaExtra in horasExtra)
+            {
+                <tr>
+                    <td>@horaExtra.IdHorasExtra</td>
+                    <td>@horaExtra.FechaHorasExtra?.ToString("yyyy-MM-dd")</td>
+                    <td>@horaExtra.Horas</td>
+                    <td>@horaExtra.Estado</td>
+                    <td>@horaExtra.Justificacion</td>
+                    <td>@horaExtra.Colaborador.Persona.Nombre @horaExtra.Colaborador.Persona.Apellido1 @horaExtra.Colaborador.Persona.Apellido2</td>
+                    <td>@horaExtra.Colaborador.Departamento.Nombre</td>
+                    <td>@horaExtra.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if ((permisos?.Count ?? 0) != 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID Permiso</th>
+                <th>Fecha Generacion</th>
+                <th>Fecha Permiso</th>
+                <th>Tipo Permiso</th>
+                <th>Horas Solicitadas</th>
+                <th>Estado</th>
+                <th>Justificacion</th>
+                <th>Nombre Colaborador</th>
+                <th>Departamento</th>
+                <th>Rol de Usuario</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var permiso in permisos)
+            {
+                <tr>
+                    <td>@permiso.IdPermiso</td>
+                    <td>@permiso.FechaGeneracion?.ToString("yyyy-MM-dd")</td>
+                    <td>@permiso.FechaPermiso?.ToString("yyyy-MM-dd")</td>
+                    <td>@permiso.TipoPermiso.Descripcion</td>
+                    <td>@permiso.Horas</td>
+                    <td>@permiso.Estado</td>
+                    <td>@permiso.Justificacion</td>
+                    <td>@permiso.Colaborador.Persona.Nombre @permiso.Colaborador.Persona.Apellido1 @permiso.Colaborador.Persona.Apellido2</td>
+                    <td>@permiso.Colaborador.Departamento.Nombre</td>
+                    <td>@permiso.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if ((incapacidades?.Count ?? 0) != 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID Incapacidad</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Fin</th>
+                <th>Tipo Incapacidad</th>
+                <th>Estado</th>
+                <th>Justificacion</th>
+                <th>Nombre Colaborador</th>
+                <th>Departamento</th>
+                <th>Rol de Usuario</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var incapacidad in incapacidades)
+            {
+                <tr>
+                    <td>@incapacidad.IdIncapacidad</td>
+                    <td>@incapacidad.FechaInicio?.ToString("yyyy-MM-dd")</td>
+                    <td>@incapacidad.FechaFin?.ToString("yyyy-MM-dd")</td>
+                    <td>@incapacidad.TipoIncapacidad.Descripcion</td>
+                    <td>@incapacidad.Estado</td>
+                    <td>@incapacidad.Justificacion</td>
+                    <td>@incapacidad.Colaborador.Persona.Nombre @incapacidad.Colaborador.Persona.Apellido1 @incapacidad.Colaborador.Persona.Apellido2</td>
+                    <td>@incapacidad.Colaborador.Departamento.Nombre</td>
+                    <td>@incapacidad.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if ((vacaciones?.Count ?? 0) != 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID Vacación</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Fin</th>
+                <th>Estado</th>
+                <th>Nombre Colaborador</th>
+                <th>Departamento</th>
+                <th>Rol de Usuario</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var vacacion in vacaciones)
+            {
+                <tr>
+                    <td>@vacacion.IdVacaciones</td>
+                    <td>@vacacion.FechaInicio?.ToString("yyyy-MM-dd")</td>
+                    <td>@vacacion.FechaFin?.ToString("yyyy-MM-dd")</td>
+                    <td>@vacacion.Estado</td>
+                    <td>@vacacion.Colaborador.Persona.Nombre @vacacion.Colaborador.Persona.Apellido1 @vacacion.Colaborador.Persona.Apellido2</td>
+                    <td>@vacacion.Colaborador.Departamento.Nombre</td>
+                    <td>@vacacion.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
                 </tr>
             }
         </tbody>

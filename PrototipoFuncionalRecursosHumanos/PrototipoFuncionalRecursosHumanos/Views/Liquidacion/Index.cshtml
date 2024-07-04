@@ -11,15 +11,15 @@
         <tr>
             <th>ID Liquidacion</th>
             <th>Fecha Generacion</th>
-            <th>Monto Liquidacion</th>
             <th>Identificación</th>
             <th>Nombre</th>
-            <th>Apellido 1</th>
-            <th>Apellido 2</th>
-            <th>Correo</th>
-            <th>Rol de Usuario</th>
             <th>Departamento</th>
             <th>Puesto</th>
+            <th>Preaviso</th>
+            <th>Cesantia</th>
+            <th>Vacaciones No Usadas</th>
+            <th>Aguinaldo</th>
+            <th>Monto Liquidacion</th>
         </tr>
     </thead>
     <tbody>
@@ -28,15 +28,15 @@
             <tr>
                 <td>@liquidacion.IdLiquidacion</td>
                 <td>@liquidacion.FechaGeneracion?.ToString("dd/MM/yyyy")</td>
-                <td>&#8353; @liquidacion.Monto</td>
                 <td>@liquidacion.Colaborador.Persona.Identificacion</td>
-                <td>@liquidacion.Colaborador.Persona.Nombre</td>
-                <td>@liquidacion.Colaborador.Persona.Apellido1</td>
-                <td>@liquidacion.Colaborador.Persona.Apellido2</td>
-                <td>@liquidacion.Colaborador.Usuario.Correo</td>
-                <td>@liquidacion.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                <td>@liquidacion.Colaborador.Persona.Nombre @liquidacion.Colaborador.Persona.Apellido1 @liquidacion.Colaborador.Persona.Apellido2</td>
                 <td>@liquidacion.Colaborador.Departamento.Nombre</td>
                 <td>@liquidacion.Colaborador.Puesto.NombrePuesto</td>
+                <td>&#8353; @liquidacion.Preaviso</td>
+                <td>&#8353; @liquidacion.Cesantia</td>
+                <td>&#8353; @liquidacion.VacacionesNoUsadas</td>
+                <td>&#8353; @liquidacion.Aguinaldo</td>
+                <td>&#8353; @liquidacion.Monto</td>
             </tr>
         }
     </tbody>
