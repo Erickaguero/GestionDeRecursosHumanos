@@ -55,26 +55,27 @@ public class VacacionesHandler
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add(new SqlParameter("@IdColaborador", idColaborador));
+
+                    // Add output parameter
+                    SqlParameter diasVacacionesRestantesParam = new SqlParameter("@DiasVacacionesRestantes", SqlDbType.Int);
+                    diasVacacionesRestantesParam.Direction = ParameterDirection.Output;
+                    command.Parameters.Add(diasVacacionesRestantesParam);
+
                     connection.Open();
 
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            diasVacacionesDisponibles = Convert.ToInt32(reader["DiasVacaciones"]);
-                        }
-                    }
+                    // Execute the command
+                    command.ExecuteNonQuery();
+
+                    // Get the output parameter value
+                    diasVacacionesDisponibles = (int)diasVacacionesRestantesParam.Value;
+
                     connection.Close();
                 }
             }
         }
-        catch (SqlException ex)
-        {
-            Console.WriteLine("Ocurrió un error al obtener la cantidad de dias de vacaciones disponible " + ex.Message);
-        }
         catch (Exception e)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine("Ocurrió un error al obtener la cantidad de dias de vacaciones disponible " + e.Message);
         }
 
         return diasVacacionesDisponibles;

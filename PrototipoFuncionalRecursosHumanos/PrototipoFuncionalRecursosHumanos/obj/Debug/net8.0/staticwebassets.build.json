@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Mt+yrpO8/zmx+UFYUK/MWIlJT8UBCwcT560u9qN++BM=",
+  "Hash": "Nb4LEoiwg2U8sZH0ffSz3XfipXl0ZCoqGcJGLuDfujE=",
   "Source": "PrototipoFuncionalRecursosHumanos",
   "BasePath": "_content/PrototipoFuncionalRecursosHumanos",
   "Mode": "Default",
@@ -167,6 +167,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\icons\\mail_icon.svg"
+    },
+    {
+      "Identity": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\icons\\search-icon.svg",
+      "SourceId": "PrototipoFuncionalRecursosHumanos",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\",
+      "BasePath": "_content/PrototipoFuncionalRecursosHumanos",
+      "RelativePath": "icons/search-icon.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\icons\\search-icon.svg"
     },
     {
       "Identity": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\images\\login_img.jpg",

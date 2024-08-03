@@ -7,19 +7,24 @@
 <h2 class="text-center mb-3">Crear solicitud de incapacidad</h2>
 
 <form asp-action="CrearSolicitudIncapacidad" asp-controller="GestionIncapacidades" method="post">
-    <iv class="mt-5">
+    <div class="d-flex justify-content-center align-items-center mt-5">
+        <div class="form-group me-3">
+            <label asp-for="FechaInicio" class="control-label">Fecha de inicio</label>
+            <input asp-for="FechaInicio" class="form-control" type="date" />
+        </div>
+
         <div class="form-group">
             <label asp-for="FechaFin" class="control-label">Fecha de fin</label>
             <input asp-for="FechaFin" class="form-control" type="date" />
-            <span asp-validation-for="FechaFin" class="text-danger"></span>
         </div>
-        <div class="form-group mt-3">
-            <label for="floatingTextarea">Justificacion</label>
-            <textarea asp-for="Justificacion" class="form-control" placeholder="Escribe tu justificacion" id="floatingTextarea"></textarea>
-            <span asp-validation-for="Justificacion" class="text-danger"></span>
-        </div>
-
     </div>
-
+    <div class="d-flex justify-content-center mt-3">
+        <span asp-validation-for="FechaFin" class="text-danger text-center"></span>
+    </div>
+    <div class="form-group mt-3">
+        <label for="floatingTextarea">Justificacion</label>
+        <textarea asp-for="Justificacion" class="form-control" placeholder="Escribe tu justificacion" id="floatingTextarea"></textarea>
+        <span asp-validation-for="Justificacion" class="text-danger"></span>
+    </div>
     <input type="submit" value="Solicitar" class="d-block mx-auto btn btn-primary mt-4" />
 </form>

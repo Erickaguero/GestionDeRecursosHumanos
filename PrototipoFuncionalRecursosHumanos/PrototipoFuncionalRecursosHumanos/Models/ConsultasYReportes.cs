@@ -1,7 +1,12 @@
-﻿namespace PrototipoFuncionalRecursosHumanos.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PrototipoFuncionalRecursosHumanos.Models
 {
     public class ConsultasYReportes
     {
+        [RegularExpression(@"^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s]*$", ErrorMessage = "El filtro ingresado es invalido.")]
+        [MaxLength(45, ErrorMessage = "El filtro ingresado es demasiado largo.")]
+        public string? Filtro { get; set; }
         public List<Asistencia>? Asistencias {get; set;}
         public List<Planilla>? Planillas { get; set; }
         public List<Aguinaldo>? Aguinaldos { get; set; }
@@ -20,8 +25,9 @@
         public ConsultasYReportes() {
         }
         
-        public ConsultasYReportes (List<Asistencia> asistencias, List<Planilla> planillas, List<Aguinaldo> aguinaldos, List<Liquidacion> liquidaciones, List<Colaborador> colaboradoresActivos, List<Colaborador> colaboradoresInactivos, List<HorasExtra> horasExtras, List<Permisos> permisos, List<Incapacidades> incapacidades, List<Vacaciones> vacaciones, string elementoADesplegar, bool desplegarBotones)
+        public ConsultasYReportes (string Filtro, List<Asistencia> asistencias, List<Planilla> planillas, List<Aguinaldo> aguinaldos, List<Liquidacion> liquidaciones, List<Colaborador> colaboradoresActivos, List<Colaborador> colaboradoresInactivos, List<HorasExtra> horasExtras, List<Permisos> permisos, List<Incapacidades> incapacidades, List<Vacaciones> vacaciones, string elementoADesplegar, bool desplegarBotones)
         {
+            this.Filtro = Filtro;
             Asistencias = asistencias;
             Planillas = planillas;
             Aguinaldos = aguinaldos;

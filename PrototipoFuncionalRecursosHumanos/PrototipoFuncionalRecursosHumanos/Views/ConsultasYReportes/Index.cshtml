@@ -38,9 +38,22 @@
             <a href="@Url.Action("Index", "ConsultasYReportes", new { elementoADesplegar = "vacaciones" })" class="btn btn-info me-2 mb-2">Ver vacaciones</a>
         </div>
         <div>
-            <a href="@Url.Action("GenerarReporte", "ConsultasYReportes", new { elementoADesplegar = Model.ElementoADesplegar })" class="btn btn-success mb-2">Generar reporte</a>
+            <a href="@Url.Action("GenerarReporte", "ConsultasYReportes", new { elementoADesplegar = Model.ElementoADesplegar, filtro = Model.Filtro})" class="btn btn-success mb-2">Generar reporte</a>
         </div>
     </div>
+    <form action="@Url.Action("Index", "ConsultasYReportes")" method="post">
+        <input type="hidden" name="elementoADesplegar" value="@Model.ElementoADesplegar" />
+        <div class="form-group login_elements">
+            <div class="login_input_box">
+                <label asp-for="Filtro" class="login_input_label">
+                    <img src="~/icons/search-icon.svg" class="login_input_icon" alt="icono busqueda" />
+                </label>
+                <input asp-for="Filtro" type="text" class="login_input" placeholder="Filtra los resultados">
+            </div>
+            <span asp-validation-for="Filtro" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
 }
 
 @if ((asistencias?.Count ?? 0) != 0)

@@ -131,6 +131,18 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
 
         public void ValidarIncapacidades(Incapacidades incapacidad, ModelStateDictionary ModelState)
         {
+            if (incapacidad.FechaInicio == null)
+            {
+                ModelState.AddModelError("FechaFin", "La fecha de inicio es obligatoria.");
+            }
+            if (incapacidad.FechaInicio != null && incapacidad.FechaInicio <= DateTime.Now.Date)
+            {
+                ModelState.AddModelError("FechaFin", "La fecha de inicio no puede ser hoy o una fecha anterior.");
+            }
+            if (incapacidad.FechaFin != null && incapacidad.FechaFin <= DateTime.Now.Date)
+            {
+                ModelState.AddModelError("FechaFin", "La fecha de fin no puede ser hoy o una fecha anterior.");
+            }
             if (incapacidad.FechaFin == null)
             {
                 ModelState.AddModelError("FechaFin", "La fecha de fin es obligatoria.");
@@ -139,21 +151,22 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             {
                 ModelState.AddModelError("Justificacion", "La justificación es obligatoria.");
             }
-            if (incapacidad.FechaFin != null && incapacidad.FechaFin < DateTime.Now.Date)
+            if (incapacidad.FechaInicio != null && incapacidad.FechaFin != null)
             {
-                ModelState.AddModelError("FechaFin", "La fecha de fin no puede ser una fecha anterior.");
-            }
-            if (incapacidad.FechaFin != null)
-            {
+                if (incapacidad.FechaInicio > incapacidad.FechaFin)
+                {
+                    ModelState.AddModelError("FechaFin", "La fecha de inicio no puede ser mayor a la fecha de fin.");
+                }
                 if (incapacidadesHandler.IncapacidadExistente(incapacidad))
                 {
                     ModelState.AddModelError("FechaFin", "Ya tienes una solicitud de incapacidad en esa fecha");
                 }
-                if (validacionesHandler.ValidarSiContieneFeriado(DateTime.Now.Date, (DateTime)incapacidad.FechaFin))
+                if (validacionesHandler.ValidarSiContieneFeriado((DateTime)incapacidad.FechaInicio, (DateTime)incapacidad.FechaFin))
                 {
                     ModelState.AddModelError("FechaFin", "No puede crear incapacidades en periodos que contengan feriados.");
                 }
-                if (!validacionesHandler.ValidarFechasUnicas(DateTime.Now.Date, (DateTime)incapacidad.FechaFin, (int)incapacidad.Colaborador.IdColaborador)) {
+                if (!validacionesHandler.ValidarFechasUnicas((DateTime)incapacidad.FechaInicio, (DateTime)incapacidad.FechaFin, (int)incapacidad.Colaborador.IdColaborador))
+                {
                     ModelState.AddModelError("FechaFin", "No puede solicitar una incapacidad si ya solicito una hora extra, incapacidad, vacacion o permiso en el mismo periodo.");
                 }
             }

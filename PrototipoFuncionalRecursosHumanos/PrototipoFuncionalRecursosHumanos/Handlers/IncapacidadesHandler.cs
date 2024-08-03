@@ -23,10 +23,11 @@ public class IncapacidadesHandler
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO mydb.incapacidades (fechaFin, id_colaborador, idtipoincapacidad, estado, justificacion) " +
-                    "VALUES(@FechaFin, @IdColaborador, @IdTipoIncapacidad, @Estado, @Justificacion)";
+                string query = "INSERT INTO mydb.incapacidades (fechaInicio,fechaFin, id_colaborador, idtipoincapacidad, estado, justificacion) " +
+                    "VALUES(@FechaInicio, @FechaFin, @IdColaborador, @IdTipoIncapacidad, @Estado, @Justificacion)";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
+                    command.Parameters.AddWithValue("@FechaInicio", incapacidad.FechaInicio);
                     command.Parameters.AddWithValue("@FechaFin", incapacidad.FechaFin);
                     command.Parameters.AddWithValue("@IdColaborador", incapacidad.Colaborador.IdColaborador);
                     command.Parameters.AddWithValue("@IdTipoIncapacidad", idTipoPermisoNoDefinido);
@@ -58,7 +59,7 @@ public class IncapacidadesHandler
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@IdColaborador", incapacidad.Colaborador.IdColaborador);
-                    command.Parameters.AddWithValue("@FechaInicio", DateTime.Now.Date);
+                    command.Parameters.AddWithValue("@FechaInicio", incapacidad.FechaInicio);
                     command.Parameters.AddWithValue("@FechaFin", incapacidad.FechaFin);
 
                     int count = (int)command.ExecuteScalar();

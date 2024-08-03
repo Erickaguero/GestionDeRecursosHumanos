@@ -29,6 +29,10 @@
       "PackagePath": "staticwebassets\\icons\\mail_icon.svg"
     },
     {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\icons\\search-icon.svg",
+      "PackagePath": "staticwebassets\\icons\\search-icon.svg"
+    },
+    {
       "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\images\\login_img.jpg",
       "PackagePath": "staticwebassets\\images\\login_img.jpg"
     },
