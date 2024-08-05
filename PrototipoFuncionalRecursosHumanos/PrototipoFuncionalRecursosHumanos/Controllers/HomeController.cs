@@ -7,6 +7,7 @@ using System.Text;
 using Microsoft.IdentityModel.JsonWebTokens;
 using PrototipoFuncionalRecursosHumanos.Services;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Hosting.Server;
 
 namespace PrototipoFuncionalRecursosHumanos.Controllers
 {
@@ -101,13 +102,41 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
-            return View();
+
+            MenuPrincipal modelo = new MenuPrincipal();
+            ObtenerImagenesEmpleados(modelo);
+            ObtenerInformacionColaborador(modelo, correo);
+            return View(modelo);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public void ObtenerImagenesEmpleados(MenuPrincipal modelo)
+        {
+            var app = WebApplication.CreateBuilder();
+            string rutaRelativa = "images/employees";
+            string rutaCarpeta = Path.Combine(app.Environment.WebRootPath, rutaRelativa);
+            List<string> archivosImagen = Directory.GetFiles(rutaCarpeta, "*.jpeg")
+                .Select(archivo => Path.Combine("~/" + rutaRelativa, Path.GetFileName(archivo)).Replace("\\", "/"))
+                .ToList();
+
+            modelo.UbicacionesImagenesColaboradores = archivosImagen;
+        }
+
+        public void ObtenerInformacionColaborador(MenuPrincipal modelo, string correo)
+        {
+            ColaboradorHandler colaboradorHandler = new ColaboradorHandler();
+            Colaborador colaborador = colaboradorHandler.ObtenerColaborador(correo);
+            modelo.NombreCompletoColaborador = colaborador.Persona.Nombre + " " + colaborador.Persona.Apellido1 + " " + colaborador.Persona.Apellido2;
+            modelo.HorasTrabajadasPeriodo = colaboradorHandler.CalcularHorasTrabajadasPorColaboradorId((int)colaborador.IdColaborador);
+            modelo.HorasExtrasPeriodo = colaboradorHandler.CalcularHorasExtraPorColaboradorId((int)colaborador.IdColaborador);
+            modelo.HorasPermisoPeriodo = colaboradorHandler.CalcularHorasPermisoPorColaboradorId((int)colaborador.IdColaborador);
+            modelo.HorasIncapacidadPeriodo =  colaboradorHandler.CalcularHorasIncapacidadesPorColaboradorId((int)colaborador.IdColaborador);
+
         }
     }
 }

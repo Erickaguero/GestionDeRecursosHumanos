@@ -105,10 +105,9 @@ public class ColaboradorHandler
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "UPDATE mydb.colaborador " +
-                    "SET estado = @Estado WHERE id_colaborador = @IdColaborador";
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlCommand command = new SqlCommand("AsignarEstadoColaborador", connection))
                 {
+                    command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@Estado", nuevoEstado);
                     command.Parameters.AddWithValue("@IdColaborador", idColaborador);
                     connection.Open();
@@ -428,5 +427,189 @@ public class ColaboradorHandler
         }
 
         return exito;
+    }
+
+    public bool ExisteColaboradorPorCorreo(string correo)
+    {
+        bool existe = false;
+        try
+        {
+            using (SqlConnection conexion = new SqlConnection(connectionString))
+            {
+                using (SqlCommand comando = new SqlCommand("ObtenerColaboradorPorCorreo", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.Add(new SqlParameter("@Correo", correo));
+                    conexion.Open();
+
+                    using (SqlDataReader lector = comando.ExecuteReader())
+                    {
+                        if (lector.Read())
+                        {
+                            existe = true;
+                        }
+                    }
+                    conexion.Close();
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Ocurrió un error al obtener el colaborador: " + e.Message);
+        }
+
+        return existe;
+    }
+
+    public bool ExisteColaboradorPorIdentificacion(string identificacion)
+    {
+        bool existe = false;
+        try
+        {
+            using (SqlConnection conexion = new SqlConnection(connectionString))
+            {
+                using (SqlCommand comando = new SqlCommand("ObtenerColaboradorPorIdentificacion", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.Add(new SqlParameter("@Identificacion", identificacion));
+                    conexion.Open();
+
+                    using (SqlDataReader lector = comando.ExecuteReader())
+                    {
+                        if (lector.Read())
+                        {
+                            existe = true;
+                        }
+                    }
+                    conexion.Close();
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Ocurrió un error al obtener el colaborador: " + e.Message);
+        }
+
+        return existe;
+    }
+
+    public float CalcularHorasTrabajadasPorColaboradorId(int colaboradorId)
+    {
+        float totalHorasTrabajadas = 0;
+
+        using (SqlConnection conexion = new SqlConnection(connectionString))
+        {
+            using (SqlCommand comando = new SqlCommand("CalcularHorasTrabajadas", conexion))
+            {
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add(new SqlParameter("@IdColaborador", colaboradorId));
+
+                SqlParameter returnParameter = new SqlParameter();
+                returnParameter.Direction = ParameterDirection.ReturnValue;
+                comando.Parameters.Add(returnParameter);
+
+                conexion.Open();
+                comando.ExecuteNonQuery();
+
+                if (returnParameter.Value != null)
+                {
+                    totalHorasTrabajadas = (float)Convert.ToDecimal(returnParameter.Value);
+                }
+
+                conexion.Close();
+            }
+        }
+
+        return totalHorasTrabajadas;
+    }
+
+    public float CalcularHorasExtraPorColaboradorId(int colaboradorId)
+    {
+        float totalHorasExtra = 0;
+
+        using (SqlConnection conexion = new SqlConnection(connectionString))
+        {
+            using (SqlCommand comando = new SqlCommand("CalcularHorasExtra", conexion))
+            {
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add(new SqlParameter("@IdColaborador", colaboradorId));
+
+                SqlParameter returnParameter = new SqlParameter();
+                returnParameter.Direction = ParameterDirection.ReturnValue;
+                comando.Parameters.Add(returnParameter);
+
+                conexion.Open();
+                comando.ExecuteNonQuery();
+
+                if (returnParameter.Value != null)
+                {
+                    totalHorasExtra = (float)Convert.ToDecimal(returnParameter.Value);
+                }
+
+                conexion.Close();
+            }
+        }
+
+        return totalHorasExtra;
+    }
+
+    public float CalcularHorasIncapacidadesPorColaboradorId(int colaboradorId)
+    {
+        float totalHorasIncapacidades = 0;
+
+        using (SqlConnection conexion = new SqlConnection(connectionString))
+        {
+            using (SqlCommand comando = new SqlCommand("CalcularHorasIncapacidades", conexion))
+            {
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add(new SqlParameter("@IdColaborador", colaboradorId));
+
+                SqlParameter returnParameter = new SqlParameter();
+                returnParameter.Direction = ParameterDirection.ReturnValue;
+                comando.Parameters.Add(returnParameter);
+
+                conexion.Open();
+                comando.ExecuteNonQuery();
+
+                if (returnParameter.Value != null)
+                {
+                    totalHorasIncapacidades = (float)Convert.ToDecimal(returnParameter.Value);
+                }
+
+                conexion.Close();
+            }
+        }
+
+        return totalHorasIncapacidades;
+    }
+
+    public float CalcularHorasPermisoPorColaboradorId(int colaboradorId)
+    {
+        float totalHorasPermiso = 0;
+
+        using (SqlConnection conexion = new SqlConnection(connectionString))
+        {
+            using (SqlCommand comando = new SqlCommand("CalcularHorasPermiso", conexion))
+            {
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add(new SqlParameter("@IdColaborador", colaboradorId));
+
+                SqlParameter returnParameter = new SqlParameter();
+                returnParameter.Direction = ParameterDirection.ReturnValue;
+                comando.Parameters.Add(returnParameter);
+
+                conexion.Open();
+                comando.ExecuteNonQuery();
+
+                if (returnParameter.Value != null)
+                {
+                    totalHorasPermiso = (float)Convert.ToDecimal(returnParameter.Value);
+                }
+
+                conexion.Close();
+            }
+        }
+
+        return totalHorasPermiso;
     }
 }

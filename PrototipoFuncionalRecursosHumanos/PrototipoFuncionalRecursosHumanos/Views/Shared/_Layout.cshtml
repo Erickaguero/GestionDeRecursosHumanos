@@ -14,10 +14,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-light header_navbar border-bottom box-shadow mb-3">
+    <header class="mb-5">
+        <nav class="navbar navbar-light header_navbar box-shadow">
             <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <button class="navbar-toggler bg-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="offcanvas offcanvas-start header_menu" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
@@ -124,7 +124,7 @@
                         </ul>
                     </div>
                 </div>
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="MenuPrincipal">Prototipo Funcional Recursos Humanos</a>
+                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="MenuPrincipal">Prototipo Funcional Recursos Humanos</a>
             </div>
         </nav>
     </header>
@@ -150,6 +150,8 @@
     }
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @await RenderSectionAsync("Scripts", required: false)

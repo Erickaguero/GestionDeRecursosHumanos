@@ -75,9 +75,11 @@ body {
     filter: invert(87%) sepia(99%) saturate(3174%) hue-rotate(323deg) brightness(102%) contrast(91%);
 }
 /* Header */
+
 .header_navbar {
-    background-color: var(--light-gray);
+    background-color: var(--night);
     color: var(--white);
+    padding: 1em 0;
 }
 
 .header_menu {

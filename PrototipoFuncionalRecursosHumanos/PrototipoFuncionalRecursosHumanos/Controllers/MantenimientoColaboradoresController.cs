@@ -96,7 +96,6 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         [HttpPost]
         public IActionResult EditarColaborador(Colaborador colaborador)
         {
-            ValidarColaborador(colaborador, ModelState);
             if (TempData["IdColaborador"] != null && TempData["CorreoColaborador"] != null)
             {
                 colaborador.IdColaborador = (int)TempData["IdColaborador"];
@@ -109,6 +108,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
                     colaborador.Usuario.Contrasena = (string)TempData["ContrasenaColaborador"];
                 }
             }
+            ValidarColaborador(colaborador, ModelState);
             if (ModelState.IsValid)
             {
                 if (colaboradorHandler.EditarColaborador(colaborador))
@@ -142,6 +142,13 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (string.IsNullOrEmpty(colaborador.Persona.Identificacion))
             {
                 ModelState.AddModelError("Persona.Identificacion", "La identificación es requerida.");
+            }
+            else
+            {
+                if (colaboradorHandler.ExisteColaboradorPorIdentificacion(colaborador.Persona.Identificacion) && (colaborador.IdColaborador == null || (colaboradorHandler.ObtenerColaborador((int)colaborador.IdColaborador).Persona.Identificacion != colaborador.Persona.Identificacion)))
+                {
+                    ModelState.AddModelError("Persona.Identificacion", "Ya existe un colaborador con la misma identificación.");
+                }
             }
             if (string.IsNullOrEmpty(colaborador.Persona.TipoIdentificacion))
             {
@@ -188,6 +195,13 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             if (string.IsNullOrEmpty(colaborador.Usuario.Correo))
             {
                 ModelState.AddModelError("Usuario.Correo", "El correo es requerido.");
+            }
+            else
+            {
+                if (colaboradorHandler.ExisteColaboradorPorCorreo(colaborador.Usuario.Correo) && (colaborador.IdColaborador == null || (colaboradorHandler.ObtenerColaborador((int)colaborador.IdColaborador).Usuario.Correo != colaborador.Usuario.Correo)))
+                {
+                    ModelState.AddModelError("Usuario.Correo", "Ya existe un colaborador con el mismo correo.");
+                }
             }
             if (colaborador.Usuario.RolDeUsuario == null || colaborador.Usuario.RolDeUsuario.IdRolDeUsuario == null)
             {

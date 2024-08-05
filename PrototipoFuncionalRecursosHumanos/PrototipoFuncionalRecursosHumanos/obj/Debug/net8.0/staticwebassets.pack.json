@@ -17,6 +17,18 @@
       "PackagePath": "staticwebassets\\icons\\bell_icon.svg"
     },
     {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\icons\\emergency-icon.svg",
+      "PackagePath": "staticwebassets\\icons\\emergency-icon.svg"
+    },
+    {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\icons\\extra-hours-icon.svg",
+      "PackagePath": "staticwebassets\\icons\\extra-hours-icon.svg"
+    },
+    {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\icons\\ill-hours-icon.svg",
+      "PackagePath": "staticwebassets\\icons\\ill-hours-icon.svg"
+    },
+    {
       "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\icons\\left_back_icon.svg",
       "PackagePath": "staticwebassets\\icons\\left_back_icon.svg"
     },
@@ -31,6 +43,74 @@
     {
       "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\icons\\search-icon.svg",
       "PackagePath": "staticwebassets\\icons\\search-icon.svg"
+    },
+    {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\icons\\work-hours.svg",
+      "PackagePath": "staticwebassets\\icons\\work-hours.svg"
+    },
+    {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\images\\employees\\employee-img-1.jpeg",
+      "PackagePath": "staticwebassets\\images\\employees\\employee-img-1.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\images\\employees\\employee-img-10.jpeg",
+      "PackagePath": "staticwebassets\\images\\employees\\employee-img-10.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\images\\employees\\employee-img-11.jpeg",
+      "PackagePath": "staticwebassets\\images\\employees\\employee-img-11.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\images\\employees\\employee-img-12.jpeg",
+      "PackagePath": "staticwebassets\\images\\employees\\employee-img-12.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\images\\employees\\employee-img-13.jpeg",
+      "PackagePath": "staticwebassets\\images\\employees\\employee-img-13.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\images\\employees\\employee-img-14.jpeg",
+      "PackagePath": "staticwebassets\\images\\employees\\employee-img-14.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\images\\employees\\employee-img-15.jpeg",
+      "PackagePath": "staticwebassets\\images\\employees\\employee-img-15.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\images\\employees\\employee-img-16.jpeg",
+      "PackagePath": "staticwebassets\\images\\employees\\employee-img-16.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\images\\employees\\employee-img-2.jpeg",
+      "PackagePath": "staticwebassets\\images\\employees\\employee-img-2.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\images\\employees\\employee-img-3.jpeg",
+      "PackagePath": "staticwebassets\\images\\employees\\employee-img-3.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\images\\employees\\employee-img-4.jpeg",
+      "PackagePath": "staticwebassets\\images\\employees\\employee-img-4.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\images\\employees\\employee-img-5.jpeg",
+      "PackagePath": "staticwebassets\\images\\employees\\employee-img-5.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\images\\employees\\employee-img-6.jpeg",
+      "PackagePath": "staticwebassets\\images\\employees\\employee-img-6.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\images\\employees\\employee-img-7.jpeg",
+      "PackagePath": "staticwebassets\\images\\employees\\employee-img-7.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\images\\employees\\employee-img-8.jpeg",
+      "PackagePath": "staticwebassets\\images\\employees\\employee-img-8.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\images\\employees\\employee-img-9.jpeg",
+      "PackagePath": "staticwebassets\\images\\employees\\employee-img-9.jpeg"
     },
     {
       "Id": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\wwwroot\\images\\login_img.jpg",

@@ -1,17 +1,97 @@
-﻿@{
+﻿@model PrototipoFuncionalRecursosHumanos.Models.MenuPrincipal
+
+@{
     ViewData["Title"] = "Menu Principal";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <h2>Misión</h2>
-            <p>Nuestra misión es proporcionar una plataforma eficiente y fácil de usar para gestionar todos los aspectos de los recursos humanos, desde la contratación hasta la jubilación. Nos esforzamos por ayudar a las empresas a atraer, retener y desarrollar el mejor talento, al tiempo que garantizamos el cumplimiento de las regulaciones laborales.</p>
-        </div>
+<h4 class="mt-3">¡Bienvenido! <span class="text-danger">@Model.NombreCompletoColaborador</span></h4>
 
-        <div class="col-md-6">
-            <h2>Visión</h2>
-            <p>Nuestra visión es ser el líder mundial en software de gestión de recursos humanos, proporcionando soluciones innovadoras y centradas en el usuario que transforman la forma en que las empresas gestionan su recurso más valioso: su gente.</p>
+<h5 class="my-3">Métricas personales periodo actual</h5>
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="col">
+        <div class="card bg-info text-dark">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <h5 class="card-title me-3">Horas laboradas</h5>
+                    <img src="~/icons/work-hours.svg" alt="icono de horas trabajadas" height="35px" width="35px" />
+                </div>
+                <p class="card-text">@Model.HorasTrabajadasPeriodo horas</p>
+            </div>
         </div>
+    </div>
+    <div class="col">
+        <div class="card bg-info text-dark">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <h5 class="card-title me-3">Horas Extra</h5>
+                    <img src="~/icons/extra-hours-icon.svg" alt="icono de horas extra" height="35px" width="35px" />
+                </div>
+                <p class="card-text">@Model.HorasExtrasPeriodo horas</p>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card bg-info text-dark">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <h5 class="card-title me-3">Horas Permiso</h5>
+                    <img src="~/icons/emergency-icon.svg" alt="icono de horas permiso" height="35px" width="35px" />
+                </div>
+                <p class="card-text">@Model.HorasPermisoPeriodo horas</p>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card bg-info text-dark">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <h5 class="card-title me-3">Horas Incapacidad</h5>
+                    <img src="~/icons/ill-hours-icon.svg" alt="icono de horas incapacidad" height="35px" width="35px" />
+                </div>
+                <p class="card-text">@Model.HorasIncapacidadPeriodo horas</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <h5 class="mb-4">Algunos de nuestros colaboradores destacados:</h5>
+    <div id="carouselExampleFade" class="carousel slide">
+        <div class="carousel-inner">
+            @for (int i = 0; i < Model.UbicacionesImagenesColaboradores.Count; i += 3)
+            {
+                <div class="carousel-item @(i == 0 ? "active" : "")">
+                    @for (int j = 0; j < 3 && i + j < Model.UbicacionesImagenesColaboradores.Count; j++)
+                    {
+                        <button type="button" data-toggle="modal" data-target="#modal@(i + j)" style="height: 450px; width: 350px">
+                            <img class="d-block w-100 h-100 img-fluid" src='@Url.Content(Model.UbicacionesImagenesColaboradores[i+j])' alt='Slide @(i+j + 1)' style="object-fit: cover;">
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="modal@(i+j)" tabindex="-1" role="dialog" aria-labelledby="modalLabel@(i+j)" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <img src='@Url.Content(Model.UbicacionesImagenesColaboradores[i+j])' class="img-fluid" alt='Slide @(i+j + 1)'>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
 </div>
