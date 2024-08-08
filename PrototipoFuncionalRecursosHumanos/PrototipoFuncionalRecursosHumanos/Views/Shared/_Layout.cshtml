@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PrototipoFuncionalRecursosHumanos.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
     <header class="mb-5">
@@ -28,7 +29,7 @@
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item">
-                                <a class="nav-link header_link" asp-area="" asp-controller="Home" asp-action="MenuPrincipal">Menu Principal</a>
+                                <a class="nav-link header_link" asp-area="" asp-controller="Home" asp-action="MenuPrincipal"><i class="menu_icon bi bi-house-door-fill"></i> Menu Principal</a>
                             </li>
                             @if (estadoUsuario == "activo")
                             {
@@ -36,90 +37,90 @@
                                 {
                                     <li class="nav-item dropdown">
                                         <a class="nav-link header_link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Mantenimientos
+                                            <i class="menu_icon bi bi-tools"></i> Mantenimientos
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <li><a class="dropdown-item" asp-area="" asp-controller="MantenimientoDepartamentos" asp-action="Index">Mantenimiento Departamentos</a></li>
-                                            <li><a class="dropdown-item" asp-area="" asp-controller="MantenimientoPuestos" asp-action="Index">Mantenimiento Puestos</a></li>
-                                            <li><a class="dropdown-item" asp-area="" asp-controller="MantenimientoColaboradores" asp-action="Index">Mantenimiento Colaboradores</a></li>
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="MantenimientoDepartamentos" asp-action="Index"><i class="menu_icon bi bi-building"></i> Mantenimiento Departamentos</a></li>
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="MantenimientoPuestos" asp-action="Index"><i class="menu_icon bi bi-person-lines-fill"></i> Mantenimiento Puestos</a></li>
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="MantenimientoColaboradores" asp-action="Index"><i class="menu_icon bi bi-people-fill"></i> Mantenimiento Colaboradores</a></li>
                                         </ul>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link header_link" asp-area="" asp-controller="ConsultasYReportes" asp-action="Index">Consultas y reportes</a>
+                                        <a class="nav-link header_link" asp-area="" asp-controller="ConsultasYReportes" asp-action="Index"><i class="menu_icon bi bi-file-earmark-bar-graph"></i> Consultas y reportes</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link header_link" asp-area="" asp-controller="Planilla" asp-action="Index">Gestionar Planilla</a>
+                                        <a class="nav-link header_link" asp-area="" asp-controller="Planilla" asp-action="Index"><i class="menu_icon bi bi-currency-exchange"></i> Gestionar Planilla</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link header_link" asp-area="" asp-controller="Aguinaldo" asp-action="Index">Gestionar Aguinaldo</a>
+                                        <a class="nav-link header_link" asp-area="" asp-controller="Aguinaldo" asp-action="Index"><i class="menu_icon bi bi-cash-stack"></i> Gestionar Aguinaldo</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link header_link" asp-area="" asp-controller="Liquidacion" asp-action="Index">Gestionar Liquidacion</a>
+                                        <a class="nav-link header_link" asp-area="" asp-controller="Liquidacion" asp-action="Index"><i class="menu_icon bi bi-cash-coin"></i> Gestionar Liquidacion</a>
                                     </li>
                                 }
                                 <li class="nav-item dropdown">
                                     <a class="nav-link header_link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Gestionar vacaciones
+                                        <i class="menu_icon bi bi-sun-fill"></i> Gestionar vacaciones
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="GestionVacaciones" asp-action="SolicitarVacaciones">Solicitar vacaciones</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="GestionVacaciones" asp-action="SolicitarVacaciones"><i class="menu_icon bi bi-calendar-plus"></i> Solicitar vacaciones</a></li>
                                         @if (rolDeUsuario == "administrador" || rolDeUsuario == "jefatura")
                                         {
-                                            <li><a class="dropdown-item" asp-area="" asp-controller="GestionVacaciones" asp-action="AprobarVacaciones">Aprobar vacaciones</a></li>
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="GestionVacaciones" asp-action="AprobarVacaciones"><i class="menu_icon bi bi-calendar-check"></i> Aprobar vacaciones</a></li>
                                         }
                                     </ul>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link header_link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Gestionar permisos
+                                        <i class="menu_icon bi bi-door-open-fill"></i> Gestionar permisos
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="GestionPermisos" asp-action="SolicitarPermisos">Solicitar permisos</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="GestionPermisos" asp-action="SolicitarPermisos"><i class="menu_icon bi bi-file-earmark-plus"></i> Solicitar permisos</a></li>
                                         @if (rolDeUsuario == "administrador" || rolDeUsuario == "jefatura")
                                         {
-                                            <li><a class="dropdown-item" asp-area="" asp-controller="GestionPermisos" asp-action="AprobarPermisos">Aprobar permisos</a></li>
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="GestionPermisos" asp-action="AprobarPermisos"><i class="menu_icon bi bi-file-earmark-check"></i> Aprobar permisos</a></li>
                                         }
                                     </ul>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link header_link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Gestionar incapacidades
+                                        <i class="menu_icon bi bi-person-x-fill"></i> Gestionar incapacidades
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="GestionIncapacidades" asp-action="SolicitarIncapacidades">Solicitar incapacidades</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="GestionIncapacidades" asp-action="SolicitarIncapacidades"><i class="menu_icon bi bi-file-earmark-medical"></i> Solicitar incapacidades</a></li>
                                         @if (rolDeUsuario == "administrador" || rolDeUsuario == "jefatura")
                                         {
-                                            <li><a class="dropdown-item" asp-area="" asp-controller="GestionIncapacidades" asp-action="AprobarIncapacidades">Aprobar incapacidades</a></li>
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="GestionIncapacidades" asp-action="AprobarIncapacidades"><i class="menu_icon bi bi-file-earmark-medical-fill"></i> Aprobar incapacidades</a></li>
                                         }
                                     </ul>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link header_link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Gestionar horas extra
+                                        <i class="menu_icon bi bi-clock-fill"></i> Gestionar horas extra
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="GestionHorasExtra" asp-action="SolicitarHorasExtra">Solicitar horas extra</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="GestionHorasExtra" asp-action="SolicitarHorasExtra"><i class="menu_icon bi bi-plus-circle"></i> Solicitar horas extra</a></li>
                                         @if (rolDeUsuario == "administrador" || rolDeUsuario == "jefatura")
                                         {
-                                            <li><a class="dropdown-item" asp-area="" asp-controller="GestionHorasExtra" asp-action="AprobarHorasExtra">Aprobar horas extra</a></li>
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="GestionHorasExtra" asp-action="AprobarHorasExtra"><i class="menu_icon bi bi-check-circle"></i> Aprobar horas extra</a></li>
                                         }
                                     </ul>
                                 </li>
                                 @if (rolDeUsuario == "administrador")
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-link header_link" asp-area="" asp-controller="EvaluacionEmpleado" asp-action="Index">Evaluar Empleados</a>
+                                        <a class="nav-link header_link" asp-area="" asp-controller="EvaluacionEmpleado" asp-action="Index"><i class="menu_icon bi bi-card-checklist"></i> Evaluar Empleados</a>
                                     </li>
                                 }
                             }
                             <li class="nav-item">
-                                <a class="nav-link header_link" asp-area="" asp-controller="EvaluacionEmpleado" asp-action="ListaEvaluaciones">Ver mis evaluaciones</a>
+                                <a class="nav-link header_link" asp-area="" asp-controller="EvaluacionEmpleado" asp-action="ListaEvaluaciones"><i class="menu_icon bi bi-card-list"></i> Ver mis evaluaciones</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link header_link" asp-area="" asp-controller="Asistencias" asp-action="ListaAsistencias">Ver mis asistencias</a>
+                                <a class="nav-link header_link" asp-area="" asp-controller="Asistencias" asp-action="ListaAsistencias"><i class="menu_icon bi bi-calendar3"></i> Ver mis asistencias</a>
                             </li>
                             <li class="nav-item mt-5">
-                                <a class="nav-link header_link" asp-area="" asp-controller="Home" asp-action="CerrarSesion">Cerrar Sesion</a>
+                                <a class="nav-link header_link" asp-area="" asp-controller="Home" asp-action="CerrarSesion"><i class="menu_icon bi bi-box-arrow-right"></i> Cerrar Sesion</a>
                             </li>
                         </ul>
                     </div>

@@ -90,6 +90,10 @@ body {
 .header_link {
     color: var(--white) !important;
 }
+
+.menu_icon {
+    font-size: 1.4em;
+}
 /* Iniciar Sesion */
 .login_page {
     display: flex;

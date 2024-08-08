@@ -461,6 +461,47 @@ public class ColaboradorHandler
         return existe;
     }
 
+    public bool ExisteJefeParaDepartamento(int idRolDeUsuario, int idDepartamento)
+    {
+        bool existe = false;
+        try
+        {
+            using (SqlConnection conexion = new SqlConnection(connectionString))
+            {
+                string query = @"IF @IdRolDeUsuario = (SELECT idrolDeUsuario FROM mydb.roldeusuario WHERE descripcion = 'jefatura') 
+                             BEGIN
+                                SELECT 1 
+                                FROM mydb.colaborador C
+                                INNER JOIN mydb.usuario U ON C.idusuario = U.idusuario
+                                INNER JOIN mydb.roldeusuario R ON U.idrolDeUsuario = R.idrolDeUsuario
+                                WHERE C.iddepartamento = @IdDepartamento AND R.descripcion = 'jefatura' AND C.estado != 'inactivo'
+                             END";
+
+                using (SqlCommand comando = new SqlCommand(query, conexion))
+                {
+                    comando.Parameters.Add(new SqlParameter("@IdDepartamento", idDepartamento));
+                    comando.Parameters.Add(new SqlParameter("@IdRolDeUsuario", idRolDeUsuario));
+                    conexion.Open();
+
+                    using (SqlDataReader lector = comando.ExecuteReader())
+                    {
+                        if (lector.Read())
+                        {
+                            existe = true;
+                        }
+                    }
+                    conexion.Close();
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Ocurrió un error al verificar si existe un jefe para el departamento: " + e.Message);
+        }
+
+        return existe;
+    }
+
     public bool ExisteColaboradorPorIdentificacion(string identificacion)
     {
         bool existe = false;

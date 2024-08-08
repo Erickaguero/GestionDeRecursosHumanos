@@ -18,7 +18,7 @@ namespace PrototipoFuncionalRecursosHumanos.Services
             var correo = new MailMessage();
             correo.From = new MailAddress(correoAplicacion);
             correo.To.Add(colaborador.Usuario.Correo);
-            correo.Subject = "Bienvenido al equipo de trabajo " + colaborador.Persona.Nombre;
+            correo.Subject = "menu_icon bienvenido al equipo de trabajo " + colaborador.Persona.Nombre;
             correo.Body = "Esta es tu contraseña para que inicies sesión: " + colaborador.Usuario.Contrasena;
             correo.Body += "\n\nPuedes iniciar sesión en el sistema a través de este enlace: https://localhost:7120/";
             correo.IsBodyHtml = false;

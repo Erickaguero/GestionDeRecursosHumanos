@@ -211,6 +211,13 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             {
                 ModelState.AddModelError("Departamento.IdDepartamento", "El departamento es requerido.");
             }
+            if (colaborador.Departamento.IdDepartamento != null && colaborador.Usuario.RolDeUsuario.IdRolDeUsuario != null)
+            {
+                if (colaboradorHandler.ExisteJefeParaDepartamento((int)colaborador.Usuario.RolDeUsuario.IdRolDeUsuario, (int)colaborador.Departamento.IdDepartamento) && (colaborador.IdColaborador == null || (colaboradorHandler.ObtenerColaborador((int)colaborador.IdColaborador).Usuario.RolDeUsuario.Descripcion != "jefatura")))
+                {
+                    ModelState.AddModelError("Usuario.RolDeUsuario.IdRolDeUsuario", "Ya existe una jefatura para este departamento.");
+                }
+            }
             if (colaborador.Puesto == null || colaborador.Puesto.IdPuesto == null)
             {
                 ModelState.AddModelError("Puesto.IdPuesto", "El puesto es requerido.");
