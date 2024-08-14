@@ -4,55 +4,66 @@
     ViewData["Title"] = "Mantenimiento Colaboradores";
 }
 
-<a href="@Url.Action("CrearColaborador", "MantenimientoColaboradores")" class="btn btn-success">Crear Colaborador</a>
+<div>
+    <a href="@Url.Action("CrearColaborador", "MantenimientoColaboradores")" class="btn btn-success">
+        <i class="bi bi-person-plus"></i> Crear Colaborador
+    </a>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID Colaborador</th>
-            <th>Identificación</th>
-            <th>Nombre</th>
-            <th>Apellido 1</th>
-            <th>Apellido 2</th>
-            <th>Fecha de Nacimiento</th>
-            <th>Correo</th>
-            <th>Rol de Usuario</th>
-            <th>Departamento</th>
-            <th>Puesto</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var colaborador in Model)
-        {
+    <table class="table">
+        <thead>
             <tr>
-                <td>@colaborador.IdColaborador</td>
-                <td>@colaborador.Persona.Identificacion</td>
-                <td>@colaborador.Persona.Nombre</td>
-                <td>@colaborador.Persona.Apellido1</td>
-                <td>@colaborador.Persona.Apellido2</td>
-                <td>@colaborador.Persona.FechaDeNacimiento?.ToString("dd/MM/yyyy")</td>
-                <td>@colaborador.Usuario.Correo</td>
-                <td>@colaborador.Usuario.RolDeUsuario.Descripcion</td>
-                <td>@colaborador.Departamento.Nombre</td>
-                <td>@colaborador.Puesto.NombrePuesto</td>
-                <td>@colaborador.Estado</td>
-                <td>
-                    <div class="row">
-                        <div class="col">
-                            <a href="@Url.Action("EditarColaborador", "MantenimientoColaboradores", new { idColaborador = colaborador.IdColaborador })" class="btn btn-primary text-nowrap">Editar</a>
-                        </div>
-                        <div class="col">
-                            <a href="@Url.Action("EliminarColaborador", "MantenimientoColaboradores", new { idColaborador = colaborador.IdColaborador })" class="btn btn-danger text-nowrap">Eliminar</a>
-                        </div>
-                        <div class="col mt-2">
-                            <a href="@Url.Action("ReiniciarContrasena", "MantenimientoColaboradores", new { idColaborador = colaborador.IdColaborador })" class="btn btn-info text-nowrap">Reiniciar Contraseña</a>
-                        </div>
-                    </div>
-                </td>
+                <th>ID Colaborador</th>
+                <th>Identificación</th>
+                <th>Nombre</th>
+                <th>Apellido 1</th>
+                <th>Apellido 2</th>
+                <th>Fecha de Nacimiento</th>
+                <th>Correo</th>
+                <th>Rol de Usuario</th>
+                <th>Departamento</th>
+                <th>Puesto</th>
+                <th>Estado</th>
+                <th>Acciones</th>
             </tr>
-        }
-    </tbody>
-</table>
-
+        </thead>
+        <tbody>
+            @foreach (var colaborador in Model)
+            {
+                <tr>
+                    <td>@colaborador.IdColaborador</td>
+                    <td>@colaborador.Persona.Identificacion</td>
+                    <td>@colaborador.Persona.Nombre</td>
+                    <td>@colaborador.Persona.Apellido1</td>
+                    <td>@colaborador.Persona.Apellido2</td>
+                    <td>@colaborador.Persona.FechaDeNacimiento?.ToString("dd/MM/yyyy")</td>
+                    <td>@colaborador.Usuario.Correo</td>
+                    <td>@colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                    <td>@colaborador.Departamento.Nombre</td>
+                    <td>@colaborador.Puesto.NombrePuesto</td>
+                    <td>@colaborador.Estado</td>
+                    <td>
+                        <div class="row">
+                            <div class="col">
+                                <a href="@Url.Action("EditarColaborador", "MantenimientoColaboradores", new { idColaborador = colaborador.IdColaborador })" class="btn btn-primary text-nowrap">
+                                    <i class="bi bi-pencil-fill"></i> Editar
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a href="@Url.Action("EliminarColaborador", "MantenimientoColaboradores", new { idColaborador = colaborador.IdColaborador })" class="btn btn-danger text-nowrap">
+                                    <i class="bi bi-trash-fill"></i> Eliminar
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col">
+                                <a href="@Url.Action("ReiniciarContrasena", "MantenimientoColaboradores", new { idColaborador = colaborador.IdColaborador })" class="btn btn-info text-nowrap w-100">
+                                    <i class="bi bi-arrow-repeat"></i> Reiniciar Contraseña
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

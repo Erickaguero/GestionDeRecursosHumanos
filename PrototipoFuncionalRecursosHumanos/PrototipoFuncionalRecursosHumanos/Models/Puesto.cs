@@ -7,7 +7,7 @@ namespace PrototipoFuncionalRecursosHumanos.Models
         public int? IdPuesto { get; set; }
 
         [MaxLength(80, ErrorMessage = "El nombre del puesto es demasiado largo.")]
-        [RegularExpression(@"^[a-zA-Z\s]*$", ErrorMessage = "El nombre del puesto solo debe contener letras.")]
+        [RegularExpression(@"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$", ErrorMessage = "El nombre del puesto solo debe contener letras.")]
         public string? NombrePuesto { get; set; }
 
         public double? CostoPorHora { get; set; }

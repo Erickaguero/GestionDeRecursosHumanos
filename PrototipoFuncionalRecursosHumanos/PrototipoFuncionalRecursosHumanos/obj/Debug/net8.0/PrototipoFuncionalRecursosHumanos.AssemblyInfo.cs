@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PrototipoFuncionalRecursosHumanos")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+436d40abf4838ba7cd2e4fb7791d38910132b157")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3852e7b94267427aee21aaf842652b9f264653b7")]
 [assembly: System.Reflection.AssemblyProductAttribute("PrototipoFuncionalRecursosHumanos")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PrototipoFuncionalRecursosHumanos")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

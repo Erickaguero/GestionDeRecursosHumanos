@@ -28,7 +28,7 @@
             <tr>
                 <td>@aguinaldo.IdAguinaldo</td>
                 <td>@aguinaldo.FechaGeneracion?.ToString("dd/MM/yyyy")</td>
-                <td>&#8353; @aguinaldo.Monto</td>
+                <td>&#8353; @(aguinaldo.Monto.HasValue ? aguinaldo.Monto.Value.ToString("N3") : "")</td>
                 <td>@aguinaldo.Colaborador.Persona.Identificacion</td>
                 <td>@aguinaldo.Colaborador.Persona.Nombre</td>
                 <td>@aguinaldo.Colaborador.Persona.Apellido1</td>

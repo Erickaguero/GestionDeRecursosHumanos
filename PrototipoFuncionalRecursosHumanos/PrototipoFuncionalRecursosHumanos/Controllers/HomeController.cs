@@ -114,13 +114,13 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
         public void ObtenerImagenesEmpleados(MenuPrincipal modelo)
         {
             var app = WebApplication.CreateBuilder();
             string rutaRelativa = "images/employees";
             string rutaCarpeta = Path.Combine(app.Environment.WebRootPath, rutaRelativa);
-            List<string> archivosImagen = Directory.GetFiles(rutaCarpeta, "*.jpeg")
+            List<string> archivosImagen = Directory.EnumerateFiles(rutaCarpeta)
+                .Where(file => file.EndsWith(".jpeg") || file.EndsWith(".jpg"))
                 .Select(archivo => Path.Combine("~/" + rutaRelativa, Path.GetFileName(archivo)).Replace("\\", "/"))
                 .ToList();
 

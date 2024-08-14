@@ -155,7 +155,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
                 }
                 if (!validacionesHandler.ValidarFechasUnicas((DateTime)vacacion.FechaInicio, (DateTime)vacacion.FechaFin, (int)vacacion.Colaborador.IdColaborador))
                 {
-                    ModelState.AddModelError("FechaFin", "No puede solicitar vacaciones si ya solicito una hora extra, incapacidad, vacacion o permiso en el mismo periodo.");
+                    ModelState.AddModelError("FechaFin", "No puede solicitar vacaciones si ya solicito una hora extra, incapacidad, vacación o permiso en el mismo periodo.");
                 }
             }
         }

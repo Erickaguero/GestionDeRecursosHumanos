@@ -6,7 +6,7 @@ namespace PrototipoFuncionalRecursosHumanos.Models
     {
         public int? IdDepartamento { get; set; }
         [MaxLength(45, ErrorMessage = "El nombre del departamento es demasiado largo.")]
-        [RegularExpression(@"^[a-zA-Z\s]*$", ErrorMessage = "El nombre del departamento solo debe contener letras.")]
+        [RegularExpression(@"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$", ErrorMessage = "El nombre del departamento solo debe contener letras.")]
         public string? Nombre { get; set; }
 
         public Departamento()

@@ -8,6 +8,7 @@
     --orange: #F24713ff;
     --deep-dark: #212233ff;
     --blue: #6289B5ff;
+    --light-night: #353340;
     --night: #191726ff;
     --gray: #5A5B6Dff;
     --cool-gray: #898B99ff;
@@ -45,9 +46,11 @@ body {
     font-style: normal;
 }
 
+.main_content {
+    margin: 0 3em;
+}
+
 /* Tablas */
-
-
 .table {
     color: var(--white);
     border: 1px solid var(--white);
@@ -94,6 +97,7 @@ body {
 .menu_icon {
     font-size: 1.4em;
 }
+
 /* Iniciar Sesion */
 .login_page {
     display: flex;
@@ -182,3 +186,19 @@ body {
     width: 45%;
 }
 
+/* Acordiones */
+
+.accordion-item {
+    background-color: var(--light-night);
+    border: 1px solid var(--night);
+}
+
+.btn {
+    transition: all 0.1s;
+    transform: scale(1);
+}
+
+.btn:hover {
+    border-color: transparent;
+    transform: scale(0.95) skewX(-1deg);
+}

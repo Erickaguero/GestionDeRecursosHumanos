@@ -4,28 +4,35 @@
     ViewData["Title"] = "Mantenimiento Departamentos";
 }
 
-<a href="@Url.Action("CrearDepartamento", "MantenimientoDepartamentos")" class="btn btn-success">Crear Departamento</a>
+<div class="container">
+    <a href="@Url.Action("CrearDepartamento", "MantenimientoDepartamentos")" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> Crear Departamento
+    </a>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID Departamento</th>
-            <th>Nombre</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var departamento in Model)
-        {
+    <table class="table">
+        <thead>
             <tr>
-                <td>@departamento.IdDepartamento</td>
-                <td>@departamento.Nombre</td>
-                <td>
-                    <a href="@Url.Action("EditarDepartamento", "MantenimientoDepartamentos", new { idDepartamento = departamento.IdDepartamento })" class="btn btn-primary">Editar</a>
-                    <a href="@Url.Action("EliminarDepartamento", "MantenimientoDepartamentos", new { idDepartamento = departamento.IdDepartamento })" class="btn btn-danger">Eliminar</a>
-                </td>
+                <th>ID Departamento</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
             </tr>
-        }
-    </tbody>
-</table>
-
+        </thead>
+        <tbody>
+            @foreach (var departamento in Model)
+            {
+                <tr>
+                    <td>@departamento.IdDepartamento</td>
+                    <td>@departamento.Nombre</td>
+                    <td>
+                        <a href="@Url.Action("EditarDepartamento", "MantenimientoDepartamentos", new { idDepartamento = departamento.IdDepartamento })" class="btn btn-primary">
+                            <i class="bi bi-pencil-fill"></i> Editar
+                        </a>
+                        <a href="@Url.Action("EliminarDepartamento", "MantenimientoDepartamentos", new { idDepartamento = departamento.IdDepartamento })" class="btn btn-danger">
+                            <i class="bi bi-trash-fill"></i> Eliminar
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

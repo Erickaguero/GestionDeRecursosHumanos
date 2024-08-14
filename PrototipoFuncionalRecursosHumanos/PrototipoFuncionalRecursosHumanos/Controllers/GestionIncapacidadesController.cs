@@ -167,7 +167,7 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
                 }
                 if (!validacionesHandler.ValidarFechasUnicas((DateTime)incapacidad.FechaInicio, (DateTime)incapacidad.FechaFin, (int)incapacidad.Colaborador.IdColaborador))
                 {
-                    ModelState.AddModelError("FechaFin", "No puede solicitar una incapacidad si ya solicito una hora extra, incapacidad, vacacion o permiso en el mismo periodo.");
+                    ModelState.AddModelError("FechaFin", "No puede solicitar una incapacidad si ya solicito una hora extra, incapacidad, vacación o permiso en el mismo periodo.");
                 }
             }
         }

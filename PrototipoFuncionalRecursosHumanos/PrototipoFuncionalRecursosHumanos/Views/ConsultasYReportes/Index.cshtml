@@ -43,16 +43,18 @@
     </div>
     <form action="@Url.Action("Index", "ConsultasYReportes")" method="post">
         <input type="hidden" name="elementoADesplegar" value="@Model.ElementoADesplegar" />
-        <div class="form-group login_elements">
-            <div class="login_input_box">
-                <label asp-for="Filtro" class="login_input_label">
-                    <img src="~/icons/search-icon.svg" class="login_input_icon" alt="icono busqueda" />
-                </label>
-                <input asp-for="Filtro" type="text" class="login_input" placeholder="Filtra los resultados">
+
+        <div class="d-flex align-items-center">
+            <div class="form-group login_elements">
+                <div class="login_input_box">
+                    <label asp-for="Filtro" class="login_input_label">
+                        <img src="~/icons/search-icon.svg" class="login_input_icon" alt="icono busqueda" />
+                    </label>
+                    <input asp-for="Filtro" type="text" class="login_input" placeholder="Filtra los resultados">
+                </div>
+                <span asp-validation-for="Filtro" class="text-danger"></span>
             </div>
-            <span asp-validation-for="Filtro" class="text-danger"></span>
         </div>
-        <button type="submit" class="btn btn-primary">Buscar</button>
     </form>
 }
 
@@ -209,10 +211,10 @@ else if ((planillas?.Count ?? 0) != 0)
                     <td>@planilla.HorasPermiso</td>
                     <td>@planilla.HorasVacaciones</td>
                     <td>@planilla.HorasTrabajadas</td>
-                    <td>&#8353; @planilla.DeduccionCCSS</td>
-                    <td>&#8353; @planilla.DeduccionRenta</td>
-                    <td>&#8353; @planilla.SalarioBruto</td>
-                    <td>&#8353; @planilla.Monto</td>
+                    <td>&#8353; @(planilla.DeduccionCCSS.HasValue ? planilla.DeduccionCCSS.Value.ToString("N3") : "")</td>
+                    <td>&#8353; @(planilla.DeduccionRenta.HasValue ? planilla.DeduccionRenta.Value.ToString("N3") : "")</td>
+                    <td>&#8353; @(planilla.SalarioBruto.HasValue ? planilla.SalarioBruto.Value.ToString("N3") : "")</td>
+                    <td>&#8353; @(planilla.Monto.HasValue ? planilla.Monto.Value.ToString("N3") : "")</td>
                 </tr>
             }
         </tbody>
@@ -242,7 +244,7 @@ else if ((aguinaldos?.Count ?? 0) != 0)
                 <tr>
                     <td>@aguinaldo.IdAguinaldo</td>
                     <td>@aguinaldo.FechaGeneracion?.ToString("dd/MM/yyyy")</td>
-                    <td>&#8353; @aguinaldo.Monto</td>
+                    <td>&#8353; @(aguinaldo.Monto.HasValue ? aguinaldo.Monto.Value.ToString("N3") : "")</td>
                     <td>@aguinaldo.Colaborador.Persona.Identificacion</td>
                     <td>@aguinaldo.Colaborador.Persona.Nombre</td>
                     <td>@aguinaldo.Colaborador.Persona.Apellido1</td>
@@ -261,17 +263,17 @@ else if ((liquidaciones?.Count ?? 0) != 0)
     <table class="table">
         <thead>
             <tr>
-                <th>ID Liquidacion</th>
-                <th>Fecha Generacion</th>
+                <th>ID Liquidación</th>
+                <th>Fecha Generación</th>
                 <th>Identificación</th>
                 <th>Nombre</th>
                 <th>Departamento</th>
                 <th>Puesto</th>
                 <th>Preaviso</th>
-                <th>Cesantia</th>
+                <th>Cesantía</th>
                 <th>Vacaciones No Usadas</th>
                 <th>Aguinaldo</th>
-                <th>Monto Liquidacion</th>
+                <th>Monto Liquidación</th>
             </tr>
         </thead>
         <tbody>
@@ -284,15 +286,16 @@ else if ((liquidaciones?.Count ?? 0) != 0)
                     <td>@liquidacion.Colaborador.Persona.Nombre @liquidacion.Colaborador.Persona.Apellido1 @liquidacion.Colaborador.Persona.Apellido2</td>
                     <td>@liquidacion.Colaborador.Departamento.Nombre</td>
                     <td>@liquidacion.Colaborador.Puesto.NombrePuesto</td>
-                    <td>&#8353; @liquidacion.Preaviso</td>
-                    <td>&#8353; @liquidacion.Cesantia</td>
-                    <td>&#8353; @liquidacion.VacacionesNoUsadas</td>
-                    <td>&#8353; @liquidacion.Aguinaldo</td>
-                    <td>&#8353; @liquidacion.Monto</td>
+                    <td>&#8353; @(liquidacion.Preaviso.HasValue ? liquidacion.Preaviso.Value.ToString("N3") : "")</td>
+                    <td>&#8353; @(liquidacion.Cesantia.HasValue ? liquidacion.Cesantia.Value.ToString("N3") : "")</td>
+                    <td>&#8353; @(liquidacion.VacacionesNoUsadas.HasValue ? liquidacion.VacacionesNoUsadas.Value.ToString("N3") : "")</td>
+                    <td>&#8353; @(liquidacion.Aguinaldo.HasValue ? liquidacion.Aguinaldo.Value.ToString("N3") : "")</td>
+                    <td>&#8353; @(liquidacion.Monto.HasValue ? liquidacion.Monto.Value.ToString("N3") : "")</td>
                 </tr>
             }
         </tbody>
     </table>
+
 }
 else if ((horasExtra?.Count ?? 0) != 0)
 {

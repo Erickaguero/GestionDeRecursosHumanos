@@ -41,10 +41,10 @@
                 <td>@planilla.HorasPermiso</td>
                 <td>@planilla.HorasVacaciones</td>
                 <td>@planilla.HorasTrabajadas</td>
-                <td>&#8353; @planilla.DeduccionCCSS</td>
-                <td>&#8353; @planilla.DeduccionRenta</td>
-                <td>&#8353; @planilla.SalarioBruto</td>
-                <td>&#8353; @planilla.Monto</td>
+                <td>&#8353; @(planilla.DeduccionCCSS.HasValue ? planilla.DeduccionCCSS.Value.ToString("N3") : "")</td>
+                <td>&#8353; @(planilla.DeduccionRenta.HasValue ? planilla.DeduccionRenta.Value.ToString("N3") : "")</td>
+                <td>&#8353; @(planilla.SalarioBruto.HasValue ? planilla.SalarioBruto.Value.ToString("N3") : "")</td>
+                <td>&#8353; @(planilla.Monto.HasValue ? planilla.Monto.Value.ToString("N3") : "")</td>
             </tr>
         }
     </tbody>
