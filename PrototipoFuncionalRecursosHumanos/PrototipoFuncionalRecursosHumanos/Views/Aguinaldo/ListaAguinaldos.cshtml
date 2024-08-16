@@ -1,0 +1,43 @@
+﻿@model IEnumerable<PrototipoFuncionalRecursosHumanos.Models.Aguinaldo>
+
+@{
+    ViewData["Title"] = "Ver Aguinaldos";
+}
+
+<h2 class="text-center mb-3">Lista de aguinaldos de @ViewBag.NombreColaborador</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID Aguinaldo</th>
+            <th>Fecha Generacion</th>
+            <th>Monto Aguinaldo</th>
+            <th>Identificación</th>
+            <th>Nombre</th>
+            <th>Apellido 1</th>
+            <th>Apellido 2</th>
+            <th>Correo</th>
+            <th>Rol de Usuario</th>
+            <th>Departamento</th>
+            <th>Puesto</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var aguinaldo in Model)
+        {
+            <tr>
+                <td>@aguinaldo.IdAguinaldo</td>
+                <td>@aguinaldo.FechaGeneracion?.ToString("dd/MM/yyyy")</td>
+                <td>&#8353; @(aguinaldo.Monto.HasValue ? aguinaldo.Monto.Value.ToString("N3") : "")</td>
+                <td>@aguinaldo.Colaborador.Persona.Identificacion</td>
+                <td>@aguinaldo.Colaborador.Persona.Nombre</td>
+                <td>@aguinaldo.Colaborador.Persona.Apellido1</td>
+                <td>@aguinaldo.Colaborador.Persona.Apellido2</td>
+                <td>@aguinaldo.Colaborador.Usuario.Correo</td>
+                <td>@aguinaldo.Colaborador.Usuario.RolDeUsuario.Descripcion</td>
+                <td>@aguinaldo.Colaborador.Departamento.Nombre</td>
+                <td>@aguinaldo.Colaborador.Puesto.NombrePuesto</td>
+            </tr>
+        }
+    </tbody>
+</table>

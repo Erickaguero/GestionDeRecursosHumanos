@@ -1,0 +1,112 @@
+﻿@{
+    ViewData["Title"] = "Simulación";
+}
+
+<h1 class="text-center mb-4">Simulaciones</h1>
+
+<div class="container">
+    <div class="mb-4">
+        <h3>Generar Asistencias</h3>
+        <p>Validar que las asistencias se están generando en una rango aceptable, que no se crean en fin de semanas, ni feriados, ni se crean duplicadas.</p>
+        <a href="@Url.Action("GenerarAsistenciasColaborador", "Simulacion")" class="btn btn-success">
+            <i class="bi bi-play-fill"></i> Generar
+        </a>
+    </div>
+    <div class="mb-4">
+        <h3>Generar asistencia para validar horas extra</h3>
+        <p>Para validar que el módulo de horas extra, valide que las horas extra se hayan laborado realmente.</p>
+        <a href="@Url.Action("GenerarHoraExtraHoy", "Simulacion")" class="btn btn-success">
+            <i class="bi bi-play-fill"></i> Generar
+        </a>
+    </div>
+    <div class="mb-4">
+        <h3>Generar feriados para hoy y los siguientes dos días</h3>
+        <p>Para validar que horas extra, permisos, incapacidades y vacaciones validan los feriados.</p>
+        <div class="d-flex">
+            <a href="@Url.Action("GenerarFeriados", "Simulacion")" class="btn btn-success me-3">
+                <i class="bi bi-play-fill"></i> Generar
+            </a>
+            <a href="@Url.Action("ReiniciarFeriadosConValoresPorDefecto", "Simulacion")" class="btn btn-danger">
+                <i class="bi bi-trash-fill"></i> Eliminar cambios
+            </a>
+        </div>
+    </div>
+    <div class="mb-4">
+        <h3>Validar Aguinaldo</h3>
+        <p>Ingresar una persona con un salario mensual de 100000 colones para diciembre 2023, enero 2024, febrero 2024, marzo 2024 y liquidar. Debe pagar de aguinaldo (400000/12) es decir 33333.</p>
+        <a href="@Url.Action("ValidarAguinaldo", "Simulacion")" class="btn btn-success">
+            <i class="bi bi-play-fill"></i> Ejecutar
+        </a>
+    </div>
+    <div class="mb-4">
+        <h3>Calcular impuesto quincenal</h3>
+        <p>Calcular la renta para una persona que gana 1,500.000 (debe pagar 63950,00), una persona con 2,500.000 (debe pagar 219350,00).</p>
+        <form action="@Url.Action("ValidarImpuestoRenta", "Simulacion")" method="get">
+            <div class="form-group mb-2">
+                <label for="salario">Salario Mensual:</label>
+                <input type="number" id="salario" name="salario" min="0" step="0.01" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success mt-2">
+                <i class="bi bi-play-fill"></i> Calcular
+            </button>
+        </form>
+    </div>
+    <div class="mb-4">
+        <h3>Modificar fecha contratación de un colaborador</h3>
+        <p>Actualizar la fecha de contratación de un colaborador para atrasarla un año o un mes.</p>
+        <div class="d-flex">
+            <a href="@Url.Action("ModificarFechaContratacionAnio", "Simulacion")" class="btn btn-success me-3">
+                <i class="bi bi-play-fill"></i> Atrasarla un año
+            </a>
+            <a href="@Url.Action("ModificarFechaContratacionMes", "Simulacion")" class="btn btn-success">
+                <i class="bi bi-play-fill"></i> Atrasarla un mes
+            </a>
+        </div>
+    </div>
+    <div class="mb-4">
+        <h3>Simular Planilla</h3>
+        <form action="@Url.Action("SimularPlanillaColaborador", "Simulacion")" method="get">
+            <div class="form-group mb-2">
+                <label for="horasExtra">Horas Extra:</label>
+                <input type="number" id="horasExtra" name="horasExtra" min="0" max="300" step="0.01" class="form-control" required>
+            </div>
+            <div class="form-group mb-2">
+                <label for="horasIncapacidades">Horas de Incapacidades:</label>
+                <input type="number" id="horasIncapacidades" name="horasIncapacidades" min="0" max="300" step="0.01" class="form-control" required>
+            </div>
+            <div class="form-group mb-2">
+                <label for="horasPermiso">Horas de Permiso:</label>
+                <input type="number" id="horasPermiso" name="horasPermiso" min="0" max="300" step="0.01" class="form-control" required>
+            </div>
+            <div class="form-group mb-2">
+                <label for="horasTrabajadas">Horas Trabajadas:</label>
+                <input type="number" id="horasTrabajadas" name="horasTrabajadas" min="0" max="300" step="0.01" class="form-control" required>
+            </div>
+            <div class="form-group mb-2">
+                <label for="horasVacaciones">Horas de Vacaciones:</label>
+                <input type="number" id="horasVacaciones" name="horasVacaciones" min="0" max="300" step="0.01" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success mt-2">
+                <i class="bi bi-play-fill"></i> Simular
+            </button>
+        </form>
+    </div>
+    <div class="mb-4">
+        <h3>Eliminar planillas</h3>
+        <a href="@Url.Action("EliminarPlanillas", "Simulacion")" class="btn btn-danger">
+            <i class="bi bi-trash-fill"></i> Eliminar
+        </a>
+    </div>
+    <div class="mb-4">
+        <h3>Eliminar aguinaldos</h3>
+        <a href="@Url.Action("EliminarAguinaldos", "Simulacion")" class="btn btn-danger">
+            <i class="bi bi-trash-fill"></i> Eliminar
+        </a>
+    </div>
+    <div class="mb-4">
+        <h3>Eliminar liquidaciones</h3>
+        <a href="@Url.Action("EliminarLiquidaciones", "Simulacion")" class="btn btn-danger">
+            <i class="bi bi-trash-fill"></i> Eliminar
+        </a>
+    </div>
+</div>

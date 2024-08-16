@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Newtonsoft.Json;
 using PrototipoFuncionalRecursosHumanos.Models;
 using PrototipoFuncionalRecursosHumanos.Services;
 
@@ -82,7 +83,11 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
             if (Autorizador.ObtenerRolColaborador(Request) != "administrador" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
-            departamentoHandler.EliminarDepartamento(idDepartamento);
+            if (!departamentoHandler.EliminarDepartamento(idDepartamento))
+            {
+                var alerta = Alertas.Error("No se puede eliminar el departamento porque todavia contiene colaboradores.");
+                TempData["Alerta"] = JsonConvert.SerializeObject(alerta);
+            }
             return RedirectToAction("Index");
         }
 

@@ -106,4 +106,44 @@ public class AguinaldoHandler
         }
         return aguinaldos;
     }
+
+    public List<Aguinaldo> ObtenerAguinaldosColaborador(int idColaborador)
+    {
+        List<Aguinaldo> aguinaldos = new List<Aguinaldo>();
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM mydb.aguinaldo WHERE id_colaborador = @IdColaborador";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@IdColaborador", idColaborador);
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Aguinaldo aguinaldo = new Aguinaldo
+                            {
+                                IdAguinaldo = reader.GetInt32(reader.GetOrdinal("idaguinaldo")),
+                                Colaborador = new Colaborador
+                                {
+                                    IdColaborador = reader.GetInt32(reader.GetOrdinal("id_colaborador"))
+                                },
+                                FechaGeneracion = reader.GetDateTime(reader.GetOrdinal("fechaGeneracion")),
+                                Monto = reader.GetDouble(reader.GetOrdinal("montoAguinaldo")),
+                            };
+                            aguinaldos.Add(aguinaldo);
+                        }
+                    }
+                }
+                connection.Close();
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        return aguinaldos;
+    }
 }

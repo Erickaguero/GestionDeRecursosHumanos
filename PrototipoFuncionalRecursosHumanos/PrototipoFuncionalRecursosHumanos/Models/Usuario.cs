@@ -8,7 +8,7 @@ namespace PrototipoFuncionalRecursosHumanos.Models
         public int? IdPersona { get; set; }
         public RolDeUsuario? RolDeUsuario { get; set; }
 
-        [EmailAddress(ErrorMessage = "El formato del correo es inválido")]
+        [RegularExpression(@"^[a-zA-Z0-9._%+ñÑáéíóúÁÉÍÓÚ-]+@[a-zA-Z0-9.-ñÑáéíóúÁÉÍÓÚ-]+\.[a-zA-Z]{2,}$", ErrorMessage = "El formato del correo es inválido")]
         [MaxLength(45, ErrorMessage = "El correo es demasiado largo.")]
         public string? Correo { get; set; }
         public string? Contrasena { get; set; }

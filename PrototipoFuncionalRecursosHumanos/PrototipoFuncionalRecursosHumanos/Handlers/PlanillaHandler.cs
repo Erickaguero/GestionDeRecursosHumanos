@@ -114,4 +114,52 @@ public class PlanillaHandler
         }
         return planillas;
     }
+
+    public List<Planilla> ObtenerPlanillasColaborador(int idColaborador)
+    {
+        List<Planilla> planillas = new List<Planilla>();
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM mydb.planilla WHERE idcolaborador = @IdColaborador";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@IdColaborador", idColaborador);
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Planilla planilla = new Planilla
+                            {
+                                IdPlanilla = reader.GetInt32(reader.GetOrdinal("idplanilla")),
+                                Colaborador = new Colaborador
+                                {
+                                    IdColaborador = reader.GetInt32(reader.GetOrdinal("idcolaborador"))
+                                },
+                                FechaGeneracion = reader.GetDateTime(reader.GetOrdinal("fechaGeneracion")),
+                                Monto = reader.GetDouble(reader.GetOrdinal("monto")),
+                                HorasExtra = reader.GetDouble(reader.GetOrdinal("horasExtra")),
+                                HorasIncapacidades = reader.GetDouble(reader.GetOrdinal("horasIncapacidades")),
+                                HorasPermiso = reader.GetDouble(reader.GetOrdinal("horasPermiso")),
+                                HorasTrabajadas = reader.GetDouble(reader.GetOrdinal("horasTrabajadas")),
+                                HorasVacaciones = reader.GetDouble(reader.GetOrdinal("horasVacaciones")),
+                                DeduccionCCSS = reader.GetDouble(reader.GetOrdinal("deduccionCCSS")),
+                                DeduccionRenta = reader.GetDouble(reader.GetOrdinal("deduccionRenta")),
+                                SalarioBruto = reader.GetDouble(reader.GetOrdinal("salarioBruto"))
+                            };
+                            planillas.Add(planilla);
+                        }
+                    }
+                }
+                connection.Close();
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        return planillas;
+    }
 }

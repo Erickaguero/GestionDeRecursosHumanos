@@ -149,4 +149,48 @@ public class LiquidacionHandler
         }
         return liquidaciones;
     }
+
+    public List<Liquidacion> ObtenerLiquidacionesColaborador(int idColaborador)
+    {
+        List<Liquidacion> liquidaciones = new List<Liquidacion>();
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM mydb.liquidacion WHERE id_colaborador = @IdColaborador";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@IdColaborador", idColaborador);
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Liquidacion liquidacion = new Liquidacion
+                            {
+                                IdLiquidacion = reader.GetInt32(reader.GetOrdinal("idliquidacion")),
+                                Colaborador = new Colaborador
+                                {
+                                    IdColaborador = reader.GetInt32(reader.GetOrdinal("id_colaborador"))
+                                },
+                                FechaGeneracion = reader.GetDateTime(reader.GetOrdinal("fechaGeneracion")),
+                                Monto = reader.GetDouble(reader.GetOrdinal("monto")),
+                                Preaviso = reader.GetDouble(reader.GetOrdinal("preaviso")),
+                                Cesantia = reader.GetDouble(reader.GetOrdinal("cesantia")),
+                                Aguinaldo = reader.GetDouble(reader.GetOrdinal("aguinaldo")),
+                                VacacionesNoUsadas = reader.GetDouble(reader.GetOrdinal("horasVacacionesNoUsadas")),
+                            };
+                            liquidaciones.Add(liquidacion);
+                        }
+                    }
+                }
+                connection.Close();
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        return liquidaciones;
+    }
 }

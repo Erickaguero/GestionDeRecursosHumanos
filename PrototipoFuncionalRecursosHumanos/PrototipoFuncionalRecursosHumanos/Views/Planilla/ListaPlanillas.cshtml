@@ -1,0 +1,52 @@
+﻿@model IEnumerable<PrototipoFuncionalRecursosHumanos.Models.Planilla>
+
+@{
+    ViewData["Title"] = "Ver Planillas";
+}
+
+<h2 class="text-center mb-3">Lista de planillas de @ViewBag.NombreColaborador</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID Planilla</th>
+            <th>Identificación</th>
+            <th>Nombre</th>
+            <th>Departamento</th>
+            <th>Puesto</th>
+            <th>Fecha Generacion</th>
+            <th>Horas Extra pagadas</th>
+            <th>Horas Incapacidades pagadas</th>
+            <th>Horas Permiso Con Goce pagadas</th>
+            <th>Horas Vacaciones pagadas</th>
+            <th>Horas Trabajadas pagadas</th>
+            <th>Deduccion CCSS (10.67%)</th>
+            <th>Deduccion renta</th>
+            <th>Salario bruto</th>
+            <th>Salario neto (monto)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var planilla in Model)
+        {
+            <tr>
+                <td>@planilla.IdPlanilla</td>
+                <td>@planilla.Colaborador.Persona.Identificacion</td>
+                <td>@planilla.Colaborador.Persona.Nombre @planilla.Colaborador.Persona.Apellido1 @planilla.Colaborador.Persona.Apellido2</td>
+                <td>@planilla.Colaborador.Departamento.Nombre</td>
+                <td>@planilla.Colaborador.Puesto.NombrePuesto</td>
+                <td>@planilla.FechaGeneracion?.ToString("dd/MM/yyyy")</td>
+                <td>@planilla.HorasExtra</td>
+                <td>@planilla.HorasIncapacidades</td>
+                <td>@planilla.HorasPermiso</td>
+                <td>@planilla.HorasVacaciones</td>
+                <td>@planilla.HorasTrabajadas</td>
+                <td>&#8353; @(planilla.DeduccionCCSS.HasValue ? planilla.DeduccionCCSS.Value.ToString("N3") : "")</td>
+                <td>&#8353; @(planilla.DeduccionRenta.HasValue ? planilla.DeduccionRenta.Value.ToString("N3") : "")</td>
+                <td>&#8353; @(planilla.SalarioBruto.HasValue ? planilla.SalarioBruto.Value.ToString("N3") : "")</td>
+                <td>&#8353; @(planilla.Monto.HasValue ? planilla.Monto.Value.ToString("N3") : "")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

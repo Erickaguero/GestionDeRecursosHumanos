@@ -47,6 +47,19 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             return RedirectToAction("CrearPlanilla");
         }
 
+        public IActionResult ListaPlanillas()
+        {
+            var correo = authenticator.ValidarToken(Request);
+            if (correo == null) return RedirectToAction("Index", "Home");
+            var colaborador = colaboradorHandler.ObtenerColaborador(correo);
+            List<Planilla> planillas = planillaHandler.ObtenerPlanillasColaborador((int)colaborador.IdColaborador);
+            ObtenerInformacionColaboradores(planillas);
+            var nombreColaborador = colaborador.Persona.Nombre + " " + colaborador.Persona.Apellido1 + " " + colaborador.Persona.Apellido2;
+            ViewBag.NombreColaborador = nombreColaborador;
+            return View(planillas);
+        }
+
+
         public void ObtenerInformacionColaboradores(List<Planilla> planillas)
         {
             foreach (var planilla in planillas)

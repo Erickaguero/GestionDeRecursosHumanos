@@ -47,6 +47,18 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             return RedirectToAction("CrearAguinaldo");
         }
 
+        public IActionResult ListaAguinaldos()
+        {
+            var correo = authenticator.ValidarToken(Request);
+            if (correo == null) return RedirectToAction("Index", "Home");
+            var colaborador = colaboradorHandler.ObtenerColaborador(correo);
+            List<Aguinaldo> aguinaldos = aguinaldoHandler.ObtenerAguinaldosColaborador((int)colaborador.IdColaborador);
+            ObtenerInformacionColaboradores(aguinaldos);
+            var nombreColaborador = colaborador.Persona.Nombre + " " + colaborador.Persona.Apellido1 + " " + colaborador.Persona.Apellido2;
+            ViewBag.NombreColaborador = nombreColaborador;
+            return View(aguinaldos);
+        }
+
         public void ObtenerInformacionColaboradores(List<Aguinaldo> aguinaldos)
         {
             foreach (var aguinaldo in aguinaldos)

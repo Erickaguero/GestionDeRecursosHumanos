@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Newtonsoft.Json;
 using PrototipoFuncionalRecursosHumanos.Models;
 using PrototipoFuncionalRecursosHumanos.Services;
 
@@ -81,7 +82,11 @@ namespace PrototipoFuncionalRecursosHumanos.Controllers
             var correo = authenticator.ValidarToken(Request);
             if (correo == null) return RedirectToAction("Index", "Home");
             if (Autorizador.ObtenerRolColaborador(Request) != "administrador" || Autorizador.ObtenerEstadoColaborador(Request) != "activo") return RedirectToAction("Index", "Home");
-            puestoHandler.EliminarPuesto(idPuesto);
+            if (!puestoHandler.EliminarPuesto(idPuesto))
+            {
+                var alerta = Alertas.Error("No se puede eliminar el puesto porque hay colaboradores que tienen dicho puesto.");
+                TempData["Alerta"] = JsonConvert.SerializeObject(alerta);
+            }
             return RedirectToAction("Index");
         }
 

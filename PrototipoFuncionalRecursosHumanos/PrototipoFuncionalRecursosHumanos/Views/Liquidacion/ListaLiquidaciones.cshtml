@@ -1,0 +1,43 @@
+﻿@model IEnumerable<PrototipoFuncionalRecursosHumanos.Models.Liquidacion>
+
+@{
+    ViewData["Title"] = "Ver Liquidaciones";
+}
+
+<h2 class="text-center mb-3">Lista de liquidaciones de @ViewBag.NombreColaborador</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID Liquidación</th>
+            <th>Fecha Generación</th>
+            <th>Identificación</th>
+            <th>Nombre</th>
+            <th>Departamento</th>
+            <th>Puesto</th>
+            <th>Preaviso</th>
+            <th>Cesantía</th>
+            <th>Vacaciones No Usadas</th>
+            <th>Aguinaldo</th>
+            <th>Monto Liquidación</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var liquidacion in Model)
+        {
+            <tr>
+                <td>@liquidacion.IdLiquidacion</td>
+                <td>@liquidacion.FechaGeneracion?.ToString("dd/MM/yyyy")</td>
+                <td>@liquidacion.Colaborador.Persona.Identificacion</td>
+                <td>@liquidacion.Colaborador.Persona.Nombre @liquidacion.Colaborador.Persona.Apellido1 @liquidacion.Colaborador.Persona.Apellido2</td>
+                <td>@liquidacion.Colaborador.Departamento.Nombre</td>
+                <td>@liquidacion.Colaborador.Puesto.NombrePuesto</td>
+                <td>&#8353; @(liquidacion.Preaviso.HasValue ? liquidacion.Preaviso.Value.ToString("N3") : "")</td>
+                <td>&#8353; @(liquidacion.Cesantia.HasValue ? liquidacion.Cesantia.Value.ToString("N3") : "")</td>
+                <td>&#8353; @(liquidacion.VacacionesNoUsadas.HasValue ? liquidacion.VacacionesNoUsadas.Value.ToString("N3") : "")</td>
+                <td>&#8353; @(liquidacion.Aguinaldo.HasValue ? liquidacion.Aguinaldo.Value.ToString("N3") : "")</td>
+                <td>&#8353; @(liquidacion.Monto.HasValue ? liquidacion.Monto.Value.ToString("N3") : "")</td>
+            </tr>
+        }
+    </tbody>
+</table>
