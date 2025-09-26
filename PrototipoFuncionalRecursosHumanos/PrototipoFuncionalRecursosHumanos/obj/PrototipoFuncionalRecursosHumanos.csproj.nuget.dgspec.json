@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos.csproj": {}
+    "C:\\Users\\erick\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos.csproj": {}
   },
   "projects": {
-    "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos.csproj": {
+    "C:\\Users\\erick\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos.csproj",
+        "projectUniqueName": "C:\\Users\\erick\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos.csproj",
         "projectName": "PrototipoFuncionalRecursosHumanos",
-        "projectPath": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos.csproj",
-        "packagesPath": "C:\\Users\\carlo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\carlo\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\obj\\",
+        "projectPath": "C:\\Users\\erick\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos.csproj",
+        "packagesPath": "C:\\Users\\erick\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\erick\\source\\repos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\PrototipoFuncionalRecursosHumanos\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\carlo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\erick\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -81,7 +81,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
